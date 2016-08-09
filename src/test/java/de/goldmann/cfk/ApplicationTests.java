@@ -1,4 +1,4 @@
-package demo;
+package de.goldmann.cfk;
 
 import static org.junit.Assert.assertEquals;
 
