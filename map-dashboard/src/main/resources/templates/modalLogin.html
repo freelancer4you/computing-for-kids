@@ -1,0 +1,46 @@
+<div class="modal fade" id="modalLogin" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Login</h4>
+			</div>
+			<div class="modal-body">
+				<!-- form>
+					<div class="form-group">
+						<label for="login-name" class="control-label">Username/Email Address:</label>
+						<input type="text" class="form-control" id="login-name"/>
+					</div>
+					<div class="form-group">
+						<label for="password" class="control-label">Password:</label>
+						<input type="password" class="form-control" id="password"/>
+					</div>
+					<div class="form-group">
+						<div class="checkbox">
+						  <label>
+						    <input type="checkbox" id="rememberMe">Remember me</input>
+						  </label>
+						</div> 
+					</div>
+				</form-->
+				<div id='loginAlert'></div>
+				<form role="form" ng-submit="login()" style="margin-bottom: 10px;">
+					<div class="form-group">
+						<label for="username">Username:</label> <input type="text"
+							class="form-control input-sm" id="username" name="username" ng-model="credentials.userName"/>
+					</div>
+					<div class="form-group">
+						<label for="password">Password:</label> <input type="password"
+							class="form-control input-sm" id="password" name="password" ng-model="credentials.password"/>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-sm" style="float: right;" id="submitLoginBtn">Submit</button>
+						<label>&nbsp;</label>
+					</div>
+				</form>				
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>

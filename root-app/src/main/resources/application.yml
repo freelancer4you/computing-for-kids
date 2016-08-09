@@ -1,0 +1,16 @@
+#server:
+  #port: 8443
+  #ssl:
+    #key-store: classpath:keystore.p12
+    #key-store-password: Trabant601_
+    #key-password: Trabant601_
+    #key-store-type: PKCS12
+spring:
+    thymeleaf:
+      mode: HTML5
+      cache: false 
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE           
