@@ -1,0 +1,107 @@
+<div class="row rcorners1" style="display: block;">
+	<ul class="nav nav-pills">
+		<li class="active"><a href="#tab_a" data-toggle="tab">Advertising Campaign One</a></li>
+		<li><a href="#tab_b" data-toggle="tab">Advertising Campaign Two</a></li>
+	</ul>
+</div>
+<div class="tab-content" style="margin-left: 10px;">
+	<div class="tab-pane active" id="tab_a">
+		
+		<div class="row">
+		  <div class="col-xs-6 col-md-4">
+		  	<div class="checkbox">
+				<label> <input type="checkbox" id="totalClicks" />
+				Total Clicks
+				</label>
+			</div>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4">
+		  	<button class="btn" data-toggle="modal" data-target="#reportsGenerator" style="float: right;margin-right: 10px;">Generate Report</button>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-xs-6 col-md-4">
+		  	<div class="checkbox">
+				<label> <input type="checkbox" id="totalImpressions" />
+				Total Impressions
+				</label>
+			</div>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4">
+		  	<button class="btn" data-toggle="modal" data-target="#reportsGraphs" style="float: right;margin-right: 10px;">Generate Graph</button>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-xs-6 col-md-4">
+		  	<div class="checkbox">
+				<label> <input type="checkbox" id="totalCtr" />
+				Total CTR
+				</label>
+			</div>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4"></div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-xs-6 col-md-4">
+		  	<div class="checkbox">
+				<label> <input type="checkbox" id="totalCpm" />
+				Total CPM/CPC Revenue
+				</label>
+			</div>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4"></div>
+		</div>
+		
+		<div class="row" ng-controller="DateCtrl">
+		  <div class="col-xs-6 col-md-4">
+		  	 From:<p class="input-group">
+		  	<input type="text" class="form-control" 
+		  			datepicker-popup="{{format}}" 
+		  			ng-model="dt" 
+		  			is-open="opened" 
+		  			min-date="minDate" 
+		  			datepicker-options="{{dateOptions}}" 
+		  			ng-required="true" 
+		  			close-text="Close"
+		  			id="fromDate" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+               </p>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4"></div>
+		</div>
+		
+		<div class="row" ng-controller="DateCtrl">
+		  <div class="col-xs-6 col-md-4">
+		  	 Till:<p class="input-group">
+		  	<input type="text" class="form-control" 
+		  			datepicker-popup="{{format}}" 
+		  			ng-model="dt" 
+		  			is-open="opened" 
+		  			min-date="minDate" 
+		  			datepicker-options="{{dateOptions}}" 
+		  			ng-required="true" 
+		  			close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+               </p>
+		  </div>
+		  <div class="col-xs-6 col-md-4"></div>
+		  <div class="col-xs-6 col-md-4"></div>
+		</div>
+		
+	</div>
+	<div class="tab-pane" id="tab_b">
+	</div>
+</div>
+<!-- tab content -->
