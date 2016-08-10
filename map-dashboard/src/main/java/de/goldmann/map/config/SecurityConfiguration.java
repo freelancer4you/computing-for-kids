@@ -13,10 +13,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -35,30 +37,32 @@ import de.goldmann.apps.root.services.VisitorsCounter;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
     @Autowired
+    @Lazy
     private VisitorsCounter visitorsCounter;
     
     @Autowired
     private UserDetailsService  userDetailsService;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
+    protected void configure(final HttpSecurity http) throws Exception
     {
 
         final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
@@ -92,7 +96,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
                                 new SavedRequestAwareAuthenticationSuccessHandler()))
                 .and().httpBasic().and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
-        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        final CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
         
         http
@@ -117,11 +121,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     static class CustomAccessDeniedHandler implements AccessDeniedHandler
     {
-        public void handle(HttpServletRequest request, HttpServletResponse response,
-                AccessDeniedException accessDeniedException) throws IOException, ServletException
+        public void handle(final HttpServletRequest request, final HttpServletResponse response,
+                final AccessDeniedException accessDeniedException) throws IOException, ServletException
         {
             LOGGER.warn("Arrived in custom access denied handler.");
-            HttpSession session = request.getSession();
+            final HttpSession session = request.getSession();
             LOGGER.info("Session is " + session);
             LOGGER.info("Session id = " + session.getId());
             LOGGER.info("Session max interval=" + session.getMaxInactiveInterval());
@@ -129,7 +133,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
             LOGGER.info("Time now=" + new Date().getTime());
 
             LOGGER.info("csrf:");
-            Object csrf = request.getAttribute("_csrf");
+            final Object csrf = request.getAttribute("_csrf");
 
             if (csrf == null)
             {
@@ -140,7 +144,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
                 LOGGER.info(csrf.toString());
                 if (csrf instanceof DefaultCsrfToken)
                 {
-                    DefaultCsrfToken token = (DefaultCsrfToken) csrf;
+                    final DefaultCsrfToken token = (DefaultCsrfToken) csrf;
                     LOGGER.info("Parm name " + token.getParameterName());
                     LOGGER.info("Token " + token.getToken());
                 }

@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -35,13 +36,12 @@ public class AuthenticationController
     private final UserActivityReport activityReport;
 
     @Autowired
-    public AuthenticationController(final UserService userService, final UserActivityReport activityReport)
+    public AuthenticationController(final UserService userService, @Lazy final UserActivityReport activityReport)
     {
         this.userService = Objects.requireNonNull(userService,
                 "Parameter 'userService' darf nicht null sein.");
 
-        this.activityReport = Objects.requireNonNull(activityReport,
-                "Parameter 'activityReport' darf nicht null sein.");
+        this.activityReport = activityReport;
     }
 
     @ExceptionHandler(Exception.class)
@@ -62,7 +62,11 @@ public class AuthenticationController
         {
             final NewUserDTO user = mapper.readValue(payload, NewUserDTO.class);
             final User storedUser = userService.createUser(user);
-            this.activityReport.registered(storedUser);
+
+            if (activityReport != null) {
+                this.activityReport.registered(storedUser);
+            }
+
         }
         catch (final JsonParseException e)
         {

@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,13 +29,13 @@ public class SecurityUserDetailsService implements UserDetailsService
     private final UserActivityReport activityReport;
 
     @Autowired
-    public SecurityUserDetailsService(final UserRepository userRepository, final UserActivityReport activityReport)
+    public SecurityUserDetailsService(final UserRepository userRepository,
+            @Lazy final UserActivityReport activityReport)
     {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository'  darf nicht null sein.");
 
-        this.activityReport = Objects.requireNonNull(activityReport,
-                "Parameter 'activityReport' darf nicht null sein.");
+        this.activityReport = activityReport;
     }
 
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException
@@ -49,7 +50,11 @@ public class SecurityUserDetailsService implements UserDetailsService
         }
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        this.activityReport.login(user);
+
+        if (activityReport != null) {
+            this.activityReport.login(user);
+        }
+
         return new org.springframework.security.core.userdetails.User(username, user.getPasswordDigest(),
                 authorities);
     }
