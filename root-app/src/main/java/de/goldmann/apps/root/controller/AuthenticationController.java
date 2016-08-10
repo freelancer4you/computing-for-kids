@@ -22,6 +22,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserService;
 
 @Controller
@@ -30,16 +32,20 @@ public class AuthenticationController
 {
     private static final Logger LOGGER = LogManager.getLogger(AuthenticationController.class);
     private final UserService   userService;
+    private final UserActivityReport activityReport;
 
     @Autowired
-    public AuthenticationController(UserService userService)
+    public AuthenticationController(final UserService userService, final UserActivityReport activityReport)
     {
         this.userService = Objects.requireNonNull(userService,
                 "Parameter 'userService' darf nicht null sein.");
+
+        this.activityReport = Objects.requireNonNull(activityReport,
+                "Parameter 'activityReport' darf nicht null sein.");
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> errorHandler(Exception exc)
+    public ResponseEntity<String> errorHandler(final Exception exc)
     {
         LOGGER.error(exc.getMessage(), exc);
         return new ResponseEntity<String>(exc.getMessage(), HttpStatus.BAD_REQUEST);
@@ -48,29 +54,30 @@ public class AuthenticationController
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void registerUser(@RequestBody String payload)
+    public void registerUser(@RequestBody final String payload)
     {
         final ObjectMapper mapper = new ObjectMapper();
 
         try
         {
             final NewUserDTO user = mapper.readValue(payload, NewUserDTO.class);
-            userService.createUser(user);
+            final User storedUser = userService.createUser(user);
+            this.activityReport.registered(storedUser);
         }
-        catch (JsonParseException e)
+        catch (final JsonParseException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // TODO unzureichende Fehlerbehandlung
+            LOGGER.error("Fehler bei der Benutzerregistrierung:", e);
         }
-        catch (JsonMappingException e)
+        catch (final JsonMappingException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // TODO unzureichende Fehlerbehandlung
+            LOGGER.error("Fehler bei der Benutzerregistrierung:", e);
         }
-        catch (IOException e)
+        catch (final IOException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // TODO unzureichende Fehlerbehandlung
+            LOGGER.error("Fehler bei der Benutzerregistrierung:", e);
         }
 
     }
@@ -78,7 +85,7 @@ public class AuthenticationController
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.GET)
-    public Principal user(Principal user)
+    public Principal user(final Principal user)
     {
         return user;
     }

@@ -16,22 +16,28 @@ import org.springframework.stereotype.Service;
 
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.services.UserActivityReport;
 
 @Service
 public class SecurityUserDetailsService implements UserDetailsService
 {
     private static final Logger LOGGER = LogManager.getLogger(SecurityUserDetailsService.class);
 
-    private UserRepository      userRepository;
+    private final UserRepository      userRepository;
+
+    private final UserActivityReport activityReport;
 
     @Autowired
-    public SecurityUserDetailsService(UserRepository userRepository)
+    public SecurityUserDetailsService(final UserRepository userRepository, final UserActivityReport activityReport)
     {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository'  darf nicht null sein.");
+
+        this.activityReport = Objects.requireNonNull(activityReport,
+                "Parameter 'activityReport' darf nicht null sein.");
     }
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException
     {
         final User user = userRepository.findUserByUsername(username);
 
@@ -43,7 +49,7 @@ public class SecurityUserDetailsService implements UserDetailsService
         }
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-
+        this.activityReport.login(user);
         return new org.springframework.security.core.userdetails.User(username, user.getPasswordDigest(),
                 authorities);
     }

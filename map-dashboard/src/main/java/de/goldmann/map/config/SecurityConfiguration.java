@@ -19,6 +19,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -30,6 +31,7 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 import de.goldmann.apps.root.config.CsrfHeaderFilter;
 import de.goldmann.apps.root.security.AjaxAuthenticationSuccessHandler;
+import de.goldmann.apps.root.services.VisitorsCounter;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -37,6 +39,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
+    @Autowired
+    private VisitorsCounter visitorsCounter;
+    
     @Autowired
     private UserDetailsService  userDetailsService;
 
@@ -56,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception
     {
 
-        final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter();
+        final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
         http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf()
                 .csrfTokenRepository(csrfTokenRepository());
 
@@ -89,6 +94,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
         CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+        
+        http
+        .sessionManagement()
+        .maximumSessions(1)
+        // TODO this is not mapped yet
+        .expiredUrl("/login?expired")
+        .maxSessionsPreventsLogin(true)
+        .and()
+        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+        .invalidSessionUrl("/");
 
     }
 

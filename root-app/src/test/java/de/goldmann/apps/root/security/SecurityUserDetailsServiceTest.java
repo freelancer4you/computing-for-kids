@@ -16,6 +16,7 @@ import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.services.UserActivityReport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
@@ -30,7 +31,18 @@ public class SecurityUserDetailsServiceTest
     @Before
     public void setUp() throws Exception
     {
-        service = new SecurityUserDetailsService(userRepository);
+        final UserActivityReport activityReport = new UserActivityReport() {
+
+            public void registered(final User user) {
+            }
+
+            public void logout(final User user) {
+            }
+
+            public void login(final User user) {
+            }
+        };
+        service = new SecurityUserDetailsService(userRepository, activityReport);
     }
 
     @Test

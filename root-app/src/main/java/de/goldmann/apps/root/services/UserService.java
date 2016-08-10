@@ -1,6 +1,8 @@
 package de.goldmann.apps.root.services;
 
-import static de.goldmann.apps.root.services.ValidationUtils.*;
+import static de.goldmann.apps.root.services.ValidationUtils.assertMatches;
+import static de.goldmann.apps.root.services.ValidationUtils.assertMinimumLength;
+import static de.goldmann.apps.root.services.ValidationUtils.assertNotBlank;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -23,13 +25,13 @@ public class UserService
     private static final Pattern PASSWORD_REGEX = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}");
 
     private static final Pattern EMAIL_REGEX    = Pattern
-                                                        .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                                                                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-    private UserRepository       userRepository;
+    private final UserRepository       userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository)
+    public UserService(final UserRepository userRepository)
     {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository' darf nicht null sein.");
@@ -38,10 +40,12 @@ public class UserService
     /**
      *
      * creates a new {@link User} in the database
+     * 
+     * @return
      *
      */
     @Transactional
-    public void createUser(NewUserDTO userDto)
+    public User createUser(final NewUserDTO userDto)
     {
         final String username = userDto.getUserName();
         final String email = userDto.getEmail();
@@ -60,12 +64,12 @@ public class UserService
         // throw new IllegalArgumentException("The username is not available.");
         // }
 
-        userRepository.save(new User(userDto));
+        return userRepository.save(new User(userDto));
 
     }
 
     @Transactional(readOnly = true)
-    public User findUserByUsername(String username)
+    public User findUserByUsername(final String username)
     {
         return userRepository.findUserByUsername(username);
     }
