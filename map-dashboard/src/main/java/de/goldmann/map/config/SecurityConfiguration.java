@@ -85,7 +85,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
                 .successHandler(
                         new AjaxAuthenticationSuccessHandler(
                                 new SavedRequestAwareAuthenticationSuccessHandler()))
-                // .loginPage("/index.html")
                 .and().httpBasic().and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
         CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
@@ -97,7 +96,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     {
         final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
-        // repository.setHeaderName("XSRF-TOKEN");
+        repository.setSessionAttributeName("_csrf");
         return repository;
     }
 

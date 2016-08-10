@@ -63,12 +63,12 @@ public class UserServiceTest
     {
         userService.createUser(getUser("firstname", "lastname", "test456", "test@gmail.com", "Password3",
                 false));
-        User user = userService.findUserByUsername("test456");
+        final User user = userService.findUserByUsername("test456");
 
         assertTrue("username not expected " + user.getUsername(), "test456".equals(user.getUsername()));
         assertTrue("email not expected " + user.getEmail(), "test@gmail.com".equals(user.getEmail()));
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         assertTrue("password not expected " + user.getPasswordDigest(),
                 passwordEncoder.matches("Password3", user.getPasswordDigest()));
     }
@@ -86,13 +86,6 @@ public class UserServiceTest
                 false));
     }
 
-    // @Test(expected = IllegalArgumentException.class)
-    // public void testUsernameAvailable()
-    // {
-    // userService.createUser(getUser("firstname", "lastname", "username", "test@gmail.com", "Password3",
-    // false));
-    // }
-
     @Test(expected = IllegalArgumentException.class)
     public void testUsernameLength()
     {
@@ -103,12 +96,12 @@ public class UserServiceTest
     @Test
     public void testUserNotFound()
     {
-        User user = userService.findUserByUsername("doesnotexist");
+        final User user = userService.findUserByUsername("doesnotexist");
         assertNull("User must be null", user);
     }
 
-    private NewUserDTO getUser(String firstName, String lastName, String userName, String email,
-            String password, boolean featureUpdate)
+    private NewUserDTO getUser(final String firstName, final String lastName, final String userName, final String email,
+            final String password, final boolean featureUpdate)
     {
         return new NewUserDTO(firstName, lastName, userName, email, password, featureUpdate);
     }

@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.apache.http.auth.BasicUserPrincipal;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import sun.security.acl.PrincipalImpl;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
@@ -31,7 +30,8 @@ import de.goldmann.apps.root.services.UserServiceTest;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes =
-{ InfrastructureConfig.class, AuthenticationController.class, TestConfig.class })
+{ InfrastructureConfig.class, AuthenticationController.class,
+        TestConfig.class })
 @WebAppConfiguration
 public class AuthenticationControllerTest
 {
@@ -60,11 +60,12 @@ public class AuthenticationControllerTest
         final String content = mapper.writeValueAsString(userDto);
         mockMvc.perform(
                 post("/user").contentType(MediaType.APPLICATION_JSON).content(content)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .principal(new PrincipalImpl(UserServiceTest.USERNAME))).andDo(print())
-                .andExpect(status().isOk());
+                .accept(MediaType.APPLICATION_JSON)
+                .principal(new BasicUserPrincipal(UserServiceTest.USERNAME)))
+        .andDo(print())
+        .andExpect(status().isOk());
 
-        User user = userRepository.findUserByUsername(UserServiceTest.USERNAME);
+        final User user = userRepository.findUserByUsername(UserServiceTest.USERNAME);
         assertTrue("email not correct: " + user.getEmail(), "test@gmail.com".equals(user.getEmail()));
     }
 

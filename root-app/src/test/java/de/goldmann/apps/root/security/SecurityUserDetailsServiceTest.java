@@ -19,8 +19,7 @@ import de.goldmann.apps.root.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
-@ContextConfiguration(classes =
-{ InfrastructureConfig.class })
+@ContextConfiguration(classes = { InfrastructureConfig.class })
 public class SecurityUserDetailsServiceTest
 {
     @Autowired
@@ -37,9 +36,9 @@ public class SecurityUserDetailsServiceTest
     @Test
     public void testLoadUserByUsername()
     {
-        User user = new User(new NewUserDTO("firstName", "lastName", "userName", "email", "password", true));
+        final User user = new User(new NewUserDTO("firstName", "lastName", "userName", "email", "password", true));
         this.userRepository.save(user);
-        UserDetails result = service.loadUserByUsername("userName");
+        final UserDetails result = service.loadUserByUsername("userName");
         assertNotNull(result);
     }
 

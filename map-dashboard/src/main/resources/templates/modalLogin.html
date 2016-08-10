@@ -25,6 +25,7 @@
 				</form-->
 				<div id='loginAlert'></div>
 				<form role="form" ng-submit="login()" style="margin-bottom: 10px;">
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 					<div class="form-group">
 						<label for="username">Username:</label> <input type="text"
 							class="form-control input-sm" id="username" name="username" ng-model="credentials.userName"/>

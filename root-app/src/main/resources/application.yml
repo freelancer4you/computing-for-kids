@@ -6,11 +6,12 @@
     #key-password: Trabant601_
     #key-store-type: PKCS12
 spring:
+    h2.console.enabled: true
     thymeleaf:
       mode: HTML5
       cache: false 
 logging:
   level:
-    org.springframework.security: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE           
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN           
