@@ -20,30 +20,26 @@ import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @Service
-public class SecurityUserDetailsService implements UserDetailsService
-{
+public class SecurityUserDetailsService implements UserDetailsService {
     private static final Logger LOGGER = LogManager.getLogger(SecurityUserDetailsService.class);
 
-    private final UserRepository      userRepository;
+    private final UserRepository userRepository;
 
     private final UserActivityReport activityReport;
 
     @Autowired
     public SecurityUserDetailsService(final UserRepository userRepository,
-            @Lazy final UserActivityReport activityReport)
-    {
+            @Lazy final UserActivityReport activityReport) {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository'  darf nicht null sein.");
 
         this.activityReport = activityReport;
     }
 
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException
-    {
-        final User user = userRepository.findUserByUsername(username);
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        final User user = userRepository.findByUsername(username);
 
-        if (user == null)
-        {
+        if (user == null) {
             final String message = "Username '" + username + "' not found!!!";
             LOGGER.info(message);
             throw new UsernameNotFoundException(message);
@@ -55,7 +51,6 @@ public class SecurityUserDetailsService implements UserDetailsService
             this.activityReport.login(user);
         }
 
-        return new org.springframework.security.core.userdetails.User(username, user.getPasswordDigest(),
-                authorities);
+        return new org.springframework.security.core.userdetails.User(username, user.getPasswordDigest(), authorities);
     }
 }

@@ -14,25 +14,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.root.model.User;
 
 @Service
-public class UserService
-{
-    private static final Logger  LOGGER         = LogManager.getLogger(UserService.class);
+public class UserService {
+    private static final Logger LOGGER = LogManager.getLogger(UserService.class);
 
     private static final Pattern PASSWORD_REGEX = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}");
 
-    private static final Pattern EMAIL_REGEX    = Pattern
-            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    private static final Pattern EMAIL_REGEX = Pattern
+            .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 
-    private final UserRepository       userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(final UserRepository userRepository)
-    {
+    public UserService(final UserRepository userRepository) {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository' darf nicht null sein.");
     }
@@ -40,16 +38,20 @@ public class UserService
     /**
      *
      * creates a new {@link User} in the database
-     * 
+     *
      * @return
      *
      */
     @Transactional
-    public User createUser(final NewUserDTO userDto)
-    {
+    public User createUser(final NewUserDTO userDto) {
         final String username = userDto.getUserName();
         final String email = userDto.getEmail();
         final String password = userDto.getPassword();
+
+        // TODO needs to be send by Client
+        userDto.setAdress(new Adress("street", "postcode", "city"));
+        // TODO needs to be send by Client
+        userDto.setPhoneNumber("fsdfs");
 
         assertNotBlank(username, "Username cannot be empty.");
         assertMinimumLength(username, 6, "Username must have at least 6 characters.");
@@ -69,9 +71,8 @@ public class UserService
     }
 
     @Transactional(readOnly = true)
-    public User findUserByUsername(final String username)
-    {
-        return userRepository.findUserByUsername(username);
+    public User findUserByUsername(final String username) {
+        return userRepository.findByUsername(username);
     }
 
 }

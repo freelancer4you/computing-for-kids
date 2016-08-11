@@ -10,16 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-public class HomeController
-{
+public class HomeController {
     /**
      * Routing auf die Indexseite.
      * 
      * @return
      */
     @RequestMapping("/")
-    public String index()
-    {
+    public String index() {
         return "index";
     }
 }

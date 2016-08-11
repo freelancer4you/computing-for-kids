@@ -8,12 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class FileScanner
-{
+public class FileScanner {
     public static final String DATA_FOLDER = "/static/data/";
 
-    private FileScanner()
-    {}
+    private FileScanner() {
+    }
 
     /**
      * Produce lines from a file.
@@ -24,14 +23,11 @@ public class FileScanner
      *            how many lines to skip.
      * @return lines.
      */
-    public static List<String> produceLines(final File file, final int skip)
-    {
-        try
-        {
+    public static List<String> produceLines(final File file, final int skip) {
+        try {
             return produceLines(new FileInputStream(file), skip);
         }
-        catch (final FileNotFoundException e)
-        {
+        catch (final FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -45,22 +41,18 @@ public class FileScanner
      *            how many lines to skip.
      * @return lines.
      */
-    public static List<String> produceLines(final InputStream inputStream, final int skip)
-    {
+    public static List<String> produceLines(final InputStream inputStream, final int skip) {
         final List<String> lines = new ArrayList<String>();
 
         final Scanner scanner = new Scanner(inputStream, "UTF-8");
 
         int skipped = 0;
-        while (scanner.hasNextLine())
-        {
+        while (scanner.hasNextLine()) {
             final String nextLine = scanner.nextLine();
-            if (skip > skipped)
-            {
+            if (skip > skipped) {
                 skipped++;
             }
-            else
-            {
+            else {
                 lines.add(nextLine);
             }
         }

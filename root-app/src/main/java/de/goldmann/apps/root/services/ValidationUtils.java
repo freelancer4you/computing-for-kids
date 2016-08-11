@@ -5,33 +5,25 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 
-public class ValidationUtils
-{
-    private ValidationUtils()
-    {
+public class ValidationUtils {
+    private ValidationUtils() {
         throw new NotImplementedException("Utility classes cannot be instantiated");
     }
 
-    public static void assertNotBlank(String username, String message)
-    {
-        if (StringUtils.isBlank(username))
-        {
+    public static void assertNotBlank(String username, String message) {
+        if (StringUtils.isBlank(username)) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static void assertMinimumLength(String username, int length, String message)
-    {
-        if (username.length() < length)
-        {
+    public static void assertMinimumLength(String username, int length, String message) {
+        if (username.length() < length) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static void assertMatches(String email, Pattern regex, String message)
-    {
-        if (!regex.matcher(email).matches())
-        {
+    public static void assertMatches(String email, Pattern regex, String message) {
+        if (!regex.matcher(email).matches()) {
             throw new IllegalArgumentException(message);
         }
     }

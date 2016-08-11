@@ -9,12 +9,15 @@
 	<modules>
 		<module>root-app</module>
 		<module>map-dashboard</module>
-		<module>test-helpers</module>		
+		<module>test-helpers</module>
 	</modules>
 
 	<properties>
+		<java.source>1.8</java.source>
+		<java.target>1.8</java.target>
+		<java.compiler>1.8</java.compiler>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- wro4j.version>1.7.6</wro4j.version-->
+		<!-- wro4j.version>1.7.6</wro4j.version -->
 		<wro4j.version>1.8.0</wro4j.version>
 		<compilerLevel>1.8</compilerLevel>
 		<spring.boot.version>1.4.0.RELEASE</spring.boot.version>
@@ -66,20 +69,34 @@
 				<version>${spring.boot.version}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-data-jpa</artifactId>
 				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</artifactId>
+				<scope>provided</scope>
+				<version>${spring.boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
 				<version>${commons-lang.version}</version>
 			</dependency>
+
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
@@ -98,5 +115,19 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

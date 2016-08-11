@@ -23,55 +23,42 @@ import de.goldmann.apps.tests.helpers.VisibilityFunction;
 @SpringApplicationConfiguration(classes = UiApplication.class)
 @WebAppConfiguration
 @IntegrationTest
-public class SignUpTest extends WebTest
-{
+public class SignUpTest extends WebTest {
     private static final Logger LOGGER = LogManager.getLogger(SignUpTest.class);
 
     @Autowired
-    private UserRepository      userRepository;
+    private UserRepository userRepository;
 
+    @Override
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
+        super.setUp();
         userRepository.deleteAll();
     }
 
     @Test
-    public void test() throws Exception
-    {
-        final WebDriver driver = setupDriver();
+    public void test() throws Exception {
 
-        try
-        {
-            final FluentWait<WebDriver> wait = setupFluentWait(driver);
+        final FluentWait<WebDriver> wait = setupFluentWait(driver);
 
-            driver.get(HOST_ADRESS);
+        driver.get(HOST_ADRESS);
 
-            final WebElement singUpBtn = wait.until(new VisibilityFunction("singUpBtn"));
-            singUpBtn.click();
+        final WebElement singUpBtn = wait.until(new VisibilityFunction("singUpBtn"));
+        singUpBtn.click();
 
-            final WebElement modalSingupDialog = wait.until(new VisibilityFunction("modalSingup"));
+        final WebElement modalSingupDialog = wait.until(new VisibilityFunction("modalSingup"));
 
-            HelperUtils.setInputValue(modalSingupDialog, "firstName", "firstName");
-            HelperUtils.setInputValue(modalSingupDialog, "lastName", "lastname");
-            HelperUtils.setInputValue(modalSingupDialog, "userName", "userName");
-            HelperUtils.setInputValue(modalSingupDialog, "email", "test@gmx.de");
-            HelperUtils.setInputValue(modalSingupDialog, "password", "Testgmxde1");
+        HelperUtils.setInputValue(modalSingupDialog, "firstName", "firstName");
+        HelperUtils.setInputValue(modalSingupDialog, "lastName", "lastname");
+        HelperUtils.setInputValue(modalSingupDialog, "userName", "userName");
+        HelperUtils.setInputValue(modalSingupDialog, "email", "test@gmx.de");
+        HelperUtils.setInputValue(modalSingupDialog, "password", "Testgmxde1");
 
-            modalSingupDialog.findElement(By.id("commitSignUpBtn")).click();
+        modalSingupDialog.findElement(By.id("commitSignUpBtn")).click();
 
-            Thread.sleep(1000);
+        Thread.sleep(1000);
 
-            final WebElement logoutBtn = wait.until(new VisibilityFunction("logoutBtn"));
-            logoutBtn.click();
+        logout(wait);
 
-            Thread.sleep(6000);
-
-        }
-        finally
-        {
-            driver.quit();
-        }
     }
-
 }

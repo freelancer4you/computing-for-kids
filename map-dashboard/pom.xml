@@ -7,6 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>map-dashboard</artifactId>
+	<packaging>war</packaging>
 
 	<properties>
 		<start-class>de.goldmann.map.UiApplication</start-class>
@@ -14,9 +15,28 @@
 
 	<dependencies>
 		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+             <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+                <exclusion>
+                	<groupId>org.springframework.boot</groupId>
+                	<artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
 			<groupId>de.goldmann</groupId>
 			<artifactId>root-app</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -39,27 +59,27 @@
 			<artifactId>xml-apis</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+            <groupId>de.goldmann</groupId>
+            <artifactId>root-app</artifactId>
+            <version>${project.version}</version>
+             <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
+		<finalName>dashboard</finalName>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<layout>ZIP</layout>
-					<mainClass>${start-class}</mainClass>
-				</configuration>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <configuration>
+			   		
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
+			    </configuration>
 			</plugin>
 		</plugins>
 	</build>
 
+	
 </project>

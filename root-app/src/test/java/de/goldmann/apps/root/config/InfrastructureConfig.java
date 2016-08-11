@@ -17,32 +17,30 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories(basePackages = "de.goldmann.apps.root.dao")
 @EnableTransactionManagement
-public class InfrastructureConfig
-{
+public class InfrastructureConfig {
     /**
      * Eine H2 In-Memory {@link DataSource} erzeugen.
      *
      * @return
-     * @see http 
+     * @see http
      *      ://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/jdbc.html#jdbc-embedded
      *      -database -support
      */
     @Bean
-    public DataSource dataSource()
-    {
+    public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.H2).build();
     }
 
     /**
-     * Eine {@link LocalContainerEntityManagerFactoryBean} erzeugen um Hibernate nutzen zu können. Ließt die
-     * Entities die in package "monitoring.persistence.entities" definiert sind .
+     * Eine {@link LocalContainerEntityManagerFactoryBean} erzeugen um Hibernate
+     * nutzen zu können. Ließt die Entities die in package
+     * "monitoring.persistence.entities" definiert sind .
      *
      * @return
      */
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory()
-    {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.H2);
         vendorAdapter.setGenerateDdl(true);
@@ -60,8 +58,7 @@ public class InfrastructureConfig
      * @return
      */
     @Bean
-    public PlatformTransactionManager transactionManager()
-    {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager txManager = new JpaTransactionManager();
         txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;

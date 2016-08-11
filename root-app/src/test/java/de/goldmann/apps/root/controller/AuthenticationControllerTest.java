@@ -1,5 +1,7 @@
 package de.goldmann.apps.root.controller;
 
+import static de.goldmann.apps.root.test.utils.TestUtils.buildUserDto;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -10,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,51 +25,74 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
+import de.goldmann.apps.root.controller.AuthenticationControllerTest.AuthenticationConfig;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserServiceTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
-@ContextConfiguration(classes =
-{ InfrastructureConfig.class, AuthenticationController.class,
-        TestConfig.class })
+@ContextConfiguration(classes = { InfrastructureConfig.class, AuthenticationController.class, TestConfig.class,
+        AuthenticationConfig.class })
 @WebAppConfiguration
-public class AuthenticationControllerTest
-{
+public class AuthenticationControllerTest {
 
-    private MockMvc        mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    WebApplicationContext  ctx;
+    WebApplicationContext ctx;
 
     @Before
-    public void init()
-    {
+    public void init() {
         mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
     }
 
     @Test
-    public void testCreateUser() throws Exception
-    {
+    public void testCreateUser() throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
-        final NewUserDTO userDto = new NewUserDTO("firstName", "lastName", UserServiceTest.USERNAME,
-                "test@gmail.com", "Password3", true);
-        System.out.println(userDto);
+        final NewUserDTO userDto = buildUserDto();
         final String content = mapper.writeValueAsString(userDto);
-        mockMvc.perform(
-                post("/user").contentType(MediaType.APPLICATION_JSON).content(content)
-                .accept(MediaType.APPLICATION_JSON)
-                .principal(new BasicUserPrincipal(UserServiceTest.USERNAME)))
-        .andDo(print())
-        .andExpect(status().isOk());
+        System.out.println(content);
+        mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content(content)
+                .accept(MediaType.APPLICATION_JSON).principal(new BasicUserPrincipal(UserServiceTest.USERNAME)))
+        .andDo(print()).andExpect(status().isOk());
 
-        final User user = userRepository.findUserByUsername(UserServiceTest.USERNAME);
-        assertTrue("email not correct: " + user.getEmail(), "test@gmail.com".equals(user.getEmail()));
+        final String email = "test@gmx.de";
+        final User user = userRepository.findByEmail(email);
+        assertNotNull("user sollte nicht null sein", user);
+
+        assertTrue("email not correct: " + user.getEmail(), email.equals(user.getEmail()));
     }
 
+    // @Configuration
+    static class AuthenticationConfig {
+        @Bean
+        UserActivityReport userActivityReport() {
+            return new UserActivityReport() {
+
+                @Override
+                public void registered(final User user) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void logout(final User user) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void login(final User user) {
+                    // TODO Auto-generated method stub
+
+                }
+            };
+        }
+    }
 }

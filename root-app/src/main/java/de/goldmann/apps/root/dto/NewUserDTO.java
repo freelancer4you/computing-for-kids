@@ -1,93 +1,64 @@
 package de.goldmann.apps.root.dto;
 
-public class NewUserDTO
-{
-    private String  firstName;
-    private String  lastName;
-    private String  userName;
-    private String  email;
-    private String  password;
-    private boolean featureUpdate;
+public class NewUserDTO {
+    private String firstName;
+    private String lastName;
+    private String userName;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private Adress adress;
 
-    public NewUserDTO()
-    {}
 
-    public NewUserDTO(String firstName, String lastName, String userName, String email, String password,
-            boolean featureUpdate)
-    {
+    public NewUserDTO() {
+    }
+
+    public NewUserDTO(final String firstName, final String lastName, final String userName, final String email,
+            final String password, final String phoneNumber, final Adress adress) {
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.featureUpdate = featureUpdate;
+        this.adress = adress;
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName()
-    {
+    public String getLastName() {
         return lastName;
     }
 
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public boolean isFeatureUpdate()
-    {
-        return featureUpdate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmail(String email)
-    {
-        this.email = email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setFeatureUpdate(boolean featureUpdate)
-    {
-        this.featureUpdate = featureUpdate;
+    public Adress getAdress() {
+        return adress;
     }
 
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
+    public void setAdress(final Adress adress) {
+        this.adress = adress;
     }
 
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
-
-    @Override
-    public String toString()
-    {
-        return "NewUserDTO [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName
-                + ", email=" + email + ", password=" + password + ", featureUpdate=" + featureUpdate + "]";
+    public void setPhoneNumber(final String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 }

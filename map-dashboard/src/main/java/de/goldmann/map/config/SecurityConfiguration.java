@@ -38,92 +38,63 @@ import de.goldmann.apps.root.services.VisitorsCounter;
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
     @Autowired
     @Lazy
     private VisitorsCounter visitorsCounter;
-    
-    @Autowired
-    private UserDetailsService  userDetailsService;
 
     @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception
-    {
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception
-    {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
-    protected void configure(final HttpSecurity http) throws Exception
-    {
+    protected void configure(final HttpSecurity http) throws Exception {
 
         final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
-        http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf()
-                .csrfTokenRepository(csrfTokenRepository());
+        http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository());
 
-        http.authorizeRequests()
-                .antMatchers("/app/**")
-                .permitAll()
-                .antMatchers("/img/**")
-                .permitAll()
-                .antMatchers("/js/**")
-                .permitAll()
-                .antMatchers("/css/**")
-                .permitAll()
+        http.authorizeRequests().antMatchers("/app/**").permitAll().antMatchers("/img/**").permitAll()
+                .antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll()
                 .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
                         "/partials/index.html")
-                .permitAll()
-                .antMatchers(HttpMethod.POST, "/user")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .defaultSuccessUrl("/")
-                .loginProcessingUrl("/authenticate")
-                .usernameParameter("username")
+                .permitAll().antMatchers(HttpMethod.POST, "/user").permitAll().anyRequest().authenticated().and()
+                .formLogin().defaultSuccessUrl("/").loginProcessingUrl("/authenticate").usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(
-                        new AjaxAuthenticationSuccessHandler(
-                                new SavedRequestAwareAuthenticationSuccessHandler()))
+                        new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
                 .and().httpBasic().and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
         final CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
-        
-        http
-        .sessionManagement()
-        .maximumSessions(1)
-        // TODO this is not mapped yet
-        .expiredUrl("/login?expired")
-        .maxSessionsPreventsLogin(true)
-        .and()
-        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-        .invalidSessionUrl("/");
+
+        http.sessionManagement().maximumSessions(1)
+                // TODO this is not mapped yet
+                .expiredUrl("/login?expired").maxSessionsPreventsLogin(true).and()
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
 
     }
 
-    private CsrfTokenRepository csrfTokenRepository()
-    {
+    private CsrfTokenRepository csrfTokenRepository() {
         final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
         repository.setHeaderName("X-XSRF-TOKEN");
         repository.setSessionAttributeName("_csrf");
         return repository;
     }
 
-    static class CustomAccessDeniedHandler implements AccessDeniedHandler
-    {
+    static class CustomAccessDeniedHandler implements AccessDeniedHandler {
         public void handle(final HttpServletRequest request, final HttpServletResponse response,
-                final AccessDeniedException accessDeniedException) throws IOException, ServletException
-        {
+                final AccessDeniedException accessDeniedException) throws IOException, ServletException {
             LOGGER.warn("Arrived in custom access denied handler.");
             final HttpSession session = request.getSession();
             LOGGER.info("Session is " + session);
@@ -135,15 +106,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
             LOGGER.info("csrf:");
             final Object csrf = request.getAttribute("_csrf");
 
-            if (csrf == null)
-            {
+            if (csrf == null) {
                 LOGGER.info("csrf is null");
             }
-            else
-            {
+            else {
                 LOGGER.info(csrf.toString());
-                if (csrf instanceof DefaultCsrfToken)
-                {
+                if (csrf instanceof DefaultCsrfToken) {
                     final DefaultCsrfToken token = (DefaultCsrfToken) csrf;
                     LOGGER.info("Parm name " + token.getParameterName());
                     LOGGER.info("Token " + token.getToken());

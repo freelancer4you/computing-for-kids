@@ -1,5 +1,6 @@
 package de.goldmann.apps.root.security;
 
+import static de.goldmann.apps.root.test.utils.TestUtils.buildUserDto;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
@@ -14,31 +15,31 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes = { InfrastructureConfig.class })
-public class SecurityUserDetailsServiceTest
-{
+public class SecurityUserDetailsServiceTest {
     @Autowired
-    private UserRepository             userRepository;
+    private UserRepository userRepository;
 
     private SecurityUserDetailsService service;
 
     @Before
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         final UserActivityReport activityReport = new UserActivityReport() {
 
+            @Override
             public void registered(final User user) {
             }
 
+            @Override
             public void logout(final User user) {
             }
 
+            @Override
             public void login(final User user) {
             }
         };
@@ -46,23 +47,20 @@ public class SecurityUserDetailsServiceTest
     }
 
     @Test
-    public void testLoadUserByUsername()
-    {
-        final User user = new User(new NewUserDTO("firstName", "lastName", "userName", "email", "password", true));
+    public void testLoadUserByUsername() {
+        final User user = new User(buildUserDto());
         this.userRepository.save(user);
         final UserDetails result = service.loadUserByUsername("userName");
         assertNotNull(result);
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void testLoadUserByUsernameNameEmpty()
-    {
+    public void testLoadUserByUsernameNameEmpty() {
         service.loadUserByUsername("");
     }
 
     @Test(expected = UsernameNotFoundException.class)
-    public void testLoadUserByUsernameUserNameNull()
-    {
+    public void testLoadUserByUsernameUserNameNull() {
         service.loadUserByUsername(null);
     }
 

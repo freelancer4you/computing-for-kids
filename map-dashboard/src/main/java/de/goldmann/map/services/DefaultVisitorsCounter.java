@@ -1,6 +1,5 @@
 package de.goldmann.map.services;
 
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.stereotype.Component;

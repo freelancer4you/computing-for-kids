@@ -14,8 +14,7 @@ import org.springframework.web.util.WebUtils;
 
 import de.goldmann.apps.root.services.VisitorsCounter;
 
-public class CsrfHeaderFilter extends OncePerRequestFilter
-{
+public class CsrfHeaderFilter extends OncePerRequestFilter {
     private VisitorsCounter visitorsCounter;
 
     public CsrfHeaderFilter() {
@@ -27,11 +26,9 @@ public class CsrfHeaderFilter extends OncePerRequestFilter
 
     @Override
     protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
-            final FilterChain filterChain) throws ServletException, IOException
-    {
+            final FilterChain filterChain) throws ServletException, IOException {
         final CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-        if (csrf != null)
-        {
+        if (csrf != null) {
             Cookie cookie = WebUtils.getCookie(request, "XSRF-TOKEN");
 
             final String token = csrf.getToken();
@@ -40,8 +37,7 @@ public class CsrfHeaderFilter extends OncePerRequestFilter
                 visitorsCounter.count();
             }
 
-            if (cookie == null || token != null && !token.equals(cookie.getValue()))
-            {
+            if (cookie == null || token != null && !token.equals(cookie.getValue())) {
                 cookie = new Cookie("XSRF-TOKEN", token);
                 cookie.setPath("/");
                 response.addCookie(cookie);

@@ -7,20 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import de.goldmann.apps.root.services.VisitorsCounter;
 
 @Controller
-public class MapAppController
-{
+public class MapAppController {
     @Autowired
     private VisitorsCounter visitorsCounter;
 
     @RequestMapping("/reports")
-    public String reports()
-    {
+    public String reports() {
         return "reports/index";
     }
 
     @RequestMapping("/editor")
-    public String editor()
-    {
+    public String editor() {
         return "editor/index";
     }
 
