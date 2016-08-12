@@ -64,24 +64,43 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
         http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository());
 
-        http.authorizeRequests().antMatchers("/app/**").permitAll().antMatchers("/img/**").permitAll()
-                .antMatchers("/js/**").permitAll().antMatchers("/css/**").permitAll()
-                .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
-                        "/partials/index.html")
-                .permitAll().antMatchers(HttpMethod.POST, "/user").permitAll().anyRequest().authenticated().and()
-                .formLogin().defaultSuccessUrl("/").loginProcessingUrl("/authenticate").usernameParameter("username")
-                .passwordParameter("password")
-                .successHandler(
-                        new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
-                .and().httpBasic().and().logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+        // @formatter:off
+        http.authorizeRequests()
+
+        .antMatchers("/app/**").permitAll()
+        .antMatchers("/img/**").permitAll()
+        .antMatchers("/js/**").permitAll()
+        .antMatchers("/css/**").permitAll()
+        .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
+                "/partials/index.html").permitAll()
+        .antMatchers(HttpMethod.POST, "/user").permitAll()
+
+        .anyRequest().authenticated().and()
+
+        .formLogin()
+        .defaultSuccessUrl("/")
+        .loginProcessingUrl("/authenticate")
+        .usernameParameter("username")
+        .passwordParameter("password")
+        .successHandler(
+                new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
+        .and()
+        .httpBasic()
+        .and()
+        .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
         final CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-        http.sessionManagement().maximumSessions(1)
-                // TODO this is not mapped yet
-                .expiredUrl("/login?expired").maxSessionsPreventsLogin(true).and()
-                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
+        http.sessionManagement()
+        .maximumSessions(1)
+        // TODO this is not mapped yet
+        .expiredUrl("/login?expired")
+        // TODO should this be set to true, if yes then LoginTest will fail
+        .maxSessionsPreventsLogin(false)
+        .and()
+        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
+        // @formatter:on
 
     }
 
@@ -93,6 +112,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     static class CustomAccessDeniedHandler implements AccessDeniedHandler {
+        @Override
         public void handle(final HttpServletRequest request, final HttpServletResponse response,
                 final AccessDeniedException accessDeniedException) throws IOException, ServletException {
             LOGGER.warn("Arrived in custom access denied handler.");

@@ -8,6 +8,7 @@ import de.goldmann.apps.root.services.VisitorsCounter;
 
 @Controller
 public class MapAppController {
+
     @Autowired
     private VisitorsCounter visitorsCounter;
 
@@ -25,5 +26,4 @@ public class MapAppController {
     public int visitorsCount() {
         return visitorsCounter.getCounter();
     }
-
 }

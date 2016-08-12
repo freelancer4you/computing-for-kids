@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -20,7 +22,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 8137228294211060781L;
 
     @Id
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "lastname", nullable = false)
@@ -29,7 +31,7 @@ public class User implements Serializable {
     @Column(name = "firstname", nullable = true)
     private String firstName;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -38,6 +40,10 @@ public class User implements Serializable {
     @Column(name = "phonenumber", nullable = false)
     private String phoneNumber;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private UserRole          role;
+
     @Embedded
     private PostAdress adresse;
 
@@ -45,6 +51,10 @@ public class User implements Serializable {
     }
 
     public User(final NewUserDTO user) {
+        this(user, UserRole.USER);
+    }
+
+    public User(final NewUserDTO user, final UserRole role) {
         this.username = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -53,6 +63,7 @@ public class User implements Serializable {
         this.phoneNumber = user.getPhoneNumber();
         final Adress adress = user.getAdress();
         this.adresse = new PostAdress(adress.getStreet(), adress.getPostcode(), adress.getCity());
+        this.role = role;
     }
 
     public String getEmail() {
@@ -81,6 +92,10 @@ public class User implements Serializable {
 
     public PostAdress getAdresse() {
         return adresse;
+    }
+
+    public UserRole getRole() {
+        return role;
     }
 
     @Override
@@ -117,7 +132,8 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", username=" + username
-                + ", passwordDigest=" + passwordDigest + ", phoneNumber=" + phoneNumber + ", adresse=" + adresse + "]";
+                + ", passwordDigest=" + passwordDigest + ", phoneNumber=" + phoneNumber + ", role=" + role
+                + ", adresse=" + adresse + "]";
     }
 
 }

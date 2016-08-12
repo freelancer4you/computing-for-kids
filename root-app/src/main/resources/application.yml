@@ -4,7 +4,9 @@ spring:
       mode: HTML5
       cache: false 
     main:
-     web-environment: true  
+     web-environment: true
+    datasource.initialize: true  
+    #datasource.data: classpath*:import.sql
 logging:
   level:
     org.springframework.security: WARN
@@ -12,7 +14,7 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
 server:
    session.timeout: 300    
-  
+   
 #spring.datasource.url = jdbc:h2:file:${biking2.database-file:${user.dir}/var/dev/db/biking-dev};FILE_LOCK=FS
 #spring.datasource.username = ${biking2.database-username:biking2}
 #spring.datasource.password = ${biking2.database-password:biking2}

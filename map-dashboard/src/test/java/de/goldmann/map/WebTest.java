@@ -18,7 +18,9 @@ import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
@@ -28,10 +30,13 @@ public abstract class WebTest {
 
     protected static final String HOST_ADRESS = "http://localhost:8080";
     protected WebDriver driver;
+    @Autowired
+    protected UserRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
         this.driver = setupDriver();
+        userRepository.deleteAll();
     }
 
     @After
@@ -75,7 +80,7 @@ public abstract class WebTest {
 
         final WebElement loginModal = wait.until(new VisibilityFunction("modalLogin"));
 
-        HelperUtils.setInputValue(loginModal, "username", dto.getUserName());
+        HelperUtils.setInputValue(loginModal, "username", dto.getEmail());
         HelperUtils.setInputValue(loginModal, "password", dto.getPassword());
 
         loginModal.findElement(By.id("submitLoginBtn")).click();

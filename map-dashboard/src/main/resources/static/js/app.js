@@ -59,10 +59,18 @@ function($rootScope, $scope, $http, $location) {
             }
         })
         .then(function(response) {
-            if (response.data == 'ok') {
+        	//console.log(response.data)
+            if (response.data == 'ROLE_USER') {
                 console.log("logged in successfully ...");
                 $rootScope.authenticated = true;
+                $rootScope.userRole = response.data;
                 $location.path("/reports");
+            }
+            else if (response.data == 'ROLE_ADMIN') {
+                console.log("logged in successfully ...");
+                $rootScope.authenticated = true;
+                $rootScope.userRole = response.data;
+                $location.path("/admin");
             }
             else {
                 $scope.vm.errorMessages = [];
@@ -76,11 +84,19 @@ function($rootScope, $scope, $http, $location) {
     $scope.credentials = {};
     $scope.login = function() {
         authenticate($scope.credentials, function() {
+        	console.log($rootScope.userRole)
             if ($rootScope.authenticated) {
-                $location.path("/reports");
-                $('#loginAlert').html("<div></div>");
-                $("#modalLogin").modal('hide');
-                $scope.error = false;
+            	if($rootScope.userRole == 'ROLE_USER'){
+	                $location.path("/reports");
+	                $('#loginAlert').html("<div></div>");
+	                $("#modalLogin").modal('hide');
+	                $scope.error = false;
+            	}else if($rootScope.userRole == 'ROLE_ADMIN'){
+            		$location.path("/admin");
+            		$('#loginAlert').html("<div></div>");
+	                $("#modalLogin").modal('hide');
+            		$scope.error = false;
+            	}
             }
             else {
                 $('#loginAlert').html("<div class='alert alert-danger' role='alert'>Login Failed</div>");

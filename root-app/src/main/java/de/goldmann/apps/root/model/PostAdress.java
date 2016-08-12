@@ -17,8 +17,8 @@ public class PostAdress implements Serializable {
     @Column(name = "street", nullable = false, length = MAXLEN_STREET)
     private String street;
 
-    @Column(name = "postleitzahl", nullable = false, length = MAXLEN_POSTCODE)
-    private String postcode;
+    @Column(name = "zipcode", nullable = false, length = MAXLEN_POSTCODE)
+    private String            zipcode;
 
     @Column(name = "city", nullable = false, length = MAXLEN_CITY)
     private String city;
@@ -28,10 +28,10 @@ public class PostAdress implements Serializable {
         super();
     }
 
-    public PostAdress(final String street, final String postcode, final String city) {
+    public PostAdress(final String street, final String zipcode, final String city) {
         super();
         this.street = street;
-        this.postcode = postcode;
+        this.zipcode = zipcode;
         this.city = city;
     }
 
@@ -39,8 +39,8 @@ public class PostAdress implements Serializable {
         return street;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getZipcode() {
+        return zipcode;
     }
 
     public String getCity() {
@@ -52,7 +52,7 @@ public class PostAdress implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + (city == null ? 0 : city.hashCode());
-        result = prime * result + (postcode == null ? 0 : postcode.hashCode());
+        result = prime * result + (zipcode == null ? 0 : zipcode.hashCode());
         result = prime * result + (street == null ? 0 : street.hashCode());
         return result;
     }
@@ -77,12 +77,12 @@ public class PostAdress implements Serializable {
         else if (!city.equals(other.city)) {
             return false;
         }
-        if (postcode == null) {
-            if (other.postcode != null) {
+        if (zipcode == null) {
+            if (other.zipcode != null) {
                 return false;
             }
         }
-        else if (!postcode.equals(other.postcode)) {
+        else if (!zipcode.equals(other.zipcode)) {
             return false;
         }
         if (street == null) {
@@ -98,7 +98,7 @@ public class PostAdress implements Serializable {
 
     @Override
     public String toString() {
-        return "PostAdress [street=" + street + ", postcode=" + postcode + ", city=" + city + "]";
+        return "PostAdress [street=" + street + ", zipcode=" + zipcode + ", city=" + city + "]";
     }
 
 }

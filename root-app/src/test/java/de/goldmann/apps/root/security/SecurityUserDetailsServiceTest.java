@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dto.NewUserDTO;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 
@@ -48,9 +49,10 @@ public class SecurityUserDetailsServiceTest {
 
     @Test
     public void testLoadUserByUsername() {
-        final User user = new User(buildUserDto());
+        final NewUserDTO dto = buildUserDto();
+        final User user = new User(dto);
         this.userRepository.save(user);
-        final UserDetails result = service.loadUserByUsername("userName");
+        final UserDetails result = service.loadUserByUsername(dto.getEmail());
         assertNotNull(result);
     }
 

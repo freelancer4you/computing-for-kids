@@ -1,0 +1,1 @@
+insert into users (email,firstname,lastname, username, password, phonenumber, role, street, zipcode, city) values('goldi23@freenet.de', 'goldi', 'goldi', 'username', 'password', 'phone', 'ADMIN', 'street', 'plz', 'city');

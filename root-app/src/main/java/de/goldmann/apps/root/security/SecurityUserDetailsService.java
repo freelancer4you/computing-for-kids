@@ -36,21 +36,22 @@ public class SecurityUserDetailsService implements UserDetailsService {
         this.activityReport = activityReport;
     }
 
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        final User user = userRepository.findByUsername(username);
+    @Override
+    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+        final User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            final String message = "Username '" + username + "' not found!!!";
+            final String message = "Email '" + email + "' not found!!!";
             LOGGER.info(message);
             throw new UsernameNotFoundException(message);
         }
         final List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
 
         if (activityReport != null) {
             this.activityReport.login(user);
         }
 
-        return new org.springframework.security.core.userdetails.User(username, user.getPasswordDigest(), authorities);
+        return new org.springframework.security.core.userdetails.User(email, user.getPasswordDigest(), authorities);
     }
 }
