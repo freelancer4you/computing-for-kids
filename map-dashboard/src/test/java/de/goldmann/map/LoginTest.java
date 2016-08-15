@@ -100,6 +100,6 @@ public class LoginTest extends WebTest {
 
         this.userRepository.save(admin);
         return userDTO;
-
     }
+
 }

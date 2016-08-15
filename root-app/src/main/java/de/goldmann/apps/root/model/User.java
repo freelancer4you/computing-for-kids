@@ -2,6 +2,9 @@ package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -10,6 +13,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -48,8 +53,9 @@ public class User implements Serializable {
     @Embedded
     private PostAdress adresse;
 
+	@Temporal(TemporalType.TIMESTAMP)
     @Column(name = "registration", nullable = false)
-    private LocalDateTime     registrationDate;
+	private Date registrationDate;
 
 
     public User() {
@@ -69,7 +75,10 @@ public class User implements Serializable {
         final Adress adress = user.getAdress();
         this.adresse = new PostAdress(adress.getStreet(), adress.getPostcode(), adress.getCity());
         this.role = role;
-        this.registrationDate = LocalDateTime.now();
+        LocalDateTime ldt = LocalDateTime.now();
+		ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+
+		this.registrationDate = Date.from(zdt.toInstant());
     }
 
     public String getEmail() {
@@ -104,7 +113,7 @@ public class User implements Serializable {
         return role;
     }
 
-    public LocalDateTime getRegistrationDate() {
+	public Date getRegistrationDate() {
         return registrationDate;
     }
 

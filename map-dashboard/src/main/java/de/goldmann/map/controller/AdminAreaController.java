@@ -1,6 +1,6 @@
 package de.goldmann.map.controller;
 
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +24,7 @@ import de.goldmann.apps.root.model.UserRole;
 public class AdminAreaController {
 
     private final UserRepository userRepository;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	private final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     @Autowired
     public AdminAreaController(final UserRepository userRepository) {
@@ -41,7 +41,7 @@ public class AdminAreaController {
         for (final User user : this.userRepository.findAll()) {
             if (UserRole.USER.equals(user.getRole())) {
                 final PostAdress adresse = user.getAdresse();
-                final String registration = user.getRegistrationDate().format(formatter);
+				final String registration = formatter.format(user.getRegistrationDate());
                 users.add(
                         new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(),
                                 user.getPasswordDigest(), user.getPhoneNumber(),

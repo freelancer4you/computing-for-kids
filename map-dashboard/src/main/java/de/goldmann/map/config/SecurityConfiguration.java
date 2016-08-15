@@ -69,13 +69,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // @formatter:off
         http.authorizeRequests()
-
+        //.regexMatchers("index.html#filter=.news").permitAll()
         // Nur ohne Login erlaubte URLS
         .antMatchers("/app/**").permitAll()
         .antMatchers("/img/**").permitAll()
+        // TODO nicht alle JS-Skripte sollte erlaubt sein
         .antMatchers("/js/**").permitAll()
         .antMatchers("/fonts/**").permitAll()
-        .antMatchers("/css/**").permitAll()
+        .antMatchers("/css/**").permitAll() 
         .antMatchers("/partials/about/index.html").permitAll()
         .antMatchers("/partials/contact/index.html").permitAll()
         .antMatchers("/partials/courses/index.html").permitAll()

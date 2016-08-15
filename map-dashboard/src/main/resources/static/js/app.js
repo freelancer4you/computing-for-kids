@@ -169,7 +169,8 @@ module.controller('CarouselDemoCtrl', function ($scope) {
   var slides = $scope.slides = [];
   $scope.addSlide = function(count) {
     slides.push({
-      image: '/img/carousel/p' + count + '.jpg'	      
+      image: '/img/carousel/p' + count + '.jpg',
+      text: ['CLAWBOT','REX','IKE','ARMBOT','3D'][slides.length % 5] 
     });
   };
   for (var i = 1; i <= 5; i++) {
