@@ -1,0 +1,55 @@
+package de.goldmann.map.controller;
+
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dto.Adress;
+import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.model.PostAdress;
+import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserRole;
+
+@Controller
+public class AdminAreaController {
+
+    private final UserRepository userRepository;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    @Autowired
+    public AdminAreaController(final UserRepository userRepository) {
+        this.userRepository = Objects.requireNonNull(userRepository, "userRepository");
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/listUsers", method = RequestMethod.GET)
+    public List<UserDTO> listUsers() {
+
+        final List<UserDTO> users = new ArrayList<>();
+
+        for (final User user : this.userRepository.findAll()) {
+            if (UserRole.USER.equals(user.getRole())) {
+                final PostAdress adresse = user.getAdresse();
+                final String registration = user.getRegistrationDate().format(formatter);
+                users.add(
+                        new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(),
+                                user.getPasswordDigest(), user.getPhoneNumber(),
+                                new Adress(adresse.getStreet(), adresse.getZipcode(), adresse.getCity()),
+                                registration));
+            }
+        }
+
+        return users;
+    }
+}

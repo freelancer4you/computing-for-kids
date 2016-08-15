@@ -1,0 +1,30 @@
+<div ng-controller="AdminAreaCtrl">
+	<label>
+	Registered Users
+	</label>
+	<table class="table table table-striped table-bordered table-hover" id="usersTable">
+	    <thead>
+	        <tr>
+	            <th>FirstName</th>
+	            <th>LastName</th>
+	            <th>UserName</th>
+	            <th>Email</th>
+	            <th>Street</th>
+	            <th>PLZ</th>
+	            <th>City</th>
+	            <th>Registration</th>
+	        </tr>
+	    </thead>
+	    
+	    <tr ng-repeat="user in users" style="margin-bottom:2px">
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.userName}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.adress.street}}</td>
+            <td>{{user.adress.zip}}</td>
+            <td>{{user.adress.city}}</td>
+            <td>{{user.registrationDate}}</td>
+	    </tr>   
+	</table>
+</div>

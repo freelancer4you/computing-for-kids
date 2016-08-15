@@ -14,7 +14,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.Adress;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.model.UserRole;
 import de.goldmann.apps.root.test.utils.TestUtils;
@@ -26,7 +27,7 @@ import de.goldmann.apps.tests.helpers.HelperUtils;
 @IntegrationTest
 public class LoginTest extends WebTest {
 
-    private NewUserDTO dto;
+    private UserDTO dto;
 
     @Override
     @Before
@@ -67,22 +68,18 @@ public class LoginTest extends WebTest {
     @Test
     public void testLoginAsAdmin() {
 
-        final User user = new User(dto, UserRole.ADMIN);
+        final User user = new User(dto);
         userRepository.save(user);
 
         final FluentWait<WebDriver> wait = setupFluentWait(driver);
         try {
             driver.get(HOST_ADRESS);
 
-            login(wait, this.dto);
+            login(wait, adminDto());
             HelperUtils.analyzeLog(driver);
             Thread.sleep(1000);
 
-            assertNotNull(driver.findElement(By.id("totalClicks")));
-            assertNotNull(driver.findElement(By.id("totalImpressions")));
-            assertNotNull(driver.findElement(By.id("totalCtr")));
-            assertNotNull(driver.findElement(By.id("totalCpm")));
-            assertNotNull(driver.findElement(By.id("fromDate")));
+            assertNotNull(driver.findElement(By.id("usersTable")));
 
             Thread.sleep(1000);
 
@@ -92,5 +89,17 @@ public class LoginTest extends WebTest {
         catch (final Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    private UserDTO adminDto() {
+
+        final UserDTO userDTO = new UserDTO("goldi", "goldi", "username", "goldi23@freenet.de",
+                "$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.", "phone",
+                new Adress("street", "plz", "city"), "2016-08-15 15:20");
+        final User admin = new User(userDTO, UserRole.ADMIN);
+
+        this.userRepository.save(admin);
+        return userDTO;
+
     }
 }

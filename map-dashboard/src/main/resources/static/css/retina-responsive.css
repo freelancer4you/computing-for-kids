@@ -1,0 +1,95 @@
+@charset "utf-8";
+/* Retina Ready Images */
+
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+a h1#logo { background:url(../img/bg-logo@2x.png) no-repeat top center; background-size:192px 140px; }
+
+.close { background:url(../img/bg-close@2x.png) center 10px no-repeat #fff; background-size:18px 18px; }
+  
+ul.jta-tweet-list li { background:url(../img/bg-twitter@2x.png) center 0px no-repeat; background-size:50px 50px; }
+  
+.certificate {background:url(../img/bg-certificate@2x.png) center top no-repeat; background-size:50px 50px;  }
+.expand {background:url(../img/bg-expand@2x.png) center top no-repeat; background-size:50px 50px;  }
+.link {background:url(../img/bg-link@2x.png) center top no-repeat; background-size:50px 50px;  }
+.email {background:url(../img/bg-email@2x.png) center top no-repeat; background-size:50px 50px;  }
+
+.xing {background:url(../img/bg-xing@2x.png) no-repeat; background-size:24px 24px; }
+.google {background:url(../img/bg-googleplus@2x.png) no-repeat; background-size:24px 24px; }
+.tweat {background:url(../img/bg-tweat@2x.png) no-repeat; background-size:24px 24px; } 
+.facebook {background:url(../img/bg-facebook@2x.png) no-repeat; background-size:24px 24px; }
+.pinterest {background:url(../img/bg-pinterest@2x.png) no-repeat; background-size:24px 24px; }
+.instagram {background:url(../img/bg-instagram@2x.png) no-repeat; background-size:24px 24px; }
+.vimeo {background:url(../img/bg-vimeo@2x.png) no-repeat; background-size:24px 24px; }
+.skype {background:url(../img/bg-skype@2x.png) no-repeat; background-size:24px 24px; }
+.dribble {background:url(../img/bg-dribble@2x.png) no-repeat; background-size:24px 24px;  }
+
+ul.check li { background:url(../img/bg-check@2x.png) no-repeat 1px 9px; background-size:13px 11px; }
+
+#backtotop ul li a { background:url(../img/bg-up@2x.png) center 48% no-repeat #f97220; background-size:22px 15px; }
+
+input.submit { background:url(../img/bg-submit@2x.png) center center no-repeat #595755; background-size:24px 28px; }
+
+.flex-direction-nav .flex-next {background:url(../img/bg-next@2x.png) center no-repeat; background-size:15px 22px; }
+.flex-direction-nav .flex-prev {background:url(../img/bg-prev@2x.png) center no-repeat; background-size:15px 22px; }
+
+.fancybox-close {background: url(../img/bg-close@2x.png) center no-repeat #fff; background-size:18px 18px; }
+}
+
+
+@media only screen and (min-width: 1600px) {
+/*.container { padding:0px; width:1600px; position:relative; margin:0 auto; }*/
+}
+
+@media only screen and (min-width: 1280px) {
+/*.container { padding:0px; width:1280px; position:relative; margin:0 auto; }*/
+}
+
+/* Standard 960 or larger (browsers) */
+@media only screen and (min-width: 960px) {
+
+}
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {
+
+}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+.container { padding:0px; width:640px; position:relative; }
+.col1-1.borders {width:618px; }
+}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {
+
+}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 767px) {
+.container { padding:0px; width:320px; position:relative;}
+#container { margin-top:30px}
+#open-menu p {margin-top:26px; }
+.col1-1.borders, .col2-3.borders {width:298px; height:auto }
+.col2-3 { width:300px; height:auto; }
+.col2-3 p, .col2-3.single-post p { padding:21px 30px; position:relative; font-size:22px;}
+h2, .col2-3.single-post h2 { font-size:38px; padding:38px 30px 18px 30px; line-height:49px; }
+.single-post p.blockquote {padding:0px 30px !important; }
+.responsive {display:block; float:none; }
+.single-post .posted {padding:15px 31px; }
+.borderline.margin-bottom {margin-bottom:0px; }
+.borderline.margin-top {margin-top:0px; }
+.break {height:0px; }
+.margin-left {margin-left:0px; }
+body {background-size:700px 365px; }
+#map {width:280px; height:280px; margin:0; border:0}
+.col2-3.double { width:298px; height:298px; }
+}

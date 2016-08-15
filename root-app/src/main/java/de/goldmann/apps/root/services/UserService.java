@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.Adress;
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 
 @Service
@@ -43,7 +43,7 @@ public class UserService {
      *
      */
     @Transactional
-    public User createUser(final NewUserDTO userDto) {
+    public User createUser(final UserDTO userDto) {
         final String username = userDto.getUserName();
         final String email = userDto.getEmail();
         final String password = userDto.getPassword();

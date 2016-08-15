@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("MapApp", ['ngRoute','ui.bootstrap','dateModule']).config(function($routeProvider, $httpProvider) {
+var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 'adminModule']).config(function($routeProvider, $httpProvider) {
     
     $routeProvider
     .when('/', {
@@ -19,6 +19,11 @@ angular.module("MapApp", ['ngRoute','ui.bootstrap','dateModule']).config(functio
         name : "Editor",
         templateUrl : "partials/editor/index.html",
 //        controller: 'DashBoardCtrl'    
+    })
+    .when("/admin",  {
+        name : "Admin-Area",
+        templateUrl : "partials/admin/index.html",
+        controller: 'AdminAreaCtrl'    
     })
     .otherwise('/');
     
@@ -59,15 +64,14 @@ function($rootScope, $scope, $http, $location) {
             }
         })
         .then(function(response) {
-        	//console.log(response.data)
             if (response.data == 'ROLE_USER') {
-                console.log("logged in successfully ...");
+                //console.log("logged in successfully ...");
                 $rootScope.authenticated = true;
                 $rootScope.userRole = response.data;
                 $location.path("/reports");
             }
             else if (response.data == 'ROLE_ADMIN') {
-                console.log("logged in successfully ...");
+                //console.log("logged in successfully ...");
                 $rootScope.authenticated = true;
                 $rootScope.userRole = response.data;
                 $location.path("/admin");
@@ -120,7 +124,6 @@ function($rootScope, $scope, $http, $location) {
         .then(function (response) {
             if (response.status == 200) {
                 $("#modalSingup").modal('hide');
-                //console.log(response.headers);
                 $scope.login();
             }
             else {
@@ -134,15 +137,9 @@ function($rootScope, $scope, $http, $location) {
 
     $scope.logout = function() {
         
-//        var token = getCookie("XSRF-TOKEN");
-//        console.log(token);
-        
         $http({
             method: 'POST',
             url: '/logout'
-//            headers: {
-//                "X-CSRF-TOKEN": token
-//            }
         })
         .then(function (response) {
             if (response.status == 200) {
@@ -158,15 +155,17 @@ function($rootScope, $scope, $http, $location) {
         });        
     };
     
-    /*function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0; i<ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1);
-            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-        }
-        return "";
-    }*/
-
 });
+
+module.controller('CarouselDemoCtrl', function ($scope) {
+	  $scope.myInterval = 5000;
+	  var slides = $scope.slides = [];
+	  $scope.addSlide = function(count) {
+	    slides.push({
+	      image: '/img/carousel/p' + count + '.jpg'	      
+	    });
+	  };
+	  for (var i = 1; i < 4; i++) {
+	    $scope.addSlide(i);
+	  }
+	});

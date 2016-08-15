@@ -15,7 +15,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
@@ -41,7 +41,7 @@ public class SignUpTest extends WebTest {
 
             final WebElement modalSingupDialog = wait.until(new VisibilityFunction("modalSingup"));
 
-            final NewUserDTO dto = TestUtils.buildUserDto();
+            final UserDTO dto = TestUtils.buildUserDto();
 
             HelperUtils.setInputValue(modalSingupDialog, "firstName", dto.getFirstName());
             HelperUtils.setInputValue(modalSingupDialog, "lastName", dto.getLastName());

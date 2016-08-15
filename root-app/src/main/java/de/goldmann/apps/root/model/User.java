@@ -1,6 +1,7 @@
 package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import de.goldmann.apps.root.dto.Adress;
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 
 @Entity
 @Table(name = "USERS")
@@ -47,14 +48,18 @@ public class User implements Serializable {
     @Embedded
     private PostAdress adresse;
 
+    @Column(name = "registration", nullable = false)
+    private LocalDateTime     registrationDate;
+
+
     public User() {
     }
 
-    public User(final NewUserDTO user) {
+    public User(final UserDTO user) {
         this(user, UserRole.USER);
     }
 
-    public User(final NewUserDTO user, final UserRole role) {
+    public User(final UserDTO user, final UserRole role) {
         this.username = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -64,6 +69,7 @@ public class User implements Serializable {
         final Adress adress = user.getAdress();
         this.adresse = new PostAdress(adress.getStreet(), adress.getPostcode(), adress.getCity());
         this.role = role;
+        this.registrationDate = LocalDateTime.now();
     }
 
     public String getEmail() {
@@ -96,6 +102,10 @@ public class User implements Serializable {
 
     public UserRole getRole() {
         return role;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
     }
 
     @Override
@@ -131,9 +141,15 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", lastName=" + lastName + ", firstName=" + firstName + ", username=" + username
-                + ", passwordDigest=" + passwordDigest + ", phoneNumber=" + phoneNumber + ", role=" + role
-                + ", adresse=" + adresse + "]";
+        return "User [" + (email != null ? "email=" + email + ", " : "")
+                + (lastName != null ? "lastName=" + lastName + ", " : "")
+                + (firstName != null ? "firstName=" + firstName + ", " : "")
+                + (username != null ? "username=" + username + ", " : "")
+                + (passwordDigest != null ? "passwordDigest=" + passwordDigest + ", " : "")
+                + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
+                + (role != null ? "role=" + role + ", " : "") + (adresse != null ? "adresse=" + adresse + ", " : "")
+                + (registrationDate != null ? "registrationDate=" + registrationDate : "") + "]";
     }
+
 
 }

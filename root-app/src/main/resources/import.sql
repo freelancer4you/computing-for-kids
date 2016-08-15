@@ -1,1 +1,2 @@
-insert into users (email,firstname,lastname, username, password, phonenumber, role, street, zipcode, city) values('goldi23@freenet.de', 'goldi', 'goldi', 'username', 'password', 'phone', 'ADMIN', 'street', 'plz', 'city');
+-- PW=Blade23
+insert into users (email,firstname,lastname, username, password, phonenumber, role, street, zipcode, city) values('goldi23@freenet.de', 'goldi', 'goldi', 'username', '$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.', 'phone', 'ADMIN', 'street', 'plz', 'city');

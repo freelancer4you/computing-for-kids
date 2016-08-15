@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.controller.AuthenticationControllerTest.AuthenticationConfig;
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserServiceTest;
@@ -55,7 +55,7 @@ public class AuthenticationControllerTest {
     @Test
     public void testCreateUser() throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
-        final NewUserDTO userDto = buildUserDto();
+        final UserDTO userDto = buildUserDto();
         final String content = mapper.writeValueAsString(userDto);
         System.out.println(content);
         mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content(content)

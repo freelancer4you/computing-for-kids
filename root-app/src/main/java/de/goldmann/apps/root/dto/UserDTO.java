@@ -1,6 +1,11 @@
 package de.goldmann.apps.root.dto;
 
-public class NewUserDTO {
+import java.io.Serializable;
+
+public class UserDTO implements Serializable {
+
+    private static final long serialVersionUID = -1973241612748624323L;
+
     private String firstName;
     private String lastName;
     private String userName;
@@ -8,14 +13,14 @@ public class NewUserDTO {
     private String password;
     private String phoneNumber;
     private Adress adress;
+    private String registrationDate;
 
 
-    public NewUserDTO() {
+    public UserDTO() {
     }
 
-    public NewUserDTO(final String firstName, final String lastName, final String userName, final String email,
-            final String password, final String phoneNumber, final Adress adress) {
-        super();
+    public UserDTO(final String firstName, final String lastName, final String userName, final String email,
+            final String password, final String phoneNumber, final Adress adress, final String registration) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -23,6 +28,7 @@ public class NewUserDTO {
         this.password = password;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
+        this.registrationDate = registration;
     }
 
     public String getFirstName() {
@@ -59,6 +65,10 @@ public class NewUserDTO {
 
     public void setPhoneNumber(final String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
 }

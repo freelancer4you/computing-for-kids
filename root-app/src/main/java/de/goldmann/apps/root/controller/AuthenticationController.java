@@ -22,7 +22,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserService;
@@ -54,7 +54,7 @@ public class AuthenticationController {
         final ObjectMapper mapper = new ObjectMapper();
 
         try {
-            final NewUserDTO user = mapper.readValue(payload, NewUserDTO.class);
+            final UserDTO user = mapper.readValue(payload, UserDTO.class);
             final User storedUser = userService.createUser(user);
 
             if (activityReport != null) {

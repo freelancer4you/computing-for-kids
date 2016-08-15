@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.NewUserDTO;
+import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -86,7 +86,7 @@ public class UserServiceTest {
         assertNull("User must be null", user);
     }
 
-    private NewUserDTO getUser(final String firstName, final String lastName, final String userName, final String email,
+    private UserDTO getUser(final String firstName, final String lastName, final String userName, final String email,
             final String password, final String phoneNumber) {
         return buildUserDto(firstName, lastName, userName, email, password, phoneNumber);
     }

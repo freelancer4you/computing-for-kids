@@ -31,14 +31,18 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.DefaultCsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
-import de.goldmann.apps.root.config.CsrfHeaderFilter;
 import de.goldmann.apps.root.security.AjaxAuthenticationSuccessHandler;
+import de.goldmann.apps.root.security.CsrfHeaderFilter;
 import de.goldmann.apps.root.services.VisitorsCounter;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+    private static final String LIST_USERS_PATH = "/listUsers";
+
+    private static final String USER_PATH       = "/user";
+
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
     @Autowired
@@ -70,10 +74,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/app/**").permitAll()
         .antMatchers("/img/**").permitAll()
         .antMatchers("/js/**").permitAll()
+        .antMatchers("/fonts/**").permitAll()
         .antMatchers("/css/**").permitAll()
         .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
                 "/partials/index.html").permitAll()
-        .antMatchers(HttpMethod.POST, "/user").permitAll()
+        .antMatchers(HttpMethod.POST, USER_PATH).permitAll()
+        .antMatchers(HttpMethod.GET, LIST_USERS_PATH).permitAll()
 
         .anyRequest().authenticated().and()
 

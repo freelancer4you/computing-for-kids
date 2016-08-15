@@ -1,25 +1,27 @@
 <!doctype html>
 <html>
 <head>
-<title>Muslim Advertising Platform</title>
+<title>Computing for Kids</title>
 
 <meta name="_csrf" content="XSRF-TOKEN"/>
 <meta name="_csrf_header" content="${_csrf.headerName}"/>
 
 <link href="css/angular-bootstrap.css" rel="stylesheet"/>
 <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}" />
-<link rel="stylesheet" href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" />	
+<link rel="stylesheet" href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" />
+<link rel="stylesheet" href="../static/css/retina-responsive.css" th:href="@{/css/retina-responsive.css}" />	
 
 </head>
 <body ng-app="MapApp">
 	
-	<div class="container" ng-controller="navigation">		
-		<div th:include="header"></div>	
+	<!-- div class="container" ng-controller="navigation"-->
+	<div id="container" class="container" ng-controller="navigation">			
+		<div th:include="header" />	
       	
       	<div th:include="modalLogin"/>
 		<div th:include="modalSignup"/>
-		<div th:include="../static/partials/editor/merger"/>
-		<div th:include="../static/partials/reports/generator"/>
+		<!-- div th:include="../static/partials/editor/merger"/>
+		<div th:include="../static/partials/reports/generator"/-->
       	   
       	<div ng-view=""></div>       
     </div>
@@ -27,10 +29,11 @@
     
 	<div th:include="footer"></div>
 	<script src="../static/app/dateModule.js" type="text/javascript" th:src="@{/app/dateModule.js}"></script>
-	<script src="../static/js/highcharts.js" type="text/javascript" th:src="@{/js/highcharts.js}"></script>
+	<script src="../static/app/admin/module.js" type="text/javascript" th:src="@{/app/admin/module.js}"></script>
+	<!-- script src="../static/js/highcharts.js" type="text/javascript" th:src="@{/js/highcharts.js}"></script-->
 	<script src="../static/js/app.js" type="text/javascript" th:src="@{/js/app.js}"></script>
 	
-	<div th:include="../static/partials/reports/graphs"/>
+	<!-- div th:include="../static/partials/reports/graphs"/-->
 	
 </body>
 </html>
