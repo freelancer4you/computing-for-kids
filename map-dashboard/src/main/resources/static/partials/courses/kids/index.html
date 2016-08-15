@@ -1,0 +1,59 @@
+<div class="element clearfix col1-1 courses-kids" ng-controller="CourseCtrl">
+    <p style="font-size: 94%;">
+        <a href="#/"><span>Home</span></a> 
+        / 
+        <a href="#/courses"><span>Kurse</span></a>
+        / Kinder
+    </p>  
+    <hr/>
+    <p>You wanne learn something cool, something new, then have a look at our courses specially made for young people. If this is
+        not enough for you then let us know and <a href="#">suggest</a> some other topics you would like to gain experience in.</p>
+    <br/>
+    <br/>
+    <div ng-repeat="course in courses track by $index" style="margin-bottom:2px">   
+        <div class="leftContent" >
+            <div class="contentHeader" >
+                <div  class="headerCourseBanner" >
+                    {{course.name}}
+                </div>
+                <div class="clearfixHeader" >
+                    <div class="clearfixLeft" style="width: 20%;">
+                        <img ng-src="img/{{course.icon}}" style="padding-left: 20px;padding-top: 10px;display: inline-block;max-height: 120px;max-width: 110px;" alt="{{course.name}}"/>
+                    </div>
+                    <div class="clearfixLeft" style="width: 65%;">
+                        <p style="padding-bottom: 2px;font-size: 94%;text-align: justify;">{{course.description}}</p>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div class="course-calendar" ></div>
+                                </td>
+                                <td>
+                                    <p style="font-size: 94%;padding-left:12px;padding-right: 20px;">
+                                        <span style="padding-right: 4px;color:black;">{{course.schedules[0].daysAsString}}</span> 
+                                        <span style="padding-right: 4px;color:black;">{{course.schedules[0].begin}}</span>
+                                        <span style="padding-right: 4px;color:black;">&ndash;</span>
+                                        <span style="padding-right: 4px;color:black;">{{course.schedules[0].end}},</span>
+                                        6pm
+                                    </p>
+                                </td>
+                                <td>
+                                    <div class="course-level-{{course.level}}" style="padding-left:6px;" ></div>
+                                </td>
+                                <td>
+                                    <p style="font-size: 94%;">{{course.level}}</p>
+                                </td>
+                            </tr>
+                        </table>                                 
+                    </div>
+                    <div class="clearfixLeft" style="width: 15%;">
+                        <p style="font-size: large;font-weight: bold;color:black;padding-left: 20px;">{{course.price}} &#8364;</p>
+                        <span style="padding-left: 20px;">
+                            <a href="index.html#filter=.courses-details" class="button" ng-click='showDetails(course.id)'>Attend</a>
+                        </span>
+                    </div>
+                </div> 
+            </div>
+        </div>    
+
+    </div>
+</div>

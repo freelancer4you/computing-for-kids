@@ -1,68 +1,140 @@
-<!-- div class="row rcorners1">
-	<div class="col-xs-12 col-md-4">
-		<p style="font-size: 155%;padding-left: 30px; padding-top: 30px; padding-bottom: 15px;">Main Headline here</p>
-		<p style="font-size: 115%;padding-left: 10px;">The Purpose of the Dashboard Here</p>
-	</div>
-	<div class="col-xs-12 col-md-2">
-	</div>
-	<div class="col-xs-6 col-md-4">
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<button id="singUpBtn" data-toggle="modal" data-target="#modalSingup" class="btn btn-warning" 
-			style="float: right;">Sign Up</button>
-	</div>
-	<div class="col-xs-12 col-md-2">
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-		<p>&nbsp;</p>
-	</div> 	         
-</div-->
-      
-      
-      <div class="element col1-1 home " style="margin-top: 80px;">
+<!-- div class="row">
+ 
+  <div class="element clearfix col-xs-18 col-md-12 home">
 
-        <div ng-controller="CarouselDemoCtrl">
-            <div style="height: 305px">
-                <carousel interval="myInterval">
-                    <slide ng-repeat="slide in slides" active="slide.active">
-                        <img ng-src="{{slide.image}}" style="margin:auto;padding-top: 14px;">
-                        <div class="carousel-caption">
-                            <h4>Slide {{$index}}</h4>
-                            <p>{{slide.text}}</p>
-                        </div>
-                    </slide>
-                </carousel>
-            </div>
+     <div ng-controller="CarouselDemoCtrl">
+         <div style="height: 305px;">
+             <carousel interval="myInterval">
+                 <slide ng-repeat="slide in slides" active="slide.active">
+                     <img ng-src="{{slide.image}}" style="margin:auto;padding-top: 14px;"/>
+                     <div class="carousel-caption">
+                         <p>{{slide.text}}</p>
+                     </div>
+                 </slide>
+             </carousel>
+         </div>
+     </div>
+
+ </div>
+ 
+</div-->
+ 
+<!-- div class="row">
+     <div class="col-xs-6 col-md-4">
+        
+        <div class="col1-3 colored web" style="background-color: black;height: 305px;">
+		     <h3><a href="#/">Web</a></h3>
+		     <div class="borderline"></div>
+		     <ul class="mainpage-lists">
+		         <li>HTML</li>
+		         <li>CSS</li>
+		         <li>3D Modellierung</li>
+		     </ul>
+		 </div>
+     
+     </div>
+     <div class="col-xs-6 col-md-4">
+     
+         <div class="clearfix col1-3 colored programming">
+		     <h3><a href="#/">Programming</a></h3>
+		     <div class="borderline"></div>
+		     <ul class="mainpage-lists">
+		         <li>Java</li>
+		         <li>Javascript</li>
+		         <li>Scratch</li>
+		     </ul>
+		 </div>
+		 
+     </div>
+     <div class="col-xs-6 col-md-4">
+         <div class="clearfix col1-3 colored test">
+		     <h3><a href="#/">Testing</a></h3>
+		     <div class="borderline"></div>
+		     <ul class="mainpage-lists">
+		         <li>Junit</li>
+		         <li>Selenium</li>
+		         <li>Selenium and Cucumber</li>
+		     </ul>
+		 </div>
+     </div>
+</div--> 
+
+<div class="element home clearfix col-xs-18 col-md-12 home" style="margin-top: 80px;">
+
+    <div ng-controller="CarouselDemoCtrl">
+        <div style="height: 305px">
+            <carousel interval="myInterval">
+                <slide ng-repeat="slide in slides" active="slide.active">
+                    <img ng-src="{{slide.image}}" style="margin:auto;padding-top: 14px;">
+                    <div class="carousel-caption">
+                        <h4>Slide {{$index}}</h4>
+                        <p>{{slide.text}}</p>
+                    </div>
+                </slide>
+            </carousel>
         </div>
-      
- <!-- div class="row">
-   <div class="col-md-4" >
-     <div class="row rcorners1">
-     	<div class="q">
-     		<p class="blocktext">Feature 1</p>
-       		<img src="../img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="img-responsive col-lg-12"></img>
-       	</div>
-     </div>
-   </div>
-   <div class="col-md-4">
-     <div class="row rcorners1">
-     	<div class="q">
-     		<p class="blocktext">Feature 2</p>
-       		<img src="../img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="img-responsive col-lg-12"></img>
-       	</div>
-     </div>
-   </div>
-   <div class="col-md-4">
-     <div class="row rcorners1">
-     	<div class="q">
-		<p class="blocktext">Feature 3</p>            	
-       		<img src="../img/placeholder.jpg" th:src="@{/img/placeholder.jpg}" class="img-responsive col-lg-12"></img>
-       	</div>
-     </div>
-   </div>
+    </div>
+
+</div>
+
+<div class="element home clearfix col-xs-18 col-md-12 home">
+    <div class="col1-3 colored web">
+	     <h3><a href="#/">Web</a></h3>
+	     <div class="borderline"></div>
+	     <ul class="mainpage-lists">
+	         <li>HTML</li>
+	         <li>CSS</li>
+	         <li>3D Modellierung</li>
+	     </ul>
+    </div>
+    <div class="col1-3 colored programming">
+	     <h3><a href="#/">Programming</a></h3>
+	     <div class="borderline"></div>
+	     <ul class="mainpage-lists">
+	         <li>Java</li>
+	         <li>Javascript</li>
+	         <li>Scratch</li>
+	     </ul>
+    </div>
+    <div class="col1-3 colored test">
+	     <h3><a href="#/">Testing</a></h3>
+	     <div class="borderline"></div>
+	     <ul class="mainpage-lists">
+	         <li>Junit</li>
+	         <li>Selenium</li>
+	         <li>Selenium and Cucumber</li>
+	     </ul>
+    </div>
+</div> 
+ 
+ <!-- div class="element home clearfix col1-3 colored web">
+     <h3><a href="#/">Web</a></h3>
+     <div class="borderline"></div>
+     <ul class="mainpage-lists">
+         <li>HTML</li>
+         <li>CSS</li>
+         <li>3D Modellierung</li>
+     </ul>
+ </div-->
+
+ 
+ <!-- div class="element home clearfix col1-3 colored programming">
+     <h3><a href="#/">Programming</a></h3>
+     <div class="borderline"></div>
+     <ul class="mainpage-lists">
+         <li>Java</li>
+         <li>Javascript</li>
+         <li>Scratch</li>
+     </ul>
+ </div-->
+
+ 
+ <!-- div class="element home clearfix col1-3 colored test">
+     <h3><a href="#/">Testing</a></h3>
+     <div class="borderline"></div>
+     <ul class="mainpage-lists">
+         <li>Junit</li>
+         <li>Selenium</li>
+         <li>Selenium and Cucumber</li>
+     </ul>
  </div-->

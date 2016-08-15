@@ -39,7 +39,6 @@ import de.goldmann.apps.root.services.VisitorsCounter;
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    private static final String LIST_USERS_PATH = "/listUsers";
 
     private static final String USER_PATH       = "/user";
 
@@ -71,15 +70,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // @formatter:off
         http.authorizeRequests()
 
+        // Nur ohne Login erlaubte URLS
         .antMatchers("/app/**").permitAll()
         .antMatchers("/img/**").permitAll()
         .antMatchers("/js/**").permitAll()
         .antMatchers("/fonts/**").permitAll()
         .antMatchers("/css/**").permitAll()
+        .antMatchers("/partials/about/index.html").permitAll()
+        .antMatchers("/partials/contact/index.html").permitAll()
+        .antMatchers("/partials/courses/index.html").permitAll()
+        .antMatchers("/partials/courses/kids/index.html").permitAll()
+        .antMatchers("/partials/courses/teachers/index.html").permitAll()
         .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
                 "/partials/index.html").permitAll()
         .antMatchers(HttpMethod.POST, USER_PATH).permitAll()
-        .antMatchers(HttpMethod.GET, LIST_USERS_PATH).permitAll()
 
         .anyRequest().authenticated().and()
 

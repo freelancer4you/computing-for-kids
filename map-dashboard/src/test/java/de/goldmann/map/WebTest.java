@@ -59,7 +59,9 @@ public abstract class WebTest {
         dc.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
 
         System.setProperty("webdriver.chrome.driver", getChromeDriverPath());
-        return new ChromeDriver(dc);
+        final ChromeDriver chromeDriver = new ChromeDriver(dc);
+        chromeDriver.manage().window().maximize();
+        return chromeDriver;
     }
 
     protected FluentWait<WebDriver> setupFluentWait(final WebDriver driver) {
