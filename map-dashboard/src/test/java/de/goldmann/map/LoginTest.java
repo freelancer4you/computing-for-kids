@@ -9,11 +9,14 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import de.goldmann.apps.root.dao.CourseRepository;
+import de.goldmann.apps.root.dao.ScheduleRepository;
 import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
@@ -65,8 +68,34 @@ public class LoginTest extends WebTest {
         }
     }
 
+	@Autowired
+	private CourseRepository courseRepo;
+
+	@Autowired
+	private ScheduleRepository scheduleRepository;
+
     @Test
     public void testLoginAsAdmin() {
+
+
+		// Set<Schedule> schedules = new HashSet<>();
+		// Schedule schedule = new Schedule(new Date(), new Date());
+		// scheduleRepository.save(schedule);
+		// schedules.add(schedule);
+		// Course course = new Course("name", "icon", "description",
+		// Level.Beginner, 5.0);
+		// this.courseRepo.save(course);
+		// this.courseRepo.findByName("name").getSchedules().add(schedule);
+		// this.courseRepo.save(course);
+		//
+		// List<Course> courses = this.courseRepo.findAll();
+		// for (Course c : courses) {
+		//
+		// System.out.println(c);
+		// System.out.println(c.getSchedules());
+		//
+		// }
+
 
         final User user = new User(dto);
         userRepository.save(user);

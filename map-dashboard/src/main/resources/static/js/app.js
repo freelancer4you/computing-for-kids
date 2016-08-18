@@ -182,7 +182,7 @@ module.factory('DetailsData', function () {
   return { course: '' };
 });
 
-module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scope,$http,detailsData) {
+module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scope, $http, detailsData) {
     $http.get('/listCourses').then(function(response) {
       var courses = response.data;
       
@@ -233,7 +233,7 @@ module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scop
   }
 ]);
 
-module.controller('DetailsCtrl', ['$scope','DetailsData', function ($scope, detailsData) {
+module.controller('DetailsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
     $scope.course = detailsData;
   }
 ]);
@@ -246,7 +246,7 @@ function formatTimeStamp(timeStamp){
     return datePart[0];
 }
 
-module.controller('TabsCtrl', ['$scope','DetailsData', function ($scope, detailsData) {
+module.controller('TabsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
   $scope.tabs = [
     { title:'Description', content:detailsData },
     { title:'Content', content:detailsData },

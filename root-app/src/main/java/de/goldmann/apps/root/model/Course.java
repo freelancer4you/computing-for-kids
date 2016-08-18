@@ -1,10 +1,19 @@
 package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "courses")
@@ -15,62 +24,79 @@ public class Course implements Serializable {
     @Id
     private String name;
 
-    private double costs;
+	@Column(name = "icon", nullable = false)
+	private String icon;
 
-    private String period;
+	@Column(name = "description", nullable = false)
+	@Lob
+	private String description;
 
-    private int hours;
+	// just for accordion
+	@Transient
+	private boolean open;
 
-    private String shortDescription;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "level", nullable = false)
+	private Level level;
 
-    private int maxParticipant;
+	@OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+	private Set<Schedule> schedules;
 
+	@Column(name = "price", nullable = false)
+	private double price;
 
-    Course() {
-        super();
-    }
+	Course() {
+	}
 
-    public Course(final String name) {
-        this.name = name;
-    }
+	public Course(String name) {
+		this.name = Objects.requireNonNull(name, "name");
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Course(String name, String icon, String description, Level level, double price) {
+		this.name = name;
+		this.icon = icon;
+		this.description = description;
+		this.level = level;
+		this.price = price;
+	}
 
-    public double getCosts() {
-        return costs;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getPeriod() {
-        return period;
-    }
+	public String getIcon() {
+		return icon;
+	}
 
-    public int getHours() {
-        return hours;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public String getShortDescription() {
-        return shortDescription;
-    }
+	public boolean isOpen() {
+		return open;
+	}
 
-    public int getMaxParticipant() {
-        return maxParticipant;
-    }
+	public Level getLevel() {
+		return level;
+	}
 
-    @Override
+	public Set<Schedule> getSchedules() {
+		return schedules;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	@Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        return result;
+		int hash = 3;
+		hash = 67 * hash + Objects.hashCode(this.name);
+		return hash;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
+	public boolean equals(Object obj) {
         if (obj == null) {
             return false;
         }
@@ -78,12 +104,8 @@ public class Course implements Serializable {
             return false;
         }
         final Course other = (Course) obj;
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        }
-        else if (!name.equals(other.name)) {
+
+		if (!Objects.equals(this.name, other.name)) {
             return false;
         }
         return true;
@@ -91,7 +113,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Course [name=" + name + "]";
+		return "Course{name=" + name + ", icon=" + icon + ", description=" + description + ", open="
+				+ open + ", level=" + level + ", schedules=" + schedules + ", price=" + price + '}';
     }
-
 }

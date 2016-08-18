@@ -41,6 +41,7 @@ import de.goldmann.apps.root.services.VisitorsCounter;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final String USER_PATH       = "/user";
+	private static final String COURSES_PATH = "/listCourses";
 
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
@@ -85,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
                 "/partials/index.html").permitAll()
         .antMatchers(HttpMethod.POST, USER_PATH).permitAll()
+        .antMatchers(HttpMethod.GET, COURSES_PATH).permitAll()
 
         .anyRequest().authenticated().and()
 
