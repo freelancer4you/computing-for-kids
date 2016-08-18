@@ -26,33 +26,34 @@ import de.goldmann.apps.root.model.UserRole;
 @Controller
 public class AdminAreaController {
 
-	private final UserRepository	userRepository;
-	private final SimpleDateFormat	formatter	= new SimpleDateFormat(DATE_FORMAT);
+    private final UserRepository	userRepository;
+    private final SimpleDateFormat	formatter	= new SimpleDateFormat(DATE_FORMAT);
 
-	@Autowired
-	public AdminAreaController(final UserRepository userRepository) {
-		this.userRepository = Objects.requireNonNull(userRepository, "userRepository");
-	}
+    @Autowired
+    public AdminAreaController(final UserRepository userRepository) {
+        this.userRepository = Objects.requireNonNull(userRepository, "userRepository");
+    }
 
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = LIST_USERS_REQUEST_PATH, method = RequestMethod.GET)
-	public List<UserDTO> listUsers() {
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = LIST_USERS_REQUEST_PATH, method = RequestMethod.GET)
+    public List<UserDTO> listUsers() {
 
-		final List<UserDTO> users = new ArrayList<>();
+        final List<UserDTO> users = new ArrayList<>();
 
-		for (final User user : userRepository.findAll()) {
-			if (UserRole.USER.equals(user.getRole())) {
-				final PostAdress adresse = user.getAdresse();
-				final String registration = formatter.format(user.getRegistrationDate());
-				users.add(
-						new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(),
-								user.getPasswordDigest(), user.getPhoneNumber(),
-								new Adress(adresse.getStreet(), adresse.getZipcode(), adresse.getCity()),
-								registration));
-			}
-		}
+        for (final User user : userRepository.findAll()) {
+            if (UserRole.USER.equals(user.getRole())) {
+                final PostAdress adresse = user.getAdresse();
+                final String registration = formatter.format(user.getRegistrationDate());
+                users.add(
+                        new UserDTO(user.getFirstName(), user.getLastName(), user.getUsername(), user.getEmail(),
+                                user.getPasswordDigest(), user.getPhoneNumber(),
+                                new Adress(adresse.getStreet(), adresse.getZipcode(), adresse.getCity(),
+                                        adresse.getHouseNr()),
+                                registration, user.getChildName(), user.getChildAge()));
+            }
+        }
 
-		return users;
-	}
+        return users;
+    }
 }

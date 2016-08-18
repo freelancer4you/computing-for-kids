@@ -1,10 +1,14 @@
 package de.goldmann.map.services;
 
+import java.util.Objects;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.services.MailService;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @Component
@@ -12,18 +16,27 @@ public class DefaultUserActivityReport implements UserActivityReport {
 
     private static final Logger LOGGER = LogManager.getLogger(DefaultUserActivityReport.class);
 
-    @Override
-	public void registered(final User user) {
-        LOGGER.info(user + " registriert.");
+    private final MailService   mailService;
+
+    @Autowired
+    public DefaultUserActivityReport(final MailService mailService) {
+        this.mailService = Objects.requireNonNull(mailService, "Parameter 'mailService' darf nicht null sein.");
     }
 
     @Override
-	public void login(final User user) {
+    public void registered(final User user) {
+        final String msgText = user + " registriert.";
+        mailService.sendMail(msgText);
+        LOGGER.info(msgText);
+    }
+
+    @Override
+    public void login(final User user) {
         LOGGER.info(user + " login.");
     }
 
     @Override
-	public void logout(final User user) {
+    public void logout(final User user) {
         LOGGER.info(user + " logout.");
     }
 

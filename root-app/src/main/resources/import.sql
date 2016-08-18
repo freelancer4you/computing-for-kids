@@ -1,5 +1,5 @@
 -- PW=Blade23 yyyy-MM-dd hh:mm:ss
-insert into users (email,firstname,lastname, username, password, phonenumber, role, registration, street, zipcode, city) values('goldi23@freenet.de', 'goldi', 'goldi', 'username', '$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.', 'phone', 'ADMIN', CURRENT_TIMESTAMP, 'street', 'plz', 'city');
+insert into users (email,firstname,lastname, username, password, phonenumber, role, registration, street, zipcode, city, houseNr) values('goldi23@freenet.de', 'goldi', 'goldi', 'username', '$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.', 'phone', 'ADMIN', CURRENT_TIMESTAMP, 'street', 'plz', 'city', '8');
 
 --insert into courses(name, icon, description, level, price) values ('3D Programming for Kids', 'threejs.png', 'The C programming language is one of the most popular and widely used programming languages and is commonly used to programme operating systems such as Unix. It is a general-purpose programming langu.', 'Intermediate', 2334.99);
 --insert into courses(name, icon, description, level, price) values ('HTML for Kids', 'html.png', 'If you have studied the Introduction to Programming in C course available on ALISON it is now time to further enhance your C programming skills by studying numbers, variables and arrays and the funct..', 'Beginner', 239.99);

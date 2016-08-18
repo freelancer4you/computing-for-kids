@@ -30,15 +30,17 @@ import de.goldmann.apps.root.services.UserService;
 @Controller
 @RequestMapping("/user")
 public class AuthenticationController {
+
     private static final Logger LOGGER = LogManager.getLogger(AuthenticationController.class);
+
     private final UserService userService;
     private final UserActivityReport activityReport;
 
     @Autowired
     public AuthenticationController(final UserService userService, @Lazy final UserActivityReport activityReport) {
         this.userService = Objects.requireNonNull(userService, "Parameter 'userService' darf nicht null sein.");
-
         this.activityReport = activityReport;
+
     }
 
     @ExceptionHandler(Exception.class)
@@ -60,7 +62,6 @@ public class AuthenticationController {
             if (activityReport != null) {
                 this.activityReport.registered(storedUser);
             }
-
         }
         catch (final JsonParseException e) {
             // TODO unzureichende Fehlerbehandlung

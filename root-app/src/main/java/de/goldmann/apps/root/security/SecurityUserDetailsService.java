@@ -21,6 +21,7 @@ import de.goldmann.apps.root.services.UserActivityReport;
 
 @Service
 public class SecurityUserDetailsService implements UserDetailsService {
+
     private static final Logger LOGGER = LogManager.getLogger(SecurityUserDetailsService.class);
 
     private final UserRepository userRepository;

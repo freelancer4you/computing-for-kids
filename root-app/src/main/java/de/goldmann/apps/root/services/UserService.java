@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
 
@@ -48,11 +47,6 @@ public class UserService {
         final String email = userDto.getEmail();
         final String password = userDto.getPassword();
 
-        // TODO needs to be send by Client
-        userDto.setAdress(new Adress("street", "postcode", "city"));
-        // TODO needs to be send by Client
-        userDto.setPhoneNumber("fsdfs");
-
         assertNotBlank(username, "Username cannot be empty.");
         assertMinimumLength(username, 6, "Username must have at least 6 characters.");
         assertNotBlank(email, "Email cannot be empty.");
@@ -60,6 +54,7 @@ public class UserService {
         assertNotBlank(password, "Password cannot be empty.");
         assertMatches(password, PASSWORD_REGEX,
                 "Password must have at least 6 characters, with 1 numeric and 1 uppercase character.");
+        // TODO weitere Felder pruefen
 
         // if (!userRepository.isUsernameAvailable(username))
         // {

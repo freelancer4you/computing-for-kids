@@ -14,13 +14,15 @@ public class UserDTO implements Serializable {
     private String phoneNumber;
     private Adress adress;
     private String registrationDate;
-
+    private String            childName;
+    private String            childAge;
 
     public UserDTO() {
     }
 
     public UserDTO(final String firstName, final String lastName, final String userName, final String email,
-            final String password, final String phoneNumber, final Adress adress, final String registration) {
+            final String password, final String phoneNumber, final Adress adress, final String registration,
+            final String childName, final String childAge) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -29,6 +31,9 @@ public class UserDTO implements Serializable {
         this.adress = adress;
         this.phoneNumber = phoneNumber;
         this.registrationDate = registration;
+        this.childName = childName;
+        this.childAge = childAge;
+
     }
 
     public String getFirstName() {
@@ -69,6 +74,14 @@ public class UserDTO implements Serializable {
 
     public String getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getChildName() {
+        return childName;
+    }
+
+    public String getChildAge() {
+        return childAge;
     }
 
 }

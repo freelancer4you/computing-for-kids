@@ -53,10 +53,15 @@ public class User implements Serializable {
     @Embedded
     private PostAdress adresse;
 
-	@Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "registration", nullable = false)
-	private Date registrationDate;
+    private Date registrationDate;
 
+    @Column(name = "childname", nullable = true)
+    private String            childName;
+
+    @Column(name = "childage", nullable = true)
+    private String            childAge;
 
     public User() {
     }
@@ -73,12 +78,13 @@ public class User implements Serializable {
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
         final Adress adress = user.getAdress();
-        this.adresse = new PostAdress(adress.getStreet(), adress.getPostcode(), adress.getCity());
+        this.adresse = new PostAdress(adress.getStreet(), adress.getZipcode(), adress.getCity(), adress.getHouseNr());
         this.role = role;
-        LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
-
-		this.registrationDate = Date.from(zdt.toInstant());
+        final LocalDateTime ldt = LocalDateTime.now();
+        final ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+        this.registrationDate = Date.from(zdt.toInstant());
+        this.childName = user.getChildName();
+        this.childAge = user.getChildAge();
     }
 
     public String getEmail() {
@@ -113,8 +119,16 @@ public class User implements Serializable {
         return role;
     }
 
-	public Date getRegistrationDate() {
+    public Date getRegistrationDate() {
         return registrationDate;
+    }
+
+    public String getChildName() {
+        return childName;
+    }
+
+    public String getChildAge() {
+        return childAge;
     }
 
     @Override
@@ -159,6 +173,5 @@ public class User implements Serializable {
                 + (role != null ? "role=" + role + ", " : "") + (adresse != null ? "adresse=" + adresse + ", " : "")
                 + (registrationDate != null ? "registrationDate=" + registrationDate : "") + "]";
     }
-
 
 }

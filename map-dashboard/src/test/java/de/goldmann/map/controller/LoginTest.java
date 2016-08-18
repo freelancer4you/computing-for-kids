@@ -126,7 +126,7 @@ public class LoginTest extends WebTest {
 
         final UserDTO userDTO = new UserDTO("goldi", "goldi", "username", "goldi23@freenet.de",
                 "$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.", "phone",
-                new Adress("street", "plz", "city"), "2016-08-15 15:20");
+                new Adress("street", "plz", "city", "8"), "2016-08-15 15:20", "Ali", "10");
         final User admin = new User(userDTO, UserRole.ADMIN);
 
         this.userRepository.save(admin);

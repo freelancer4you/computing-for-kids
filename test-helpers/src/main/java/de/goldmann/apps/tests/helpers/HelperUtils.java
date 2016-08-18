@@ -24,9 +24,9 @@ public class HelperUtils
         }
     }
 
-    public static void setInputValue(WebElement modalSingupDialog, String inputId, String value)
+    public static void setInputValue(WebElement elemet, String inputId, String value)
     {
-        WebElement lastNameInput = modalSingupDialog.findElement(By.id(inputId));
+        WebElement lastNameInput = elemet.findElement(By.id(inputId));
         lastNameInput.sendKeys(value);
     }
 }

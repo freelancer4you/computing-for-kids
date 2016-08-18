@@ -10,7 +10,8 @@
 
 	<hr style="background-color: #aa0000; height: 2px;" />
 
-	<form role="form" class="form-horizontal" ng-submit="register()" data-toggle="validator">
+	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="register()" data-toggle="validator">
+
 		<div class="form-group required">
 
 			<label for="firstName" class="col-sm-2 control-label">Vorname:</label>
@@ -36,7 +37,7 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="street"
-                    placeholder="Stra&szlig;e" ng-model="credentials.street"
+                    placeholder="Stra&szlig;e" ng-model="credentials.adress.street"
                     required="required" />
             </div>
 
@@ -44,7 +45,7 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="houseNr"
-                    placeholder="Hausnummer" ng-model="credentials.houseNr"
+                    placeholder="Hausnummer" ng-model="credentials.adress.houseNr"
                     required="required" />
             </div>
         </div>
@@ -55,7 +56,8 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="zipcode"
-                    placeholder="PLZ" ng-model="credentials.zipcode"
+                    placeholder="PLZ" ng-model="credentials.adress.zipcode"
+
                     required="required" />
             </div>
 
@@ -63,9 +65,21 @@
 
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="city"
-                    placeholder="Hausnummer" ng-model="credentials.city"
+                    placeholder="Hausnummer" ng-model="credentials.adress.city"
                     required="required" />
             </div>
+        </div>
+        
+        <div class="form-group required">
+
+            <label for="phonenumber" class="col-sm-2 control-label">Telefon:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="phonenumber"
+                    placeholder="Telefon" ng-model="credentials.phoneNumber"
+                    required="required" />
+            </div>
+
         </div>
 
 		<div class="form-group">
@@ -136,16 +150,17 @@
 
 		<div class="form-group">
 			<div class="col-sm-8">
-				<div class="checkbox" style="float: right;">
-					<label> <input type="checkbox" id="termAggreement"
-						required="required">Ich erkenne die <a href="#">Allgemeinen Gesch&auml;ftsbedingungen</a> an.</input>
+				<div class="checkbox" style="float: right;" required="required">
+					<label> 
+					   <input type="checkbox" id="termAggreement">Ich erkenne die <a href="#">Allgemeinen Gesch&auml;ftsbedingungen</a> an.</input>
 					</label>
 				</div>
 			</div>
 
 			<div class="col-sm-4">
-				<div class="checkbox" style="float: right;">
-					<label> <input type="checkbox" id="featureUpdates" />Ich nehme die Widerrufsbelehrung zur Kenntnis.
+				<div class="checkbox" style="float: right;" required="required">
+					<label> 
+					   <input type="checkbox" id="featureUpdates" />Ich nehme die Widerrufsbelehrung zur Kenntnis.
 					</label>
 				</div>
 			</div>
@@ -157,7 +172,7 @@
 		    </div>
 		    
 		    <div class="col-sm-1">
-		        <button class="btn btn-primary" type="submit" style="float: right;" id="commitSignUpBtn">Anmelden</button>
+		        <button class="btn btn-primary" type="submit" style="float: right;" id="singUpBtn">Anmelden</button>
 			</div>
 		</div>
        
