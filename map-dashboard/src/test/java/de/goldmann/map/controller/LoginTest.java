@@ -16,7 +16,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.goldmann.apps.root.dao.CourseRepository;
-import de.goldmann.apps.root.dao.ScheduleRepository;
 import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.User;
@@ -72,9 +71,6 @@ public class LoginTest extends WebTest {
 
     @Autowired
     private CourseRepository courseRepo;
-
-    @Autowired
-    private ScheduleRepository scheduleRepository;
 
     @Test
     public void testLoginAsAdmin() {

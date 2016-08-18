@@ -136,7 +136,7 @@ function($rootScope, $scope, $http, $location) {
             method: 'POST',
             url: '/user',
             data: $scope.credentials,
-            params: {'course': course.name},
+            params: {'id': course.id},
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -233,8 +233,7 @@ module.controller('CourseCtrl',
 		            $http({
 		                method: 'GET',
 		                url: '/course/details',
-		                params: {'name': course.name}
-		                
+		                params: {'id': course.id}		                
 		            })
 		            .then(function (response) {
 		                if (response.status == 200) {

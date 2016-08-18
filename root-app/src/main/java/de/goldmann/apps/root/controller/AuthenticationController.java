@@ -65,13 +65,13 @@ public class AuthenticationController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void registerUser(@RequestBody final String payload, @RequestParam("course") final String courseName) {
+    public void registerUser(@RequestBody final String payload, @RequestParam("id") final String courseId) {
         final ObjectMapper mapper = new ObjectMapper();
 
         try {
             final UserDTO user = mapper.readValue(payload, UserDTO.class);
             final User storedUser = userService.createUser(user);
-            final Course course = courseRepo.findOne(courseName);
+            final Course course = courseRepo.findOne(courseId);
 
             this.courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 

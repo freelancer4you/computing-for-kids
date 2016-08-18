@@ -2,17 +2,14 @@ package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +19,9 @@ public class Course implements Serializable {
     private static final long serialVersionUID = 6500153552902318705L;
 
     @Id
+    private String            id;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "icon", nullable = false)
@@ -35,8 +35,8 @@ public class Course implements Serializable {
     @Column(name = "level", nullable = false)
     private Level level;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-    private Set<Schedule> schedules;
+    @Embedded
+    private Schedule          schedule;
 
     @Column(name = "price", nullable = false)
     private double price;
@@ -83,8 +83,20 @@ public class Course implements Serializable {
         return level;
     }
 
-    public Set<Schedule> getSchedules() {
-        return schedules;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     public double getPrice() {
@@ -100,18 +112,22 @@ public class Course implements Serializable {
     }
 
     public CourseDetails getDetails() {
-		return details;
-	}
+        return details;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 67 * hash + Objects.hashCode(this.name);
-        return hash;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (id == null ? 0 : id.hashCode());
+        return result;
     }
 
     @Override
     public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -119,8 +135,12 @@ public class Course implements Serializable {
             return false;
         }
         final Course other = (Course) obj;
-
-        if (!Objects.equals(this.name, other.name)) {
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        }
+        else if (!id.equals(other.id)) {
             return false;
         }
         return true;
@@ -128,11 +148,13 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Course [" + (name != null ? "name=" + name + ", " : "") + (icon != null ? "icon=" + icon + ", " : "")
+        return "Course [" + (id != null ? "id=" + id + ", " : "") + (name != null ? "name=" + name + ", " : "")
+                + (icon != null ? "icon=" + icon + ", " : "")
                 + (description != null ? "description=" + description + ", " : "")
-                + (level != null ? "level=" + level + ", " : "") + "price=" + price + ", "
+                + (level != null ? "level=" + level + ", " : "")
+                + (schedule != null ? "schedule=" + schedule + ", " : "") + "price=" + price + ", "
                 + (requirements != null ? "requirements=" + requirements + ", " : "")
-                + (place != null ? "place=" + place : "") + "]";
+                + (place != null ? "place=" + place + ", " : "") + (details != null ? "details=" + details : "") + "]";
     }
 
 }

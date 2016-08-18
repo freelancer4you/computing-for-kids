@@ -10,13 +10,14 @@ spring:
     mail:
       # TODO Benutze ZOHO-Account zum Versenden der Emails. zoho funktioniert nicht, googlemail funktioniert
       host: smtp.strato.de
-      password: n5WEmRsGXuU/xWkGDs8rWw==
+      #password: n5WEmRsGXuU/xWkGDs8rWw==
       username: info@andre-goldmann.de
       port: 465
       from: info@computing-for-kids.de
       subject: Registration
 logging:
   level:
+    com.ulisesbocchio.jasyptspringboot: DEBUG
     org.springframework.security: WARN
     org.hibernate.SQL: WARN
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
@@ -28,4 +29,14 @@ server:
 #spring.datasource.url = jdbc:h2:file:${biking2.database-file:${user.dir}/var/dev/db/biking-dev};FILE_LOCK=FS
 #spring.datasource.username = ${biking2.database-username:biking2}
 #spring.datasource.password = ${biking2.database-password:biking2}
-#spring.datasource.driverClassName = org.h2.Driver             
+#spring.datasource.driverClassName = org.h2.Driver
+
+# Replace with your connection string
+#spring.datasource.driverClassName=com.mysql.jdbc.Driver
+#spring.datasource.url=jdbc:mysql://localhost:3306/userbase
+#spring.datasource.username=root
+#spring.datasource.password=root
+#spring.jpa.database-platform = org.hibernate.dialect.MySQL5Dialect
+#spring.jpa.show-sql = true
+# Hibernate
+#spring.jpa.hibernate.ddl-auto=update             

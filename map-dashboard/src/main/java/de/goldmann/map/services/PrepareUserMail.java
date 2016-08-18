@@ -22,7 +22,7 @@ public class PrepareUserMail {
     public String prepare(final User user, final Course course) throws IOException {
         final URL url = Resources.getResource("registrationMail.html");
         final String templateContent = Resources.toString(url, Charsets.UTF_8);
-        final Schedule schedule = course.getSchedules().iterator().next();
+        final Schedule schedule = course.getSchedule();
         final Date registrationDate = user.getRegistrationDate();
         final SimpleDateFormat dayFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");

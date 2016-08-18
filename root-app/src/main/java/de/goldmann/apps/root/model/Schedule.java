@@ -2,121 +2,105 @@ package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "schedules")
+@Embeddable
 public class Schedule implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Column(name = "begindate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date begin;
 
-	@Column(name = "begindate", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date begin;
+    @Column(name = "enddate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date end;
 
-	@Column(name = "enddate", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date end;
+    // private String[] days;
 
-	// private String[] days;
+    Schedule() {
+    }
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "COURSE_NAME")
-	private Course course;
+    // public Schedule(Date begin, Date end, String... days) {
+    public Schedule(final Date begin, final Date end) {
+        this.begin = begin;
+        this.end = end;
+    }
 
-	Schedule() {
-	}
+    public Date getBegin() {
+        return begin;
+    }
 
-	// public Schedule(Date begin, Date end, String... days) {
-	public Schedule(Date begin, Date end) {
-		UUID idOne = UUID.randomUUID();
-		this.id = idOne.getMostSignificantBits();
-		this.begin = begin;
-		this.end = end;
-		// this.days = days;
-	}
+    public void setBegin(final Date begin) {
+        this.begin = begin;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Date getEnd() {
+        return end;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setEnd(final Date end) {
+        this.end = end;
+    }
 
-	public Date getBegin() {
-		return begin;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (begin == null ? 0 : begin.hashCode());
+        result = prime * result + (end == null ? 0 : end.hashCode());
+        return result;
+    }
 
-	public void setBegin(Date begin) {
-		this.begin = begin;
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Schedule other = (Schedule) obj;
+        if (begin == null) {
+            if (other.begin != null) {
+                return false;
+            }
+        }
+        else if (!begin.equals(other.begin)) {
+            return false;
+        }
+        if (end == null) {
+            if (other.end != null) {
+                return false;
+            }
+        }
+        else if (!end.equals(other.end)) {
+            return false;
+        }
+        return true;
+    }
 
-	public Date getEnd() {
-		return end;
-	}
+    @Override
+    public String toString() {
+        return "Schedule [" + (begin != null ? "begin=" + begin + ", " : "") + (end != null ? "end=" + end : "") + "]";
+    }
 
-	public void setEnd(Date end) {
-		this.end = end;
-	}
+    // public String[] getDays() {
+    // return days;
+    // }
+    //
+    // public void setDays(String[] days) {
+    // this.days = days;
+    // }
 
-	public Course getCourse() {
-		return course;
-	}
 
-	public void setCourse(Course course) {
-		this.course = course;
-	}
-
-	// public String[] getDays() {
-	// return days;
-	// }
-	//
-	// public void setDays(String[] days) {
-	// this.days = days;
-	// }
-
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are
-		// not set
-		if (!(object instanceof Schedule)) {
-			return false;
-		}
-		Schedule other = (Schedule) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Schedule [" + (begin != null ? "begin=" + begin + ", " : "") + (end != null ? "end=" + end + ", " : "")
-				+ (course != null ? "course=" + course : "") + "]";
-	}
 
 }

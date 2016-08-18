@@ -7,5 +7,4 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = { "de.goldmann.apps.root.services" })
 public class TestConfig {
 
-
 }
