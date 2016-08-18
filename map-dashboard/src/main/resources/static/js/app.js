@@ -1,8 +1,14 @@
 'use strict';
 
-var module = angular.module("MapApp", ['ngRoute', 'dateModule', 'adminModule']).config(function($routeProvider, $httpProvider) {
-    
+var module = angular.module("MapApp", ['ngRoute', 'adminModule'])
+	.config(function($routeProvider, $httpProvider, $locationProvider) {
+	
+//	$locationProvider.html5Mode(true);	
+		
     $routeProvider
+    .when('/', {
+		templateUrl : 'partials/index.html'		
+	})
     .when('/home', {
         templateUrl : 'partials/index.html'
     })
@@ -47,7 +53,7 @@ var module = angular.module("MapApp", ['ngRoute', 'dateModule', 'adminModule']).
         templateUrl : "partials/admin/index.html",
         controller: 'AdminAreaCtrl'    
     })
-    .otherwise('/home');
+    .otherwise('/');
     
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 }).controller('navigation',
@@ -130,31 +136,6 @@ function($rootScope, $scope, $http, $location) {
         });
     };
     
-    $scope.register = function(course) {
-       
-        $http({
-            method: 'POST',
-            url: '/user',
-            data: $scope.credentials,
-            params: {'id': course.id},
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "text/plain"
-            }
-        })
-        .then(function (response) {
-            if (response.status == 200) {
-            	$location.path("/courses/register/sucess");
-            }
-            else {
-                $scope.vm.errorMessages = [];
-                $scope.vm.errorMessages.push({description: response.data});
-                $rootScope.authenticated = false;
-                console.log("failed user creation: " + response.data);
-            }
-        });        
-    };
-
     $scope.logout = function() {
         
         $http({
@@ -177,7 +158,7 @@ function($rootScope, $scope, $http, $location) {
     
 });
 
-module.controller('CourseCtrl',
+module.controller('CoursesCtrl',
 
 	function($rootScope, $scope, $http, $location) {
 			
@@ -186,48 +167,62 @@ module.controller('CourseCtrl',
 			// /courses/pfad z.B. /courses/kids
 			// dann muss aber wahrscheinlich der Controller verschoben werden
 			//$scope.listCourses = function(path) {
-		        
-		        $http({
-		            method: 'GET',
-		            url: '/listCourses'
-		        })
-		        .then(function (response) {
-		            if (response.status == 200) {
-		                
-		            	var courses = response.data;
-		                
-		                if(courses !== undefined){
-		                  for(var i = 0; i < courses.length; i++){
-		                      var course = courses[i];
-		                      var schedules = course.schedules;
-		                      if(schedules !== undefined){
-		                        for(var j = 0; j < schedules.length; j++){
-		                            var schedule = schedules[j];
-		                            schedule.begin = formatTimeStamp(schedule.begin);
-		                            schedule.end = formatTimeStamp(schedule.end);  
-		                            var days = schedule.days;
-		                            schedule.daysAsString  = "";
-		                            if( days !== undefined) {
-		          	                  for(var l = 0; l < days.length; l++){
-		          	                     schedule.daysAsString += days[l];
-		          	                  }
-		                            }
-		                        }
-		                      }          
-		                  }
-		                  $scope.courses = courses; 
-		                }
-		            	
-		                $location.path("/courses/kids");
-		               
-		                console.log("Successfully loaded courses");
-		            }
-		            else {
-		                console.log("Logout failed!");
-		            }
-		        });        
-		    //};
-		  
+			$scope.listCourses = function() {
+		        if($rootScope.courses == undefined){
+			        $http({
+			            method: 'GET',
+			            url: '/listCourses'
+			        })
+			        .then(function (response) {
+			            if (response.status == 200) {
+			                
+			            	var courses = response.data;
+			                
+			                if(courses !== undefined){
+			                  for(var i = 0; i < courses.length; i++){
+			                      var course = courses[i];
+			                      var schedules = course.schedules;
+			                      if(schedules !== undefined){
+			                        for(var j = 0; j < schedules.length; j++){
+			                            var schedule = schedules[j];
+			                            schedule.begin = formatTimeStamp(schedule.begin);
+			                            schedule.end = formatTimeStamp(schedule.end);  
+			                            var days = schedule.days;
+			                            schedule.daysAsString  = "";
+			                            if( days !== undefined) {
+			          	                  for(var l = 0; l < days.length; l++){
+			          	                     schedule.daysAsString += days[l];
+			          	                  }
+			                            }
+			                        }
+			                      }          
+			                  }
+			                  $rootScope.courses = courses; 
+			                  //$scope.courses = courses; 
+			                }
+			            	
+			                //$location.path("/courses/kids");
+			               
+	//		                console.log("Successfully loaded courses:");
+	//		                console.log($scope.courses);
+			            }
+			            else {
+			                console.log("Logout failed!");
+			            }
+			        });
+		        }
+		        else{
+		        	console.log("Courses allready loaded.");
+		        	//$location.path("/courses/kids");
+		        }
+		    };
+	}
+);
+
+module.controller('CourseDetailsCtrl',
+
+		function($rootScope, $scope, $http, $location) {
+				
 		        $scope.showDetails = function(course) {
 		            
 		            $http({
@@ -237,7 +232,7 @@ module.controller('CourseCtrl',
 		            })
 		            .then(function (response) {
 		                if (response.status == 200) {
-		                	console.log("Successfully loaded details");
+//		                	console.log("Successfully loaded details");
 		                	$rootScope.course = course;
 			            	$rootScope.course.details = response.data;
 			            	// TODO hier sollte auch das Routing stattfinden
@@ -255,8 +250,33 @@ module.controller('CourseCtrl',
 		        	console.log("switch to register page")
 	            	$location.path("/courses/register");
 		        };
-	}
-);
+		        
+		        $scope.register = function(course) {
+		            
+		            $http({
+		                method: 'POST',
+		                url: '/user',
+		                data: $scope.credentials,
+		                params: {'id': course.id},
+		                headers: {
+		                    "Content-Type": "application/json",
+		                    "Accept": "text/plain"
+		                }
+		            })
+		            .then(function (response) {
+		                if (response.status == 200) {
+		                	$location.path("/courses/register/sucess");
+		                }
+		                else {
+		                    $scope.vm.errorMessages = [];
+		                    $scope.vm.errorMessages.push({description: response.data});
+		                    $rootScope.authenticated = false;
+		                    console.log("failed user creation: " + response.data);
+		                }
+		            });        
+		        };
+		}
+	);
 
 function formatTimeStamp(timeStamp){    
     if(timeStamp === undefined){

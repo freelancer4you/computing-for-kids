@@ -7,7 +7,6 @@ import static de.goldmann.map.UIConstants.COURSES_REQUEST_PATH;
 import java.io.IOException;
 import java.util.Date;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,13 +37,12 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import de.goldmann.apps.root.security.AjaxAuthenticationSuccessHandler;
 import de.goldmann.apps.root.security.CsrfHeaderFilter;
 import de.goldmann.apps.root.services.VisitorsCounter;
+import de.goldmann.map.UIConstants;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    private static final String USER_PATH       = "/user";
 
     private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
@@ -88,9 +86,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/partials/courses/register/index.html").permitAll()
         .antMatchers("/partials/courses/register/success.html").permitAll()
         .antMatchers("/partials/courses/details/**").permitAll()
-        .antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
+        .antMatchers("/index.html", "/modalLogin.htm", "/", "/modalSignup.html", "/home",
                 "/partials/index.html").permitAll()
-        .antMatchers(HttpMethod.POST, USER_PATH).permitAll()
+        .antMatchers(HttpMethod.POST, UIConstants.USER_PATH).permitAll()
         .antMatchers(HttpMethod.GET, COURSES_REQUEST_PATH).permitAll()
         .antMatchers(HttpMethod.GET, COURSES_DETAILS_REQUEST_PATH).permitAll()
 
@@ -133,7 +131,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     static class CustomAccessDeniedHandler implements AccessDeniedHandler {
         @Override
         public void handle(final HttpServletRequest request, final HttpServletResponse response,
-                final AccessDeniedException accessDeniedException) throws IOException, ServletException {
+                final AccessDeniedException accessDeniedException) throws IOException {
             LOGGER.warn("Arrived in custom access denied handler.");
             final HttpSession session = request.getSession();
             LOGGER.info("Session is " + session);

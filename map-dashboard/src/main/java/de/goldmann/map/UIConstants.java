@@ -16,4 +16,6 @@ public class UIConstants {
 
     public static final String COURSES_KIDS_PATH = "/#/courses/kids";
 
+    public static final String  USER_PATH = "/user";
+
 }

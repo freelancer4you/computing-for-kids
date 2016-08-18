@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "courses")
+// @Cache(region = "coursesCache", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 6500153552902318705L;
@@ -115,11 +116,11 @@ public class Course implements Serializable {
         return details;
     }
 
-    public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(final String description) {
+        this.description = description;
+    }
 
-	@Override
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
