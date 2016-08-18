@@ -301,3 +301,22 @@ tr.kurstage.alt                   { background-color:#C5C6C8; }
     width: 100%; 
     height: 100%;
 }
+
+
+:hov
+
+
+.cls
+
+element.style {
+}
+div#mainInner h2 {
+    color: #575759;
+    padding: 0;
+}
+h1.csc-firstHeader {
+    font-size: 22px;
+    color: #575759;
+    padding: 0px 0 5px 0px !important;
+    margin: 0;
+}

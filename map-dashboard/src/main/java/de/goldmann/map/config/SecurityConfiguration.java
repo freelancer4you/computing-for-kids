@@ -44,123 +44,125 @@ import de.goldmann.map.UIConstants;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
+	private static final Logger LOGGER = LogManager.getLogger(SecurityConfiguration.class);
 
-    @Autowired
-    @Lazy
-    private VisitorsCounter visitorsCounter;
+	@Autowired
+	@Lazy
+	private VisitorsCounter visitorsCounter;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+	@Autowired
+	private UserDetailsService userDetailsService;
 
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-    }
+	@Autowired
+	public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService);
+	}
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-    }
+	@Override
+	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+	}
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
+	@Override
+	protected void configure(final HttpSecurity http) throws Exception {
 
-        final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
-        http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository());
+		final CsrfHeaderFilter csrfTokenFilter = new CsrfHeaderFilter(visitorsCounter);
+		http.addFilterAfter(csrfTokenFilter, CsrfFilter.class).csrf().csrfTokenRepository(csrfTokenRepository());
 
-        // @formatter:off
-        http.authorizeRequests()
-        // Nur ohne Login erlaubte URLS
-        .antMatchers("/app/**").permitAll()
-        .antMatchers("/img/**").permitAll()
-        // TODO nicht alle JS-Skripte sollte erlaubt sein
-        .antMatchers("/js/**").permitAll()
-        .antMatchers("/fonts/**").permitAll()
-        .antMatchers("/css/**").permitAll()
-        .antMatchers("/partials/about/index.html").permitAll()
-        .antMatchers("/partials/contact/index.html").permitAll()
-        .antMatchers("/partials/courses/index.html").permitAll()
-        .antMatchers("/partials/courses/kids/index.html").permitAll()
-        .antMatchers("/partials/courses/teachers/index.html").permitAll()
-        .antMatchers("/partials/courses/register/index.html").permitAll()
-        .antMatchers("/partials/courses/register/success.html").permitAll()
-        .antMatchers("/partials/courses/details/**").permitAll()
-        .antMatchers("/index.html", "/modalLogin.htm", "/", "/modalSignup.html", "/home",
-                "/partials/index.html").permitAll()
-        .antMatchers(HttpMethod.POST, UIConstants.USER_PATH).permitAll()
-        .antMatchers(HttpMethod.GET, COURSES_REQUEST_PATH).permitAll()
-        .antMatchers(HttpMethod.GET, COURSES_DETAILS_REQUEST_PATH).permitAll()
+		// @formatter:off
+		http.authorizeRequests()
+		// Nur ohne Login erlaubte URLS
+		.antMatchers("/app/**").permitAll()
+		.antMatchers("/img/**").permitAll()
+		// TODO nicht alle JS-Skripte sollte erlaubt sein
+		.antMatchers("/js/**").permitAll()
+		.antMatchers("/fonts/**").permitAll()
+		.antMatchers("/css/**").permitAll()
+		.antMatchers("/partials/about/index.html").permitAll()
+		.antMatchers("/partials/contact/index.html").permitAll()
+		.antMatchers("/partials/courses/index.html").permitAll()
+		.antMatchers("/partials/courses/kids/index.html").permitAll()
+		.antMatchers("/partials/courses/teachers/index.html").permitAll()
+		.antMatchers("/partials/courses/register/index.html").permitAll()
+		.antMatchers("/partials/courses/register/success.html").permitAll()
+		.antMatchers("/partials/courses/details/**").permitAll()
+		.antMatchers("/partials/courses/register/modalAgb.htm").permitAll()
+		.antMatchers("/partials/courses/register/modalDisclaimer.htm").permitAll()
+		.antMatchers("/index.html", "/modalLogin.htm", "/",  "/home",
+				"/partials/index.html").permitAll()
+		.antMatchers(HttpMethod.POST, UIConstants.USER_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, COURSES_REQUEST_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, COURSES_DETAILS_REQUEST_PATH).permitAll()
 
-        .anyRequest().authenticated().and()
+		.anyRequest().authenticated().and()
 
-        .formLogin()
-        .defaultSuccessUrl("/")
-        .loginProcessingUrl("/authenticate")
-        .usernameParameter("username")
-        .passwordParameter("password")
-        .successHandler(
-                new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
-        .and()
-        .httpBasic()
-        .and()
-        .logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
+		.formLogin()
+		.defaultSuccessUrl("/")
+		.loginProcessingUrl("/authenticate")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.successHandler(
+				new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
+		.and()
+		.httpBasic()
+		.and()
+		.logout().logoutUrl("/logout").logoutSuccessUrl("/").permitAll();
 
-        final CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
-        http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+		final CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+		http.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 
-        http.sessionManagement()
-        .maximumSessions(1)
-        // TODO this is not mapped yet
-        .expiredUrl("/login?expired")
-        // TODO should this be set to true, if yes then LoginTest will fail
-        .maxSessionsPreventsLogin(false)
-        .and()
-        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
-        // @formatter:on
+		http.sessionManagement()
+		.maximumSessions(1)
+		// TODO this is not mapped yet
+		.expiredUrl("/login?expired")
+		// TODO should this be set to true, if yes then LoginTest will fail
+		.maxSessionsPreventsLogin(false)
+		.and()
+		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
+		// @formatter:on
 
-    }
+	}
 
-    private CsrfTokenRepository csrfTokenRepository() {
-        final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        repository.setHeaderName("X-XSRF-TOKEN");
-        repository.setSessionAttributeName("_csrf");
-        return repository;
-    }
+	private CsrfTokenRepository csrfTokenRepository() {
+		final HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
+		repository.setHeaderName("X-XSRF-TOKEN");
+		repository.setSessionAttributeName("_csrf");
+		return repository;
+	}
 
-    static class CustomAccessDeniedHandler implements AccessDeniedHandler {
-        @Override
-        public void handle(final HttpServletRequest request, final HttpServletResponse response,
-                final AccessDeniedException accessDeniedException) throws IOException {
-            LOGGER.warn("Arrived in custom access denied handler.");
-            final HttpSession session = request.getSession();
-            LOGGER.info("Session is " + session);
-            LOGGER.info("Session id = " + session.getId());
-            LOGGER.info("Session max interval=" + session.getMaxInactiveInterval());
-            LOGGER.info("Session last used=" + session.getLastAccessedTime());
-            LOGGER.info("Time now=" + new Date().getTime());
+	static class CustomAccessDeniedHandler implements AccessDeniedHandler {
+		@Override
+		public void handle(final HttpServletRequest request, final HttpServletResponse response,
+				final AccessDeniedException accessDeniedException) throws IOException {
+			LOGGER.warn("Arrived in custom access denied handler.");
+			final HttpSession session = request.getSession();
+			LOGGER.info("Session is " + session);
+			LOGGER.info("Session id = " + session.getId());
+			LOGGER.info("Session max interval=" + session.getMaxInactiveInterval());
+			LOGGER.info("Session last used=" + session.getLastAccessedTime());
+			LOGGER.info("Time now=" + new Date().getTime());
 
-            LOGGER.info("csrf:");
-            final Object csrf = request.getAttribute("_csrf");
+			LOGGER.info("csrf:");
+			final Object csrf = request.getAttribute("_csrf");
 
-            if (csrf == null) {
-                LOGGER.info("csrf is null");
-            }
-            else {
-                LOGGER.info(csrf.toString());
-                if (csrf instanceof DefaultCsrfToken) {
-                    final DefaultCsrfToken token = (DefaultCsrfToken) csrf;
-                    LOGGER.info("Parm name " + token.getParameterName());
-                    LOGGER.info("Token " + token.getToken());
-                }
+			if (csrf == null) {
+				LOGGER.info("csrf is null");
+			}
+			else {
+				LOGGER.info(csrf.toString());
+				if (csrf instanceof DefaultCsrfToken) {
+					final DefaultCsrfToken token = (DefaultCsrfToken) csrf;
+					LOGGER.info("Parm name " + token.getParameterName());
+					LOGGER.info("Token " + token.getToken());
+				}
 
-            }
-            LOGGER.info("Request:");
-            LOGGER.info(request.toString());
-            LOGGER.info("Response:");
-            LOGGER.info(response.toString());
-            LOGGER.info("Exception:");
-            LOGGER.info(accessDeniedException.toString());
-        }
-    }
+			}
+			LOGGER.info("Request:");
+			LOGGER.info(request.toString());
+			LOGGER.info("Response:");
+			LOGGER.info(response.toString());
+			LOGGER.info("Exception:");
+			LOGGER.info(accessDeniedException.toString());
+		}
+	}
 }

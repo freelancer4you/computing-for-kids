@@ -114,7 +114,7 @@ public class SignUpTest extends WebTest {
 			assertEquals(dto.getFirstName(), registeredUser.getFirstName());
 			assertEquals(dto.getLastName(), registeredUser.getLastName());
 			final CourseParticipant registrationEntry = courseParticipantRepository
-					.findOne(new CourseParticipantPK("Lego Programmierung", userMail));
+			        .findOne(new CourseParticipantPK("1", userMail));
 			assertNotNull("Es sollte ein Registrierungseintrag vorhanden sein:", registrationEntry);
 
 		}
