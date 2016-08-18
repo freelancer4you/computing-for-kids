@@ -25,6 +25,10 @@ var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 
         name : "Course-Details",
         templateUrl : "partials/courses/details/index.html",
     })
+    .when("/courses/suggest",  {
+        name : "Contact",
+        templateUrl : "partials/courses/suggest/index.html",
+    })
     .when("/about",  {
         name : "About",
         templateUrl : "partials/about/index.html",
@@ -223,20 +227,13 @@ module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scop
     
     $scope.showDetails = function(course) {
         //console.log("Search for course with name:" + courseName);
-        
-       // detailsService.clear();
-        
-        // TODO store course data in localstore and first try to load it from there
-        // if it can not be found load from remote
-        //var promise = $http.get('app/rest/chartConfigs/getById',{params: {'id': id}})	
+        	
         $http.get('/course/details', {params: {'name': course.name}}).then(function(response) {
         		detailsData.course = course;
                 detailsData.course.details = response.data;                
 //                console.log("Details:");
 //                console.log(detailsData.course);
-               //detailsService.addCourse(response);
-               //TODO do not animate, just scroll to the top
-               jQuery('body,html').animate({scrollTop:0}, 800);
+               
             } 
         );        
     };    

@@ -113,5 +113,4 @@ public class CourseDTO implements Serializable {
 		        + (requirements != null ? "requirements=" + requirements + ", " : "")
 		        + (place != null ? "place=" + place : "") + "]";
 	}
-
 }

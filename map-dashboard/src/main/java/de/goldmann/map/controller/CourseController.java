@@ -65,6 +65,6 @@ public class CourseController {
         final CourseDetails courseDetails = course.getDetails();
 
         return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
-                courseDetails.getAppointments());
+                courseDetails.getAppointments(), courseDetails.getDuration());
     }
 }

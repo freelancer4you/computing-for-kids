@@ -1,71 +1,71 @@
 <div class="element clearfix col1-1 courses-details" ng-controller="DetailsCtrl">
 
-	<ol class="breadcrumb">
-		<li><a href="#/">Home</a></li>
-		<li><a href="#/courses">Kurse</a></li>
-		<li><a href="#/courses/kids">Kinder</a></li>
-		<li class="active">{{course.course.name}}</li>
-	</ol>
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/courses">Kurse</a></li>
+        <li><a href="#/courses/kids">Kinder</a></li>
+        <li class="active">{{course.course.name}}</li>
+    </ol>
 
-	<hr style="background-color: #aa0000; height: 2px;" />
+    <hr style="background-color: #aa0000; height: 2px;" />
 
-	<div class="panel-group" id="accordion">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						data-target="#collapse1" class="accordion-title"> Allgemein</a>
-				</h4>
-			</div>
-			<div id="collapse1" class="panel-collapse collapse in">
-				<div class="panel-body">
-				    
-				    <p style="font-size: medium;"><strong>{{course.course.name}}</strong></p>					
-					
-					<p><strong>Mitzubringen / Materialien</strong></p>
-					<p>Lehrbuch: Perspectivas ¡Ya! A2, Cornelsen ISBN 978-3-464-20489-4, ca. ab Lektion 5</p>
-					
-					<p><strong>Kursdaten</strong></p>
-					<p><strong>Zeitraum: </strong>{{course.course.schedules[0].begin}} bis {{course.course.schedules[0].end}}</p>
-					<p><strong>Dauer: </strong>18 Termine Veranstaltung(en), 54 Unterrichtseinheit(en)</p>
-					<p><strong>Kursleitung: </strong>Monika Grabow</p>
-					<p><strong>Kursort: </strong>{{course.course.place}}</p>
-					<p><strong>Kursentgelt: </strong>{{course.course.price}} €
-					<p><strong>Dokumente zum Herunterladen: </strong>Für diesen Kurs sind keine Dokumente vorhanden.</p>
-				
-				
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						data-target="#collapse2" class="accordion-title"> Termine</a>
-				</h4>
-			</div>
-			<div id="collapse2" class="panel-collapse collapse">
-				<div class="panel-body">
-				    <div ng-include="course.course.details.appointments"></div>
-				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						data-target="#collapse3" class="accordion-title"> Inhalt </a>
-				</h4>
-			</div>
-			<div id="collapse3" class="panel-collapse collapse">
-				<div class="panel-body">
-					<div ng-include="course.course.details.curriculum"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<table style="width: 30%; float: right;" >
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                        data-target="#collapse1" class="accordion-title"> Allgemein</a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    
+                    <p style="font-size: medium;"><strong>{{course.course.name}}</strong></p>                   
+                    
+                    <p><strong>Mitzubringen / Materialien</strong></p>
+                    <p>Lehrbuch: Perspectivas ¡Ya! A2, Cornelsen ISBN 978-3-464-20489-4, ca. ab Lektion 5</p>
+                    
+                    <p><strong>Kursdaten</strong></p>
+                    <p><strong>Zeitraum: </strong>{{course.course.schedules[0].begin}} bis {{course.course.schedules[0].end}}</p>
+                    <p><strong>Dauer: </strong>{{course.course.duration}}</p>
+                    <p><strong>Kursleitung: </strong>TODO</p>
+                    <p><strong>Kursort: </strong>{{course.course.place}}</p>
+                    <p><strong>Kursentgelt: </strong>{{course.course.price}} €
+                    <p><strong>Dokumente zum Herunterladen: </strong>Für diesen Kurs sind keine Dokumente vorhanden.</p>
+                
+                
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                        data-target="#collapse2" class="accordion-title"> Termine</a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div ng-include="course.course.details.appointments"></div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                        data-target="#collapse3" class="accordion-title"> Inhalt </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div ng-include="course.course.details.curriculum"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <table style="width: 30%; float: right;" >
         <tr>
             <td width="45%">
                 <a href="#/courses/kids" class="dark_button width-150px">Zur&uuml;ck</a>                                    
