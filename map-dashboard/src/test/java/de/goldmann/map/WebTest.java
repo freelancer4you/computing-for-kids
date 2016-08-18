@@ -1,4 +1,4 @@
-package de.goldmann.map.controller;
+package de.goldmann.map;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -72,15 +72,15 @@ public abstract class WebTest {
     }
 
     protected void logout(final FluentWait<WebDriver> wait) {
-        final WebElement logoutBtn = wait.until(new VisibilityFunction("logoutBtn"));
+        final WebElement logoutBtn = wait.until(new VisibilityFunction(By.id("logoutBtn")));
         logoutBtn.click();
     }
 
     protected void login(final FluentWait<WebDriver> wait, final UserDTO dto) {
-        final WebElement singUpBtn = wait.until(new VisibilityFunction("loginBtn"));
+        final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("loginBtn")));
         singUpBtn.click();
 
-        final WebElement loginModal = wait.until(new VisibilityFunction("modalLogin"));
+        final WebElement loginModal = wait.until(new VisibilityFunction(By.id("modalLogin")));
 
         HelperUtils.setInputValue(loginModal, "username", dto.getEmail());
         HelperUtils.setInputValue(loginModal, "password", dto.getPassword());

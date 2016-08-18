@@ -232,5 +232,21 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
 /* End Courses
 --------------------------------------------------------------------------------------------------------*/
 
-/* Hintergrund des Carousels */
-background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
+/* Control-Background Carousels */
+.carousel-control.right {
+    left: auto;
+    right: 0;
+    background-image: -webkit-linear-gradient(left, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
+    background-image: -o-linear-gradient(left, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
+    background-image: linear-gradient(to right, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
+}
+
+.carousel-control.left {
+    background-image: -webkit-linear-gradient(left, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
+    background-image: -o-linear-gradient(left, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
+    background-image: linear-gradient(to right, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
+}

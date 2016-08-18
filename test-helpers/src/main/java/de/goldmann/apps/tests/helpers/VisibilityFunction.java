@@ -8,16 +8,18 @@ import com.google.common.base.Function;
 
 public class VisibilityFunction implements Function<WebDriver, WebElement>
 {
-    private String id;
 
-    public VisibilityFunction(String id)
+    private final By searchedElement;
+
+    public VisibilityFunction(final By searchedElement)
     {
-        this.id = id;
+        this.searchedElement = searchedElement;
     }
 
-    public WebElement apply(WebDriver driver)
+    @Override
+    public WebElement apply(final WebDriver driver)
     {
-        return driver.findElement(By.id(id));
+        return driver.findElement(searchedElement);
     }
 
 }

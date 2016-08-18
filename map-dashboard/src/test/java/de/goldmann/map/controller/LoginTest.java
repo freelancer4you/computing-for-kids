@@ -24,6 +24,7 @@ import de.goldmann.apps.root.model.UserRole;
 import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.map.UiApplication;
+import de.goldmann.map.WebTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
@@ -69,33 +70,33 @@ public class LoginTest extends WebTest {
         }
     }
 
-	@Autowired
-	private CourseRepository courseRepo;
+    @Autowired
+    private CourseRepository courseRepo;
 
-	@Autowired
-	private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleRepository scheduleRepository;
 
     @Test
     public void testLoginAsAdmin() {
 
 
-		// Set<Schedule> schedules = new HashSet<>();
-		// Schedule schedule = new Schedule(new Date(), new Date());
-		// scheduleRepository.save(schedule);
-		// schedules.add(schedule);
-		// Course course = new Course("name", "icon", "description",
-		// Level.Beginner, 5.0);
-		// this.courseRepo.save(course);
-		// this.courseRepo.findByName("name").getSchedules().add(schedule);
-		// this.courseRepo.save(course);
-		//
-		// List<Course> courses = this.courseRepo.findAll();
-		// for (Course c : courses) {
-		//
-		// System.out.println(c);
-		// System.out.println(c.getSchedules());
-		//
-		// }
+        // Set<Schedule> schedules = new HashSet<>();
+        // Schedule schedule = new Schedule(new Date(), new Date());
+        // scheduleRepository.save(schedule);
+        // schedules.add(schedule);
+        // Course course = new Course("name", "icon", "description",
+        // Level.Beginner, 5.0);
+        // this.courseRepo.save(course);
+        // this.courseRepo.findByName("name").getSchedules().add(schedule);
+        // this.courseRepo.save(course);
+        //
+        // List<Course> courses = this.courseRepo.findAll();
+        // for (Course c : courses) {
+        //
+        // System.out.println(c);
+        // System.out.println(c.getSchedules());
+        //
+        // }
 
 
         final User user = new User(dto);

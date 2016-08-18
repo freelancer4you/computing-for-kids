@@ -20,6 +20,7 @@ import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
 import de.goldmann.map.UiApplication;
+import de.goldmann.map.WebTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
@@ -37,10 +38,10 @@ public class SignUpTest extends WebTest {
 
             driver.get(HOST_ADRESS);
 
-            final WebElement singUpBtn = wait.until(new VisibilityFunction("singUpBtn"));
+            final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("singUpBtn")));
             singUpBtn.click();
 
-            final WebElement modalSingupDialog = wait.until(new VisibilityFunction("modalSingup"));
+            final WebElement modalSingupDialog = wait.until(new VisibilityFunction(By.id("modalSingup")));
 
             final UserDTO dto = TestUtils.buildUserDto();
 

@@ -1,17 +1,30 @@
 package de.goldmann.map.controller;
 
 import static org.assertj.core.api.Assertions.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import de.goldmann.apps.root.dao.CourseRepository;
+import de.goldmann.apps.root.model.Course;
+import de.goldmann.apps.tests.helpers.VisibilityFunction;
+import de.goldmann.map.UIConstants;
 import de.goldmann.map.UiApplication;
+import de.goldmann.map.WebTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)
@@ -19,32 +32,46 @@ import de.goldmann.map.UiApplication;
 @IntegrationTest
 public class CourseControllerTest extends WebTest {
 
-	private static final String COURSES_KIDS_PATH = "/#/courses/kids";
+    private static final String COURSE_BANNER_SELECTOR = "#container > div.ng-scope > div > div > div > div > div.headerCourseBanner.ng-binding";
+    private static final String COURSE_PRICE_SELECTOR  = "#container > div.ng-scope > div > div:nth-child(6) > div > div > div.clearfixHeader > div:nth-child(3) > p";
+    private static final String COURSE_ICON_SELECTOR   = "#container > div.ng-scope > div > div:nth-child(6) > div > div > div.clearfixHeader > div:nth-child(1) > img";
 
-	@Test
-	public void testListCourses() {
+    @Autowired
+    private CourseRepository    courseRepo;
 
-		final FluentWait<WebDriver> wait = setupFluentWait(driver);
-		try {
-			driver.get(HOST_ADRESS + COURSES_KIDS_PATH);
+    @Test
+    @Sql("testListCourses.sql")
+    public void testListCourses() {
 
-			// login(wait, TestUtils.buildUserDto());
+        final List<Course> findAll = courseRepo.findAll();
+        assertEquals(1, findAll.size());
+        final Course existingCourse = findAll.get(0);
+        assertNotNull(existingCourse);
 
-			// Thread.sleep(1000);
-			//
-			// assertNotNull(driver.findElement(By.id("totalClicks")));
-			// assertNotNull(driver.findElement(By.id("totalImpressions")));
-			// assertNotNull(driver.findElement(By.id("totalCtr")));
-			// assertNotNull(driver.findElement(By.id("totalCpm")));
-			// assertNotNull(driver.findElement(By.id("fromDate")));
+        final FluentWait<WebDriver> wait = setupFluentWait(driver);
+        try {
+            driver.get(HOST_ADRESS + UIConstants.COURSES_KIDS_PATH);
 
-			Thread.sleep(1000);
+            final WebElement courseBannerElement = wait
+                    .until(new VisibilityFunction(By.cssSelector(COURSE_BANNER_SELECTOR)));
+            assertEquals(existingCourse.getName(), courseBannerElement.getText());
 
-			logout(wait);
-		}
-		catch (final Exception e) {
-			fail(e.getMessage());
-		}
-	}
+            final WebElement coursePriceElement = driver.findElement(By.cssSelector(COURSE_PRICE_SELECTOR));
+            assertEquals(
+                    String.valueOf(existingCourse.getPrice()),
+                    coursePriceElement.getText().replaceAll("€", "").trim());
+
+            final WebElement courseIconElement = driver.findElement(By.cssSelector(COURSE_ICON_SELECTOR));
+            System.out.println(courseIconElement.getAttribute("ng-src"));
+
+            assertEquals("img/" + existingCourse.getIcon(), courseIconElement.getAttribute("ng-src"));
+
+            Thread.sleep(1000);
+
+        }
+        catch (final Exception e) {
+            fail(e.getMessage());
+        }
+    }
 
 }

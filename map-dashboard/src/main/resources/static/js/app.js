@@ -174,7 +174,9 @@ module.controller('CarouselCtrl', function ($scope) {
   $scope.addSlide = function(count) {
     slides.push({
       image: '/img/carousel/p' + count + '.jpg',
-      text: ['CLAWBOT','REX','IKE','ARMBOT','3D'][slides.length % 5] 
+      //text: ['CLAWBOT', 'REX', 'IKE','ARMBOT', '3D'][slides.length % 5],
+      // TODO links sollten zu Kursen fuehren
+      link: ['#/courses/kids', '#/courses/kids', '#/courses/kids', '#/courses/kids', '#/courses/kids'][slides.length % 5]
     });
   };
   for (var i = 1; i <= 5; i++) {
