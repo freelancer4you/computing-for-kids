@@ -10,7 +10,7 @@ public class UIConstants {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
-    public static final String COURSE_DATE_FORMAT = "dd.MM.yyyy";
+    public static final String COURSE_DATE_FORMAT           = "EEE, dd.MM.yyyy";
 
     public static final String VISITORS_COUNT_REQUEST_PATH = "/visitorsCount";
 

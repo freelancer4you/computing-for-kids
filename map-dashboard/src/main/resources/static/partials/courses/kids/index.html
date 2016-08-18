@@ -21,7 +21,7 @@
                         <img ng-src="img/{{course.icon}}" style="padding-left: 10px; padding-top: 10px; display: inline-block;max-height: 120px;max-width: 110px;" alt="{{course.name}}"/>
                     </div>
                     <div class="clearfixLeft" style="width: 65%;">
-                        <p style="padding-bottom: 2px; padding-top: 10px; font-size: 94%; text-align: justify;">{{course.description}}</p>
+                        <p style="padding-bottom: 2px; padding-top: 10px; padding-right:18px; font-size: 94%; text-align: justify;">{{course.description}}</p>
                         <table>
                             <tr>
                                 <td>
@@ -46,11 +46,22 @@
                         </table>                                 
                     </div>
                     <div class="clearfixLeft" style="width: 19%;">
-                        <p style="font-size: large; font-weight: bold; color:black; padding-left: 20px; padding-top: 8px;">{{course.price}} &#8364;</p>
-                        <span style="padding-left: 20px;">
-                            <a href="#/courses/details" class="button" ng-click='showDetails(course.name)'>Details</a>
-                            <a href="#/courses/register" class="button" ng-click='register(course.name)'>Anmelden</a>
-                        </span>
+                        <table style="width: 100%;">
+                            <tr>
+                                <td colspan="3" width="100%;">
+                                 <p style="font-size: large; font-weight: bold; color:black; padding-top: 8px;">{{course.price}} &#8364;</p>
+                                </td>
+                             </tr>
+                            <tr>
+                                <td width="45%">
+                                    <a href="#/courses/details" class="dark_button width-150px" ng-click='showDetails(course.name)'>Details</a>                                    
+                                </td>
+                                <td width="10%">&nbsp;</td>
+                                <td width="45%">
+                                    <a href="#/courses/register" class="dark_button width-150px" ng-click='register(course.name)'>Anmelden</a>
+                                </td>
+                            </tr>
+                        </table>                        
                     </div>
                 </div> 
             </div>
