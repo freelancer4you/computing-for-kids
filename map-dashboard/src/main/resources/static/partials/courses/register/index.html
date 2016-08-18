@@ -1,0 +1,165 @@
+<div class="element clearfix col1-1 courses-details" ng-controller="RegisterCtrl">
+
+	<ol class="breadcrumb">
+		<li><a href="#/">Home</a></li>
+		<li><a href="#/courses">Kurse</a></li>
+		<li><a href="#/courses/kids">Kinder</a></li>
+		<li><a href="#/courses/details">{{course.course.name}}</a></li>
+        <li class="active">Anmeldung</li>
+	</ol>
+
+	<hr style="background-color: #aa0000; height: 2px;" />
+
+	<form role="form" class="form-horizontal" ng-submit="register()" data-toggle="validator">
+		<div class="form-group required">
+
+			<label for="firstName" class="col-sm-2 control-label">Vorname:</label>
+
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="firstName"
+					placeholder="Vorname" ng-model="credentials.firstName"
+					required="required" />
+			</div>
+
+			<label for="lastName" class="col-sm-2 control-label">Nachname:</label>
+
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="lastName"
+					placeholder="Nachname" ng-model="credentials.lastName"
+					required="required" />
+			</div>
+		</div>
+		
+		<div class="form-group required">
+
+            <label for="street" class="col-sm-2 control-label">Stra&szlig;e:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="street"
+                    placeholder="Stra&szlig;e" ng-model="credentials.street"
+                    required="required" />
+            </div>
+
+            <label for="houseNr" class="col-sm-2 control-label">Hausnummer:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="houseNr"
+                    placeholder="Hausnummer" ng-model="credentials.houseNr"
+                    required="required" />
+            </div>
+        </div>
+        
+        <div class="form-group required">
+
+            <label for="zipcode" class="col-sm-2 control-label">PLZ:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="zipcode"
+                    placeholder="PLZ" ng-model="credentials.zipcode"
+                    required="required" />
+            </div>
+
+            <label for="city" class="col-sm-2 control-label">Ort:</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="city"
+                    placeholder="Hausnummer" ng-model="credentials.city"
+                    required="required" />
+            </div>
+        </div>
+
+		<div class="form-group">
+			<label for="childName" class="col-sm-2 control-label">Name
+				des Kindes:</label>
+
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="childName"
+					placeholder="Name des Kindes" ng-model="credentials.childName"
+					required="required" />
+			</div>
+		
+			<label for="childAge" class="col-sm-2 control-label">Alter
+				des Kindes:</label>
+
+			<div class="col-sm-4">
+
+				<select ng-model="credentials.childAge" id="childAge"
+					class="form-control" required="required">
+					<option value="younger">J&uuml;nger</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="older">&Auml;lter</option>
+				</select>
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<label for="userName" class="col-sm-2 control-label">Benutzername:</label>
+
+			<div class="col-sm-4">
+				<input type="text" class="form-control" id="userName"
+					placeholder="Benutzername" ng-model="credentials.userName"
+					required="required" />
+			</div>
+		
+			<label for="userName" class="col-sm-2 control-label">Email:</label>
+
+			<div class="col-sm-4">
+				<input type="email" class="form-control" id="email"
+					placeholder="Email" ng-model="credentials.email"
+					required="required" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="userName" class="col-sm-2 control-label">Passwort:</label>
+
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="password"
+					placeholder="Passwort" ng-model="credentials.password"
+					required="required" />
+			</div>
+		
+			<label for="userName" class="col-sm-2 control-label">Passwort-Best&auml;tigung:</label>
+
+			<div class="col-sm-4">
+				<input type="password" class="form-control" id="confirmPassword"
+					placeholder="Passwort-Best&auml;tigung" required="required" />
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-8">
+				<div class="checkbox" style="float: right;">
+					<label> <input type="checkbox" id="termAggreement"
+						required="required">Ich erkenne die <a href="#">Allgemeinen Gesch&auml;ftsbedingungen</a> an.</input>
+					</label>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="checkbox" style="float: right;">
+					<label> <input type="checkbox" id="featureUpdates" />Ich nehme die Widerrufsbelehrung zur Kenntnis.
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+		    <div class="col-sm-11">
+		      <button class="btn btn-primary" type="button" style="float: right;margin-right: 24px;">Abbrechen</button>
+		    </div>
+		    
+		    <div class="col-sm-1">
+		        <button class="btn btn-primary" type="submit" style="float: right;" id="commitSignUpBtn">Anmelden</button>
+			</div>
+		</div>
+       
+	</form>
+</div>

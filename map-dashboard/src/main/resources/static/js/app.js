@@ -14,20 +14,24 @@ var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 
         templateUrl : 'partials/courses/index.html',
     })
     .when('/courses/kids', {
-        name : "Kids",
+        name : "Courses-Kids",
         templateUrl : 'partials/courses/kids/index.html',
     })
     .when("/courses/teachers",  {
-        name : "Teachers",
+        name : "Courses-Teachers",
         templateUrl : "partials/courses/teachers/index.html",
     })
     .when("/courses/details",  {
-        name : "Course-Details",
+        name : "Courses-Details",
         templateUrl : "partials/courses/details/index.html",
     })
     .when("/courses/suggest",  {
-        name : "Contact",
+        name : "Courses-Suggest",
         templateUrl : "partials/courses/suggest/index.html",
+    })
+    .when("/courses/register",  {
+        name : "Courses-Register",
+        templateUrl : "partials/courses/register/index.html",
     })
     .when("/about",  {
         name : "About",
@@ -193,6 +197,7 @@ module.factory('DetailsData', function () {
 });
 
 module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scope, $http, detailsData) {
+	
     $http.get('/listCourses').then(function(response) {
       var courses = response.data;
       
@@ -226,21 +231,31 @@ module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scop
     };
     
     $scope.showDetails = function(course) {
-        //console.log("Search for course with name:" + courseName);
-        	
         $http.get('/course/details', {params: {'name': course.name}}).then(function(response) {
-        		detailsData.course = course;
-                detailsData.course.details = response.data;                
-//                console.log("Details:");
-//                console.log(detailsData.course);
-               
+        	//$scope.course = course;
+//        	$scope.details = response.data;   
+        	detailsData.course = course;
+        	detailsData.course.details = response.data;
+//            console.log("Details:");
+//            console.log($scope.details);
+            //console.log($scope.course.details);
             } 
         );        
-    };    
+    };  
+    
+    $scope.registerForCourse = function(course) {
+    	detailsData.course = course;
+    	
+    };
   }
 ]);
 
 module.controller('DetailsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
+    $scope.course = detailsData;
+  }
+]);
+
+module.controller('RegisterCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
     $scope.course = detailsData;
   }
 ]);
@@ -251,27 +266,3 @@ function formatTimeStamp(timeStamp){
     }
     return timeStamp;
 }
-
-module.controller('TabsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
-  $scope.tabs = [
-    { title:'Description', content:detailsData },
-    { title:'Content', content:detailsData },
-    { title:'Schedules', content:detailsData },
-    { title:'Costs', content:detailsData }
-  ];
-  
-  $scope.showDescription = function(message) {
-        return "Description" === message;
-    }
-    $scope.showContent= function(message) {
-        return "Content" === message;
-    }
-    $scope.showCosts= function(message) {
-        return "Costs" === message;
-    }
-    $scope.showSchedules= function(message) {
-        return "Schedules" === message;
-    }
-}]);
-
-
