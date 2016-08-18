@@ -103,6 +103,11 @@ public class SignUpTest extends WebTest {
 			final String userMail = dto.getEmail();
 			HelperUtils.setInputValue(signUpForm, "email", userMail);
 
+			final WebElement termAgreementBtn = wait.until(new VisibilityFunction(By.id("termAgreement")));
+			termAgreementBtn.click();
+			final WebElement disclaimerAggreement = wait.until(new VisibilityFunction(By.id("disclaimerAgreement")));
+			disclaimerAggreement.click();
+
 			final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("singUpBtn")));
 			singUpBtn.click();
 
@@ -113,7 +118,7 @@ public class SignUpTest extends WebTest {
 			assertEquals(dto.getFirstName(), registeredUser.getFirstName());
 			assertEquals(dto.getLastName(), registeredUser.getLastName());
 			final CourseParticipant registrationEntry = courseParticipantRepository
-			        .findOne(new CourseParticipantPK("1", userMail));
+					.findOne(new CourseParticipantPK("1", userMail));
 			assertNotNull("Es sollte ein Registrierungseintrag vorhanden sein:", registrationEntry);
 
 		}

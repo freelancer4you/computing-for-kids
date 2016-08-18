@@ -58,7 +58,7 @@ var module = angular.module("MapApp", ['ngRoute', 'adminModule'])
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 });
 
-module.controller('navigation',
+module.controller('LoginCtrl',
 
 function($rootScope, $scope, $http, $location) {
     
@@ -73,10 +73,10 @@ function($rootScope, $scope, $http, $location) {
             return null;
         }
         
+        var username = $scope.credentials.userName != undefined ? $scope.credentials.userName : '';
         var password = $scope.credentials.password != undefined ? $scope.credentials.password : '';
-        var email = $scope.credentials.email != undefined ? $scope.credentials.email : '';
-
-        return 'password=' + password + '&email=' + email;
+        
+        return 'username=' + username + '&password=' + password;
     }
     
     var authenticate = function(credentials, callback) {
@@ -136,28 +136,32 @@ function($rootScope, $scope, $http, $location) {
             }
         });
     };
-    
-    $scope.logout = function() {
-        
-        $http({
-            method: 'POST',
-            url: '/logout'
-        })
-        .then(function (response) {
-            if (response.status == 200) {
-                $rootScope.authenticated = false;
-                $location.path("/");
-               
-                console.log("Successfully logged out");
-            }
-            else {
-                $rootScope.authenticated = false;
-                console.log("Logout failed!");
-            }
-        });        
-    };
-    
 });
+
+module.controller('LogoutCtrl',
+	function($rootScope, $scope, $http, $location) {
+		$scope.logout = function() {
+		    
+		    $http({
+		        method: 'POST',
+		        url: '/logout'
+		    })
+		    .then(function (response) {
+		        if (response.status == 200) {
+		            $rootScope.authenticated = false;
+		            $location.path("/");
+		           
+		            console.log("Successfully logged out");
+		        }
+		        else {
+		            $rootScope.authenticated = false;
+		            console.log("Logout failed!");
+		        }
+		    });        
+		};
+	
+	}
+);
 
 module.controller('CoursesCtrl',
 
