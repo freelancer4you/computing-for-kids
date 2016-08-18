@@ -162,16 +162,16 @@ public class User implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "User [" + (email != null ? "email=" + email + ", " : "")
-                + (lastName != null ? "lastName=" + lastName + ", " : "")
-                + (firstName != null ? "firstName=" + firstName + ", " : "")
-                + (username != null ? "username=" + username + ", " : "")
-                + (passwordDigest != null ? "passwordDigest=" + passwordDigest + ", " : "")
-                + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
-                + (role != null ? "role=" + role + ", " : "") + (adresse != null ? "adresse=" + adresse + ", " : "")
-                + (registrationDate != null ? "registrationDate=" + registrationDate : "") + "]";
-    }
+	@Override
+	public String toString() {
+		return "User [" + (email != null ? "email=" + email + ", " : "")
+		        + (lastName != null ? "lastName=" + lastName + ", " : "")
+		        + (firstName != null ? "firstName=" + firstName + ", " : "")
+		        + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
+		        + (adresse != null ? "adresse=" + adresse + ", " : "")
+		        + (registrationDate != null ? "registrationDate=" + registrationDate + ", " : "")
+		        + (childName != null ? "childName=" + childName + ", " : "")
+		        + (childAge != null ? "childAge=" + childAge : "") + "]";
+	}
 
 }

@@ -14,30 +14,31 @@ import de.goldmann.apps.root.services.UserActivityReport;
 @Component
 public class DefaultUserActivityReport implements UserActivityReport {
 
-    private static final Logger LOGGER = LogManager.getLogger(DefaultUserActivityReport.class);
+	private static final Logger LOGGER = LogManager.getLogger(DefaultUserActivityReport.class);
 
-    private final MailService   mailService;
+	private final MailService   mailService;
 
-    @Autowired
-    public DefaultUserActivityReport(final MailService mailService) {
-        this.mailService = Objects.requireNonNull(mailService, "Parameter 'mailService' darf nicht null sein.");
-    }
+	@Autowired
+	public DefaultUserActivityReport(final MailService mailService) {
+		this.mailService = Objects.requireNonNull(mailService, "Parameter 'mailService' darf nicht null sein.");
+	}
 
-    @Override
-    public void registered(final User user) {
-        final String msgText = user + " registriert.";
-        mailService.sendMail(msgText);
-        LOGGER.info(msgText);
-    }
+	@Override
+	public void registered(final User user) {
+		final String msgText = user + " registriert.";
+		// mailService.sendMail(msgText, user.getEmail());
+		mailService.sendMail(msgText, "goldi23@freenet.de");
+		LOGGER.info(msgText);
+	}
 
-    @Override
-    public void login(final User user) {
-        LOGGER.info(user + " login.");
-    }
+	@Override
+	public void login(final User user) {
+		LOGGER.info(user + " login.");
+	}
 
-    @Override
-    public void logout(final User user) {
-        LOGGER.info(user + " logout.");
-    }
+	@Override
+	public void logout(final User user) {
+		LOGGER.info(user + " logout.");
+	}
 
 }

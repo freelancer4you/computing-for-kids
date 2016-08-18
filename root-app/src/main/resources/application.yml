@@ -7,6 +7,14 @@ spring:
      web-environment: true
     datasource.initialize: true  
     #datasource.data: classpath*:import.sql
+    mail:
+      # TODO Benutze ZOHO-Account zum Versenden der Emails. zoho funktioniert nicht, googlemail funktioniert
+      host: smtp.strato.de
+      password: n5WEmRsGXuU/xWkGDs8rWw==
+      username: info@andre-goldmann.de
+      port: 465
+      from: computing-for-kids@andre-goldmann.de
+      subject: Registration
 logging:
   level:
     org.springframework.security: WARN
@@ -14,14 +22,9 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
 server:
    session.timeout: 300    
-mail:
-  # TODO Benutze ZOHO-Account zum Versenden der Emails.
-  host: WieLautetDerHost
-  from: computing-for-kids@gmx.de
-  subject: Registration
-  password: QFVQJlYoTC4=
+  
   # TODO man kann auch noch den Benutzername verschluesseln
-  username: name    
+      
 #spring.datasource.url = jdbc:h2:file:${biking2.database-file:${user.dir}/var/dev/db/biking-dev};FILE_LOCK=FS
 #spring.datasource.username = ${biking2.database-username:biking2}
 #spring.datasource.password = ${biking2.database-password:biking2}

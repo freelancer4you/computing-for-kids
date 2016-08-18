@@ -77,7 +77,7 @@ public class SignUpTest extends WebTest {
             final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("singUpBtn")));
             singUpBtn.click();
 
-            Thread.sleep(1000);
+            Thread.sleep(60000);
 
             // TODO prüfe Felder in der Datenbank
 

@@ -32,7 +32,7 @@ public class CourseDTO implements Serializable {
 	}
 
 	public CourseDTO(final String name, final String icon, final String description,
-			final Level level, final double price, final String place) {
+	        final Level level, final double price, final String place, final String requirements) {
 		super();
 		this.name = name;
 		this.icon = icon;
@@ -40,6 +40,7 @@ public class CourseDTO implements Serializable {
 		this.level = level;
 		this.price = price;
 		this.place = place;
+		this.requirements = requirements;
 		schedules = new HashSet<>();
 	}
 
@@ -108,9 +109,9 @@ public class CourseDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "CourseDTO [" + (name != null ? "name=" + name + ", " : "") + (icon != null ? "icon=" + icon + ", " : "")
-		        + (description != null ? "description=" + description + ", " : "")
-		        + (level != null ? "level=" + level + ", " : "") + "price=" + price + ", "
-		        + (requirements != null ? "requirements=" + requirements + ", " : "")
-		        + (place != null ? "place=" + place : "") + "]";
+				+ (description != null ? "description=" + description + ", " : "")
+				+ (level != null ? "level=" + level + ", " : "") + "price=" + price + ", "
+				+ (requirements != null ? "requirements=" + requirements + ", " : "")
+				+ (place != null ? "place=" + place : "") + "]";
 	}
 }
