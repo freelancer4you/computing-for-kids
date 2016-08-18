@@ -21,6 +21,10 @@ var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 
         name : "Teachers",
         templateUrl : "partials/courses/teachers/index.html",
     })
+    .when("/courses/details",  {
+        name : "Course-Details",
+        templateUrl : "partials/courses/details/index.html",
+    })
     .when("/about",  {
         name : "About",
         templateUrl : "partials/about/index.html",
@@ -164,7 +168,7 @@ function($rootScope, $scope, $http, $location) {
     
 });
 
-module.controller('CarouselDemoCtrl', function ($scope) {
+module.controller('CarouselCtrl', function ($scope) {
   $scope.myInterval = 5000;
   var slides = $scope.slides = [];
   $scope.addSlide = function(count) {
@@ -197,8 +201,10 @@ module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scop
                   schedule.end = formatTimeStamp(schedule.end);  
                   var days = schedule.days;
                   schedule.daysAsString  = "";
-                  for(var l = 0; l < days.length; l++){
-                     schedule.daysAsString += days[l];
+                  if( days !== undefined) {
+	                  for(var l = 0; l < days.length; l++){
+	                     schedule.daysAsString += days[l];
+	                  }
                   }
               }
             }          
@@ -213,20 +219,20 @@ module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scop
       });
     };
     
-    $scope.showDetails = function(courseId) {
-        //console.log("Search for course with id:" + courseId);
+    $scope.showDetails = function(courseName) {
+        //console.log("Search for course with name:" + courseName);
         
        // detailsService.clear();
         
         // TODO store course data in localstore and first try to load it from there
         // if it can not be found load from remote
-        
-        $http.get('/computing/webresources/courses/' + courseId).then(function(response) {
+        //var promise = $http.get('app/rest/chartConfigs/getById',{params: {'id': id}})	
+        $http.get('/course/details', {params: {'name': courseName}}).then(function(response) {
                 detailsData.course = response.data;
-                //console.log("Details:" +response.data.name)
+          //      console.log("Details:" +response.data.name)
                //detailsService.addCourse(response);
                //TODO do not animate, just scroll to the top
-               jQuery('body,html').animate({scrollTop:0},800);
+               jQuery('body,html').animate({scrollTop:0}, 800);
             } 
         );        
     };    
@@ -242,8 +248,7 @@ function formatTimeStamp(timeStamp){
     if(timeStamp === undefined){
         return "";
     }
-    var datePart = timeStamp.split("T");
-    return datePart[0];
+    return timeStamp;
 }
 
 module.controller('TabsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {

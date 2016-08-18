@@ -12,15 +12,18 @@ public class DefaultUserActivityReport implements UserActivityReport {
 
     private static final Logger LOGGER = LogManager.getLogger(DefaultUserActivityReport.class);
 
-    public void registered(final User user) {
+    @Override
+	public void registered(final User user) {
         LOGGER.info(user + " registriert.");
     }
 
-    public void login(final User user) {
+    @Override
+	public void login(final User user) {
         LOGGER.info(user + " login.");
     }
 
-    public void logout(final User user) {
+    @Override
+	public void logout(final User user) {
         LOGGER.info(user + " logout.");
     }
 

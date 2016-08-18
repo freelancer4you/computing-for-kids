@@ -1,4 +1,4 @@
-package de.goldmann.map;
+package de.goldmann.map.controller;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Path;

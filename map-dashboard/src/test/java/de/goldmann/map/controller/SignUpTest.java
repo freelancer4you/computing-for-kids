@@ -1,4 +1,4 @@
-package de.goldmann.map;
+package de.goldmann.map.controller;
 
 import static org.assertj.core.api.Assertions.fail;
 
@@ -19,6 +19,7 @@ import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
+import de.goldmann.map.UiApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = UiApplication.class)

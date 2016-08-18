@@ -11,6 +11,25 @@
 <link rel="stylesheet" href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" />
 <link rel="stylesheet" href="../static/css/retina-responsive.css" th:href="@{/css/retina-responsive.css}" />	
 
+<style>
+     .clearfixHeader:before,
+     .clearfixHeader:after {
+         content: " ";
+         display: table;
+     }
+     .clearfixHeader:after {
+         clear: both;
+     }
+     .clearfixHeader {
+         *zoom: 1;
+     }
+
+     .clearfixLeft {
+         float: left;
+         width: 33%;
+     }
+ </style>
+
 </head>
 <body ng-app="MapApp">
 	
@@ -18,7 +37,7 @@
 		<div th:include="header" />	
       	
       	<div th:include="modalLogin"/>
-		<div th:include="modalSignup"/>      	   
+		<!-- div th:include="modalSignup"/-->      	   
       	<div ng-view=""></div>       
     </div>
    

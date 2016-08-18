@@ -11,11 +11,13 @@ public class DefaultVisitorsCounter implements VisitorsCounter {
 
     private final AtomicInteger counter = new AtomicInteger(0);
 
-    public void count() {
+    @Override
+	public void count() {
         counter.incrementAndGet();
     }
 
-    public int getCounter() {
+    @Override
+	public int getCounter() {
         return counter.get();
     }
 }
