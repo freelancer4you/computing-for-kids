@@ -1,10 +1,10 @@
-<div class="element clearfix col1-1 courses-details" ng-controller="DetailsCtrl">
+<div class="element clearfix col1-1 courses-details">
 
     <ol class="breadcrumb">
         <li><a href="#/">Home</a></li>
         <li><a href="#/courses">Kurse</a></li>
         <li><a href="#/courses/kids">Kinder</a></li>
-        <li class="active">{{course.course.name}}</li>
+        <li class="active">{{course.name}}</li>
     </ol>
 
     <hr style="background-color: #aa0000; height: 2px;" />
@@ -20,19 +20,20 @@
             <div id="collapse1" class="panel-collapse collapse in">
                 <div class="panel-body">
                     
-                    <p style="font-size: medium;"><strong>{{course.course.name}}</strong></p>                   
+                    <p style="font-size: medium;"><strong>{{course.name}}</strong></p>                   
                     
                     <p><strong>Mitzubringen / Materialien</strong></p>
-                    <p>Lehrbuch: Perspectivas ¡Ya! A2, Cornelsen ISBN 978-3-464-20489-4, ca. ab Lektion 5</p>
+                    <p>{{course.requirements}}</p>
                     
                     <p><strong>Kursdaten</strong></p>
-                    <p><strong>Zeitraum: </strong>{{course.course.schedules[0].begin}} bis {{course.course.schedules[0].end}}</p>
-                    <p><strong>Dauer: </strong>{{course.course.duration}}</p>
+                    <p><strong>Zeitraum: </strong>{{course.schedules[0].begin}} bis {{course.schedules[0].end}}</p>
+                    <p><strong>Dauer: </strong>{{course.details.duration}}</p>
                     <p><strong>Kursleitung: </strong>TODO</p>
-                    <p><strong>Kursort: </strong>{{course.course.place}}</p>
-                    <p><strong>Kursentgelt: </strong>{{course.course.price}} &euro;
+                    <p><strong>Kursort: </strong>{{course.place}}</p>
+                    <p><strong>Kursentgelt: </strong>{{course.price}} &euro;
                     <p><strong>Dokumente zum Herunterladen: </strong>F&uuml;r diesen Kurs sind keine Dokumente vorhanden.</p>
-                    <p><strong>Teilnahmebedingungen: </strong> <span style="color: red; font-weight: bold;">{{course.course.requirements}}</span></p>
+                    <p><strong>Teilnahmebedingungen: </strong> <span style="color: red; font-weight: bold;">{{course.requirements}}</span></p>
+
                 
                 </div>
             </div>
@@ -46,7 +47,7 @@
             </div>
             <div id="collapse2" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <div ng-include="course.course.details.appointments"></div>
+                    <div ng-include="course.details.appointments"></div>
                 </div>
             </div>
         </div>
@@ -59,7 +60,7 @@
             </div>
             <div id="collapse3" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <div ng-include="course.course.details.curriculum"></div>
+                    <div ng-include="course.details.curriculum"></div>
                 </div>
             </div>
         </div>

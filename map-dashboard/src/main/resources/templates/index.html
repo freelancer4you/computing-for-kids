@@ -9,6 +9,7 @@
 <link href="css/angular-bootstrap.css" rel="stylesheet"/>
 <link rel="stylesheet" href="../static/css/app.css" th:href="@{/css/app.css}" />
 <link rel="stylesheet" href="../static/css/dashboard.css" th:href="@{/css/dashboard.css}" />
+<link rel="stylesheet" href="../static/css/contact.css" th:href="@{/css/contact.css}" />
 
 <style>
      .clearfixHeader:before,
@@ -35,15 +36,12 @@
 	<div id="container" class="container" ng-controller="navigation">			
 		<div th:include="header" />	
       	
-      	<div th:include="modalLogin"/>
-		<div th:include="modalSignup"/>      	   
+      	<div th:include="modalLogin"/>      	   
       	<div ng-view=""></div>
       	       
     </div>
    
-    
-	<!-- div th:include="footer"></div-->
-	<script src="js/angular-bootstrap.js" type="text/javascript" th:src="@{/js/angular-bootstrap.js}"></script>
+    <script src="js/angular-bootstrap.js" type="text/javascript" th:src="@{/js/angular-bootstrap.js}"></script>
 	<script src="../static/app/dateModule.js" type="text/javascript" th:src="@{/app/dateModule.js}"></script>
 	<script src="../static/app/admin/module.js" type="text/javascript" th:src="@{/app/admin/module.js}"></script>
 	<script src="../static/js/app.js" type="text/javascript" th:src="@{/js/app.js}"></script>

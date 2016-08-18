@@ -1,16 +1,38 @@
-<div class="element clearfix col1-1 courses-details" ng-controller="RegisterCtrl">
+<div class="element clearfix col1-1 courses-details">
 
 	<ol class="breadcrumb">
 		<li><a href="#/">Home</a></li>
 		<li><a href="#/courses">Kurse</a></li>
 		<li><a href="#/courses/kids">Kinder</a></li>
-		<li><a href="#/courses/details">{{course.course.name}}</a></li>
+		<li><a href="#/courses/details">{{course.name}}</a></li>
         <li class="active">Anmeldung</li>
 	</ol>
 
 	<hr style="background-color: #aa0000; height: 2px;" />
 
-	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="register()" data-toggle="validator">
+	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="register(course)" data-toggle="validator">
+
+        <div class="form-group required">
+
+            <label for="salutation" class="col-sm-2 control-label">Anrede:</label>
+
+            <div class="col-sm-4">
+                <select type="text" class="form-control" id="salutation"
+                     ng-model="credentials.salutation"
+                    required="required" >
+                    <option value="Frau">Frau</option>
+                    <option value="Herr">Herr</option>
+                 </select>   
+            </div>
+
+            <label for="title" class="col-sm-2 control-label">Title:</label>
+
+            <div class="col-sm-4">
+                <select class="form-control" id="title" ng-model="credentials.title">
+                     <option value="dr">Dr.</option>
+                </select>
+            </div>
+        </div>
 
 		<div class="form-group required">
 
@@ -166,6 +188,10 @@
 			</div>
 		</div>
 
+        <!-- input type="text" class="form-control" id="courseName"
+                    ng-model="credentials.courseName"
+                    value="{{course.name}}" hidden="true"/-->    
+        
 		<div class="form-group">
 		    <div class="col-sm-11">
 		      <button class="btn btn-primary" type="button" style="float: right;margin-right: 24px;">Abbrechen</button>

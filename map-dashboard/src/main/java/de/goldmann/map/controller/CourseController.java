@@ -25,46 +25,44 @@ import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseDetails;
 import de.goldmann.apps.root.model.Schedule;
 
-
 @Controller
 public class CourseController {
 
-	@Autowired
-	private CourseRepository courseRepo;
+    @Autowired
+    private CourseRepository courseRepo;
 
-	private final SimpleDateFormat	formatter	= new SimpleDateFormat(COURSE_DATE_FORMAT);
+    private final SimpleDateFormat	formatter	= new SimpleDateFormat(COURSE_DATE_FORMAT);
 
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
-	public List<CourseDTO> listCourses() {
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
+    public List<CourseDTO> listCourses() {
 
-		final List<CourseDTO> courses = new ArrayList<>();
-		for (final Course course : courseRepo.findAll()) {
-			final CourseDTO courseDTO = new CourseDTO(course.getName(),
-					course.getIcon(),
-					course.getDescription(),
-					course.getLevel(),
-					course.getPrice(),
-			        course.getPlace(), course.getRequirements());
-			for (final Schedule schedule : course.getSchedules()) {
-				courseDTO.getSchedules().add(
-						new ScheduleDTO(formatter.format(schedule.getBegin()), formatter.format(schedule.getEnd())));
-			}
-			courses.add(courseDTO);
-		}
-		return courses;
-	}
+        final List<CourseDTO> courses = new ArrayList<>();
+        for (final Course course : courseRepo.findAll()) {
+            final CourseDTO courseDTO = new CourseDTO(course.getName(),
+                    course.getIcon(),
+                    course.getDescription(),
+                    course.getLevel(),
+                    course.getPrice(),
+                    course.getPlace(), course.getRequirements());
+            for (final Schedule schedule : course.getSchedules()) {
+                courseDTO.getSchedules().add(
+                        new ScheduleDTO(formatter.format(schedule.getBegin()), formatter.format(schedule.getEnd())));
+            }
+            courses.add(courseDTO);
+        }
+        return courses;
+    }
 
-	@ResponseBody
-	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
-	public CourseDetailsDTO courseDetails(@RequestParam("name") final String name) {
-		// System.out.println("Lade details für Kurs:" + name);
-		final Course course = courseRepo.findByName(name);
-		final CourseDetails courseDetails = course.getDetails();
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
+    public CourseDetailsDTO courseDetails(@RequestParam("name") final String name) {
+        final Course course = courseRepo.findOne(name);
+        final CourseDetails courseDetails = course.getDetails();
 
-		return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
-				courseDetails.getAppointments(), courseDetails.getDuration());
-	}
+        return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
+                courseDetails.getAppointments(), courseDetails.getDuration());
+    }
 }

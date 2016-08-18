@@ -31,6 +31,12 @@ public class User implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "salutation", nullable = false)
+    private String            salutation;
+
+    @Column(name = "title", nullable = true)
+    private String            title;
+
     @Column(name = "lastname", nullable = false)
     private String lastName;
 
@@ -71,6 +77,8 @@ public class User implements Serializable {
     }
 
     public User(final UserDTO user, final UserRole role) {
+        this.salutation = user.getSalutation();
+        this.title = user.getTitle();
         this.username = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
@@ -85,6 +93,14 @@ public class User implements Serializable {
         this.registrationDate = Date.from(zdt.toInstant());
         this.childName = user.getChildName();
         this.childAge = user.getChildAge();
+    }
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getEmail() {

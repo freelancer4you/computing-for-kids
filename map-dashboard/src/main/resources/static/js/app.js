@@ -3,13 +3,10 @@
 var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 'adminModule']).config(function($routeProvider, $httpProvider) {
     
     $routeProvider
-    .when('/', {
-        templateUrl : 'partials/index.html',
-    })
     .when('/home', {
         templateUrl : 'partials/index.html'
     })
-    .when('/courses/', {
+    .when('/courses', {
         name : "Courses",
         templateUrl : 'partials/courses/index.html',
     })
@@ -46,7 +43,7 @@ var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 
         templateUrl : "partials/admin/index.html",
         controller: 'AdminAreaCtrl'    
     })
-    .otherwise('/');
+    .otherwise('/home');
     
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 }).controller('navigation',
@@ -129,12 +126,13 @@ function($rootScope, $scope, $http, $location) {
         });
     };
     
-    $scope.register = function() {
+    $scope.register = function(course) {
        
         $http({
             method: 'POST',
             url: '/user',
             data: $scope.credentials,
+            params: {'course': course.name},
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "text/plain"
@@ -142,8 +140,8 @@ function($rootScope, $scope, $http, $location) {
         })
         .then(function (response) {
             if (response.status == 200) {
-                $("#modalSingup").modal('hide');
-                $scope.login();
+                //$("#modalSingup").modal('hide');
+                //$scope.login();
             }
             else {
                 $scope.vm.errorMessages = [];
@@ -176,89 +174,83 @@ function($rootScope, $scope, $http, $location) {
     
 });
 
-module.controller('CarouselCtrl', function ($scope) {
-  $scope.myInterval = 5000;
-  var slides = $scope.slides = [];
-  $scope.addSlide = function(count) {
-    slides.push({
-      image: '/img/carousel/p' + count + '.jpg',
-      //text: ['CLAWBOT', 'REX', 'IKE','ARMBOT', '3D'][slides.length % 5],
-      // TODO links sollten zu Kursen fuehren
-      link: ['#/courses/kids', '#/courses/kids', '#/courses/kids', '#/courses/kids', '#/courses/kids'][slides.length % 5]
-    });
-  };
-  for (var i = 1; i <= 5; i++) {
-    $scope.addSlide(i);
-  }
-});
+module.controller('CourseCtrl',
 
-module.factory('DetailsData', function () {
-  return { course: '' };
-});
-
-module.controller('CourseCtrl', ['$scope','$http','DetailsData', function ($scope, $http, detailsData) {
+	function($rootScope, $scope, $http, $location) {
+			
+			// TODO das sollte in eine Methode und auch über Methode aufgerufen werden
+			// in der Methode muss noch der Pfad übergeben werden
+			// /courses/pfad z.B. /courses/kids
+			// dann muss aber wahrscheinlich der Controller verschoben werden
+			//$scope.listCourses = function(path) {
+		        
+		        $http({
+		            method: 'GET',
+		            url: '/listCourses'
+		        })
+		        .then(function (response) {
+		            if (response.status == 200) {
+		                
+		            	var courses = response.data;
+		                
+		                if(courses !== undefined){
+		                  for(var i = 0; i < courses.length; i++){
+		                      var course = courses[i];
+		                      var schedules = course.schedules;
+		                      if(schedules !== undefined){
+		                        for(var j = 0; j < schedules.length; j++){
+		                            var schedule = schedules[j];
+		                            schedule.begin = formatTimeStamp(schedule.begin);
+		                            schedule.end = formatTimeStamp(schedule.end);  
+		                            var days = schedule.days;
+		                            schedule.daysAsString  = "";
+		                            if( days !== undefined) {
+		          	                  for(var l = 0; l < days.length; l++){
+		          	                     schedule.daysAsString += days[l];
+		          	                  }
+		                            }
+		                        }
+		                      }          
+		                  }
+		                  $scope.courses = courses; 
+		                }
+		            	
+		                $location.path("/courses/kids");
+		               
+		                console.log("Successfully loaded courses");
+		            }
+		            else {
+		                console.log("Logout failed!");
+		            }
+		        });        
+		    //};
+		        
+		        $scope.showDetails = function(course) {
+		        	
+		        	if($rootScope.course === undefined || $rootScope.course.name !== course.name) {
+		        	
+			            $http.get('/course/details', {params: {'name': course.name}}).then(function(response) {
+			            	console.log("Successfully loaded details");
+			            	$rootScope.course = course;
+			            	$rootScope.course.details = response.data;
+			            	// TODO hier sollte auch das Routing stattfinden
+			            	//$location.path("/courses/kids/details");
+			                } 
+			            );        
+		        	}
+		        	else {
+		        		console.log("Neues Laden des Kurses '" + course.name +"' nicht notwendig");
+		        	}
+		        };
+		        
+		        $scope.registerForCourse = function(course) {
+		        	$rootScope.course = course;
+		        	// TODO hier sollte auch das Routing stattfinden
+	            	//$location.path("/courses/register");
+		        };
 	
-    $http.get('/listCourses').then(function(response) {
-      var courses = response.data;
-      
-      if(courses !== undefined){
-        for(var i = 0; i < courses.length; i++){
-            var course = courses[i];
-            var schedules = course.schedules;
-            if(schedules !== undefined){
-              for(var j = 0; j < schedules.length; j++){
-                  var schedule = schedules[j];
-                  schedule.begin = formatTimeStamp(schedule.begin);
-                  schedule.end = formatTimeStamp(schedule.end);  
-                  var days = schedule.days;
-                  schedule.daysAsString  = "";
-                  if( days !== undefined) {
-	                  for(var l = 0; l < days.length; l++){
-	                     schedule.daysAsString += days[l];
-	                  }
-                  }
-              }
-            }          
-        }
-        $scope.courses = courses; 
-      }
-    });
-    
-    $scope.toggle = function(state) {
-      $scope.results.forEach(function(e) {
-        e.open = state;
-      });
-    };
-    
-    $scope.showDetails = function(course) {
-        $http.get('/course/details', {params: {'name': course.name}}).then(function(response) {
-        	//$scope.course = course;
-//        	$scope.details = response.data;   
-        	detailsData.course = course;
-        	detailsData.course.details = response.data;
-//            console.log("Details:");
-//            console.log($scope.details);
-            //console.log($scope.course.details);
-            } 
-        );        
-    };  
-    
-    $scope.registerForCourse = function(course) {
-    	detailsData.course = course;
-    	
-    };
-  }
-]);
-
-module.controller('DetailsCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
-    $scope.course = detailsData;
-  }
-]);
-
-module.controller('RegisterCtrl', ['$scope', 'DetailsData', function ($scope, detailsData) {
-    $scope.course = detailsData;
-  }
-]);
+	}
+);
 
 function formatTimeStamp(timeStamp){    
     if(timeStamp === undefined){
@@ -266,3 +258,4 @@ function formatTimeStamp(timeStamp){
     }
     return timeStamp;
 }
+

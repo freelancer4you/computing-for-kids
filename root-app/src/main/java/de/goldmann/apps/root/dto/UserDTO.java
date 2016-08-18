@@ -6,23 +6,28 @@ public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = -1973241612748624323L;
 
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private Adress adress;
-    private String registrationDate;
+    private String            salutation;
+    private String            title;
+    private String            firstName;
+    private String            lastName;
+    private String            userName;
+    private String            email;
+    private String            password;
+    private String            phoneNumber;
+    private Adress            adress;
+    private String            registrationDate;
     private String            childName;
     private String            childAge;
 
-    public UserDTO() {
-    }
+    public UserDTO() {}
 
-    public UserDTO(final String firstName, final String lastName, final String userName, final String email,
+    public UserDTO(final String salutation, final String title, final String firstName, final String lastName,
+            final String userName,
+            final String email,
             final String password, final String phoneNumber, final Adress adress, final String registration,
             final String childName, final String childAge) {
+        this.salutation = salutation;
+        this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
@@ -34,6 +39,14 @@ public class UserDTO implements Serializable {
         this.childName = childName;
         this.childAge = childAge;
 
+    }
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getFirstName() {

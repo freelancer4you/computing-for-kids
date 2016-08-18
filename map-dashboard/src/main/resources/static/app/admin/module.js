@@ -21,5 +21,22 @@ adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $h
         }
     });        	
 	
+	$http({
+        method: 'GET',
+        url: '/visitorsCount'
+    })
+    .then(function (response) {
+    	console.log(response.data);
+        if (response.status == 200) {
+        	$scope.visitorsCount = response.data;
+        	   
+            console.log("Successfully loaded visitorsCount");
+        }
+        else {
+            $rootScope.authenticated = false;
+            console.log("Loading users failed!");
+        }
+    });
+	
 }
 ]);

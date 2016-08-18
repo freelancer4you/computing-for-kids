@@ -28,6 +28,7 @@ import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.controller.AuthenticationControllerTest.AuthenticationConfig;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserServiceTest;
@@ -75,11 +76,6 @@ public class AuthenticationControllerTest {
         UserActivityReport userActivityReport() {
             return new UserActivityReport() {
 
-                @Override
-                public void registered(final User user) {
-                    // TODO Auto-generated method stub
-
-                }
 
                 @Override
                 public void logout(final User user) {
@@ -89,6 +85,12 @@ public class AuthenticationControllerTest {
 
                 @Override
                 public void login(final User user) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void registered(final User user, final Course course) {
                     // TODO Auto-generated method stub
 
                 }

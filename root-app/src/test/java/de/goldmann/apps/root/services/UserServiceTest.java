@@ -88,7 +88,7 @@ public class UserServiceTest {
 
     private UserDTO getUser(final String firstName, final String lastName, final String userName, final String email,
             final String password, final String phoneNumber) {
-        return buildUserDto(firstName, lastName, userName, email, password, phoneNumber);
+        return buildUserDto("herr", null, firstName, lastName, userName, email, password, phoneNumber);
     }
 
 }

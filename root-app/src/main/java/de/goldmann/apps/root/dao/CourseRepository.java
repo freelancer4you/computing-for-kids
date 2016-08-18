@@ -6,6 +6,4 @@ import de.goldmann.apps.root.model.Course;
 
 public interface CourseRepository extends JpaRepository<Course, String> {
 
-	Course findByName(String string);
-
 }

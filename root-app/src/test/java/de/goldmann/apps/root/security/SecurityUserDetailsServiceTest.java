@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.services.UserActivityReport;
 
@@ -32,9 +33,6 @@ public class SecurityUserDetailsServiceTest {
     public void setUp() throws Exception {
         final UserActivityReport activityReport = new UserActivityReport() {
 
-            @Override
-            public void registered(final User user) {
-            }
 
             @Override
             public void logout(final User user) {
@@ -42,6 +40,10 @@ public class SecurityUserDetailsServiceTest {
 
             @Override
             public void login(final User user) {
+            }
+
+            @Override
+            public void registered(final User user, final Course course) {
             }
         };
         service = new SecurityUserDetailsService(userRepository, activityReport);
