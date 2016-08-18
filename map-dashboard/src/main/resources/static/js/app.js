@@ -30,6 +30,10 @@ var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 
         name : "Courses-Register",
         templateUrl : "partials/courses/register/index.html",
     })
+    .when("/courses/register/sucess",  {
+        name : "Courses-Register-Sucess",
+        templateUrl : "partials/courses/register/success.html",
+    })
     .when("/about",  {
         name : "About",
         templateUrl : "partials/about/index.html",
@@ -142,6 +146,7 @@ function($rootScope, $scope, $http, $location) {
             if (response.status == 200) {
                 //$("#modalSingup").modal('hide');
                 //$scope.login();
+            	$location.path("/courses/register/sucess");
             }
             else {
                 $scope.vm.errorMessages = [];

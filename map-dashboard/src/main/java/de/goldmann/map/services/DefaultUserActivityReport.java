@@ -54,4 +54,5 @@ public class DefaultUserActivityReport implements UserActivityReport {
 		LOGGER.info(user + " logout.");
 	}
 
+
 }

@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import de.goldmann.apps.root.dto.Adress;
@@ -82,7 +83,7 @@ public class User implements Serializable {
         this.username = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
-        this.passwordDigest = new BCryptPasswordEncoder().encode(user.getPassword());
+        this.passwordDigest = new BCryptPasswordEncoder().encode(RandomStringUtils.random(10));
         this.email = user.getEmail();
         this.phoneNumber = user.getPhoneNumber();
         final Adress adress = user.getAdress();

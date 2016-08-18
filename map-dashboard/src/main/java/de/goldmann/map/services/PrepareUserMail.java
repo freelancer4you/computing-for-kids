@@ -6,6 +6,7 @@ import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Charsets;
@@ -30,20 +31,22 @@ public class PrepareUserMail {
         return MessageFormat.format(
                 templateContent,
                 salutationPrefix + " " + user.getTitle() + " " + salutation,
-                user.getLastName(),
+
+                StringEscapeUtils.escapeHtml4(user.getLastName()),
                 dayFormat.format(registrationDate),
                 timeFormat.format(registrationDate),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getChildName(),
-                user.getAdresse().getStreet(),
+                StringEscapeUtils.escapeHtml4(user.getFirstName()),
+                StringEscapeUtils.escapeHtml4(user.getLastName()),
+                StringEscapeUtils.escapeHtml4(user.getChildName()),
+                StringEscapeUtils.escapeHtml4(user.getAdresse().getStreet()),
                 user.getAdresse().getHouseNr(),
                 user.getAdresse().getZipcode(),
-                user.getAdresse().getCity(),
+                StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
                 user.getEmail(),
                 user.getChildAge(),
-                course.getName(),
+                StringEscapeUtils.escapeHtml4(course.getName()),
                 schedule.getBegin(),
-                course.getPlace());
+                StringEscapeUtils.escapeHtml4(course.getPlace()));
+
     }
 }
