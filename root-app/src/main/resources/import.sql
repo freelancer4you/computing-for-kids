@@ -1,3 +1,10 @@
+create table course_participants (course_name varchar(255) not null, user_email varchar(255) not null, primary key (course_name, user_email)); 
+create table courses (id varchar(255) not null, description clob not null, appointments varchar(255), curriculum varchar(255) not null, duration varchar(255), icon varchar(255) not null, level varchar(255) not null, name varchar(255) not null, place clob not null, price double not null, requirements clob, begindate timestamp not null, enddate timestamp not null, primary key (id)); 
+create table users (email varchar(255) not null, city varchar(40) not null, housenr varchar(4) not null, street varchar(82) not null, zipcode varchar(10) not null, childage varchar(255), childname varchar(255), firstname varchar(255), lastname varchar(255) not null, password varchar(255) not null, phonenumber varchar(255) not null, registration timestamp not null, role varchar(255) not null, salutation varchar(255) not null, title varchar(255), username varchar(255) not null, primary key (email)); 
+alter table users add constraint pk_username unique (username);
+alter table course_participants add constraint fk_cp_course_id foreign key (course_id) references courses; 
+alter table course_participants add constraint fk_cp_user_email foreign key (user_email) references users;
+
 -- PW=Blade23 yyyy-MM-dd hh:mm:ss
 insert into users (salutation, email,firstname,lastname, username, password, phonenumber, role, registration, street, zipcode, city, houseNr) values('Herr', 'goldi23@freenet.de', 'goldi', 'goldi', 'username', '$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.', 'phone', 'ADMIN', CURRENT_TIMESTAMP, 'street', 'plz', 'city', '8');
 

@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>map-dashboard</artifactId>
-	<packaging>war</packaging>
+	<!-- packaging>war</packaging-->
 
 	<properties>
 		<start-class>de.goldmann.map.UiApplication</start-class>
@@ -43,6 +43,10 @@
             <artifactId>guava</artifactId>
             <version>16.0.1</version>
         </dependency>
+        <dependency>
+             <groupId>mysql</groupId>
+             <artifactId>mysql-connector-java</artifactId>
+         </dependency>
 		
         <!-- TEST -->
 		<dependency>
@@ -78,13 +82,27 @@
 	<build>
 		<finalName>dashboard</finalName>
 		<plugins>
-			<plugin>
+		    <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+			        <executable>true</executable>
+			    </configuration>
+                <executions>
+		            <execution>
+		                <goals>
+		                    <goal>repackage</goal>
+		                </goals>
+		            </execution>
+		        </executions>
+            </plugin>  
+			<!-- plugin>
 			    <artifactId>maven-war-plugin</artifactId>
 			    <configuration>
 			   		
 			        <failOnMissingWebXml>false</failOnMissingWebXml>
 			    </configuration>
-			</plugin>
+			</plugin-->
 		</plugins>
 	</build>
 

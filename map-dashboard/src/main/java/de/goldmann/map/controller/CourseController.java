@@ -10,12 +10,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.dto.CourseDTO;
@@ -25,19 +25,20 @@ import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseDetails;
 import de.goldmann.apps.root.model.Schedule;
 
-@Controller
+@RestController
 public class CourseController {
 
-    @Autowired
-    private CourseRepository courseRepo;
+	@Autowired
+	private CourseRepository courseRepo;
 
-    private final SimpleDateFormat	formatter	= new SimpleDateFormat(COURSE_DATE_FORMAT);
+	private final SimpleDateFormat	formatter	= new SimpleDateFormat(COURSE_DATE_FORMAT);
 
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
-    public List<CourseDTO> listCourses() {
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
+	public List<CourseDTO> listCourses() {
 
+<<<<<<< 20a7dd30f10a7c11d77e9e485318c4ab9598c6dc
         final List<CourseDTO> courses = new ArrayList<>();
         for (final Course course : courseRepo.findAll()) {
             final Schedule schedule = course.getSchedule();
@@ -61,8 +62,33 @@ public class CourseController {
     public CourseDetailsDTO courseDetails(@RequestParam("id") final String name) {
         final Course course = courseRepo.findOne(name);
         final CourseDetails courseDetails = course.getDetails();
+=======
+		final List<CourseDTO> courses = new ArrayList<>();
+		for (final Course course : courseRepo.findAll()) {
+			final Schedule schedule = course.getSchedule();
+			final CourseDTO courseDTO = new CourseDTO(course.getId(),
+					course.getName(),
+					course.getIcon(),
+					course.getDescription(),
+					course.getLevel(),
+					course.getPrice(),
+					course.getPlace(), course.getRequirements(),
+					new ScheduleDTO(formatter.format(schedule.getBegin()), formatter.format(schedule.getEnd())));
 
-        return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
-                courseDetails.getAppointments(), courseDetails.getDuration());
-    }
+			courses.add(courseDTO);
+		}
+		return courses;
+	}
+>>>>>>> Zurück zu altem Design
+
+	@ResponseBody
+	@ResponseStatus(HttpStatus.OK)
+	@RequestMapping(value = COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
+	public CourseDetailsDTO courseDetails(@RequestParam("id") final String name) {
+		final Course course = courseRepo.findOne(name);
+		final CourseDetails courseDetails = course.getDetails();
+
+		return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
+				courseDetails.getAppointments(), courseDetails.getDuration());
+	}
 }

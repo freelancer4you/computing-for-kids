@@ -115,7 +115,11 @@ public class Course implements Serializable {
         return details;
     }
 
-    @Override
+    public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
