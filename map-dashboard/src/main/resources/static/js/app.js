@@ -1,6 +1,6 @@
 'use strict';
 
-var module = angular.module("MapApp", ['ngRoute', 'ui.bootstrap', 'dateModule', 'adminModule']).config(function($routeProvider, $httpProvider) {
+var module = angular.module("MapApp", ['ngRoute', 'dateModule', 'adminModule']).config(function($routeProvider, $httpProvider) {
     
     $routeProvider
     .when('/home', {
