@@ -13,7 +13,7 @@ spring:
       password: n5WEmRsGXuU/xWkGDs8rWw==
       username: info@andre-goldmann.de
       port: 465
-      from: computing-for-kids@andre-goldmann.de
+      from: info@computing-for-kids.de
       subject: Registration
 logging:
   level:

@@ -276,3 +276,20 @@ table.kurstage th                 { background-color:grey;font-size:13px; }
 table.kurstage td                 { border-style:solid; border-color:black; border-width:1px 0px 0px 0px; }
 tr.kurstage                       {}
 tr.kurstage.alt                   { background-color:#C5C6C8; }
+
+.embed-container { 
+        position: relative; 
+        padding-bottom: 100%; 
+        height: 0; 
+        overflow: hidden; 
+        max-width: 100%; 
+        min-height: 100%; 
+}
+
+.embed-container iframe, .embed-container object, .embed-container embed { 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+}
