@@ -16,8 +16,6 @@ public class CourseDTO implements Serializable {
 
     private String description;
 
-    private boolean open;
-
     private Level level;
 
     private Set<ScheduleDTO>	schedules;
@@ -26,17 +24,19 @@ public class CourseDTO implements Serializable {
 
     private String            requirements;
 
+    private String            place;
+
     CourseDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-    public CourseDTO(final String name, final String icon, final String description, final boolean open, final Level level, final double price) {
+    public CourseDTO(final String name, final String icon, final String description,
+            final Level level, final double price) {
         super();
         this.name = name;
         this.icon = icon;
         this.description = description;
-        this.open = open;
         this.level = level;
         this.price = price;
         schedules = new HashSet<>();
@@ -58,10 +58,6 @@ public class CourseDTO implements Serializable {
         return description;
     }
 
-    public boolean isOpen() {
-        return open;
-    }
-
     public Level getLevel() {
         return level;
     }
@@ -72,6 +68,10 @@ public class CourseDTO implements Serializable {
 
     public String getRequirements() {
         return requirements;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class CourseDTO implements Serializable {
     @Override
     public String toString() {
         return "CourseDTO [" + (name != null ? "name=" + name + ", " : "") + (icon != null ? "icon=" + icon + ", " : "")
-                + (description != null ? "description=" + description + ", " : "") + "open=" + open + ", "
+                + (description != null ? "description=" + description + ", " : "")
                 + (level != null ? "level=" + level + ", " : "")
                 + (schedules != null ? "schedules=" + schedules + ", " : "") + "price=" + price + ", "
                 + (requirements != null ? "requirements=" + requirements : "") + "]";

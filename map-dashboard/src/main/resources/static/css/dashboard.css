@@ -230,6 +230,7 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
 /* =Courses
 --------------------------------------------------------------------------------------------------------*/
 .course-calendar { background: url(../img/filter_page_image_sprite.png) 0 -48px;width:16px; height:16px; }
+.course-location { background: url(../img/location_small.png); width:16px; height:16px;  }
 .course-level-Beginner { background: url(../img/filter_page_image_sprite.png) 0 -12px;width:36px; height:12px; }
 .course-level-Intermediate { background: url(../img/filter_page_image_sprite.png) 0 -24px;width:36px; height:12px; }
 .course-level-All { background: url(../img/filter_page_image_sprite.png) 0 0px;width:36px; height:12px; }
@@ -281,3 +282,15 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
 }
+
+.accordion-title{
+	font-weight: bold; 
+	letter-spacing: 1px;
+}
+
+/* Kurstage */
+table.kurstage                    { width:525px; font-size:12px; border-bottom:1px solid black; }
+table.kurstage th                 { background-color:grey;font-size:13px; }
+table.kurstage td                 { border-style:solid; border-color:black; border-width:1px 0px 0px 0px; }
+tr.kurstage                       {}
+tr.kurstage.alt                   { background-color:#C5C6C8; }

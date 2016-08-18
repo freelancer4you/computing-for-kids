@@ -1,10 +1,10 @@
 <div class="element clearfix col1-1 courses-kids" ng-controller="CourseCtrl">
-    <p style="font-size: 94%;">
-        <a href="#/"><span>Home</span></a> 
-        / 
-        <a href="#/courses"><span>Kurse</span></a>
-        / Kinder
-    </p>  
+    <ol class="breadcrumb">
+	  <li><a href="#/">Home</a></li>
+	  <li><a href="#/courses">Kurse</a></li>
+	  <li class="active">Kinder</li>
+	</ol>
+    
     <hr/>
     <p>You wanne learn something cool, something new, then have a look at our courses specially made for young people. If this is
         not enough for you then let us know and <a href="#">suggest</a> some other topics you would like to gain experience in.</p>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="clearfixHeader" >
                     <div class="clearfixLeft" style="width: 16%;">
-                        <img ng-src="img/{{course.icon}}" style="padding-left: 10px; padding-top: 10px; display: inline-block;max-height: 120px;max-width: 110px;" alt="{{course.name}}"/>
+                        <img ng-src="img/{{course.icon}}" style="padding-left: 10px; padding-top: 10px; display: inline-block; max-height: 120px;max-width: 110px;" alt="{{course.name}}"/>
                     </div>
                     <div class="clearfixLeft" style="width: 65%;">
                         <p style="padding-bottom: 2px; padding-top: 10px; padding-right:18px; font-size: 94%; text-align: justify;">{{course.description}}</p>
@@ -29,10 +29,10 @@
                                 </td>
                                 <td>
                                     <p style="font-size: 94%; margin-top: 10px;margin-left: 5px; margin-right: 10px; ">
-                                        <span style="padding-right: 4px;color:black;">{{course.schedules[0].daysAsString}}</span> 
                                         <span style="padding-right: 4px;color:black;">{{course.schedules[0].begin}}</span>
                                         <span style="padding-right: 4px;color:black;">&ndash;</span>
                                         <span style="padding-right: 4px;color:black;">{{course.schedules[0].end}}</span>
+                                        <!-- TODO Uhrzeiten -->
                                         <!-- 6pm -->
                                     </p>
                                 </td>
@@ -42,6 +42,12 @@
                                 <td>
                                     <p style="font-size: 94%; margin-top: 10px;margin-left: 10px; ">{{course.level}}</p>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="glyphicon glyphicon-map-marker" ></div>
+                                </td>
+                                <td colspan="3">{{course.place}}</td>
                             </tr>
                         </table>                                 
                     </div>
@@ -54,7 +60,7 @@
                              </tr>
                             <tr>
                                 <td width="45%">
-                                    <a href="#/courses/details" class="dark_button width-150px" ng-click='showDetails(course.name)'>Details</a>                                    
+                                    <a href="#/courses/details" class="dark_button width-150px" ng-click='showDetails(course)'>Details</a>                                    
                                 </td>
                                 <td width="10%">&nbsp;</td>
                                 <td width="45%">

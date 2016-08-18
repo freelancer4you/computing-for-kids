@@ -1,36 +1,51 @@
 package de.goldmann.apps.root.dto;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class CourseDetailsDTO implements Serializable {
 
-	private static final long serialVersionUID = 1806333652496335136L;
+    private static final String COURSE_DETAILS_EXTENSION = ".html";
 
-	private String				name;
-	private String				description;
+    private static final String COURSES_DETAILS_PATH     = "/partials/courses/details/";
 
-	public CourseDetailsDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    private static final long serialVersionUID = 1806333652496335136L;
 
-	public CourseDetailsDTO(final String name, final String description) {
-		super();
-		this.name = name;
-		this.description = description;
-	}
+    private final String				name;
 
-	public String getDescription() {
-		return description;
-	}
+    private final String				description;
 
-	public String getName() {
-		return name;
-	}
+    private final String      curriculum;
 
-	@Override
-	public String toString() {
-		return "CourseDetailsDTO [" + (name != null ? "name=" + name : "") + "]";
-	}
+    private final String      appointments;
+
+    public CourseDetailsDTO(final String name, final String description, final String curriculum,
+            final String appointments) {
+        this.name = Objects.requireNonNull(name, "name");
+        this.description = Objects.requireNonNull(description, "description");
+        this.curriculum = COURSES_DETAILS_PATH + curriculum + COURSE_DETAILS_EXTENSION;
+        this.appointments = COURSES_DETAILS_PATH + appointments + COURSE_DETAILS_EXTENSION;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCurriculum() {
+        return curriculum;
+    }
+
+    public String getAppointments() {
+        return appointments;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseDetailsDTO [" + (name != null ? "name=" + name : "") + "]";
+    }
 
 }

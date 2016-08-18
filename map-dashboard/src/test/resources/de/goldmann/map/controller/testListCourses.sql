@@ -1,3 +1,3 @@
-insert into courses(name, icon, description, level, price) values ('3D Programming for Kids', 'threejs.png', 'The C programming language is one of the most popular and widely used programming languages and is commonly used to programme operating systems such as Unix. It is a general-purpose programming langu.', 'Intermediate', 2334.99);
+insert into courses(name, icon, description, level, price, place) values ('3D Programming for Kids', 'threejs.png', 'The C programming language is one of the most popular and widely used programming languages and is commonly used to programme operating systems such as Unix. It is a general-purpose programming langu.', 'Intermediate', 2334.99, 'Volkshochschule, Löhrstraße 3 - 7');
 
 insert into schedules (begindate, enddate, course_name) values(TO_TIMESTAMP('2016-01-31 10:10:10', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2017-01-31 10:10:10', 'YYYY-MM-DD HH24:MI:SS'), '3D Programming for Kids');

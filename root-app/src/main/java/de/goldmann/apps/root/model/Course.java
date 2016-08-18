@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "courses")
@@ -31,10 +31,6 @@ public class Course implements Serializable {
     @Lob
     private String description;
 
-    // just for accordion
-    @Transient
-    private boolean open;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "level", nullable = false)
     private Level level;
@@ -48,6 +44,13 @@ public class Course implements Serializable {
     @Column(name = "requirements", nullable = true)
     @Lob
     private String            requirements;
+
+    @Column(name = "place", nullable = false)
+    @Lob
+    private String            place;
+
+    @Embedded
+    private CourseDetails     details;
 
     Course() {
     }
@@ -76,10 +79,6 @@ public class Course implements Serializable {
         return description;
     }
 
-    public boolean isOpen() {
-        return open;
-    }
-
     public Level getLevel() {
         return level;
     }
@@ -94,6 +93,10 @@ public class Course implements Serializable {
 
     public String getRequirements() {
         return requirements;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     @Override
@@ -122,10 +125,10 @@ public class Course implements Serializable {
     @Override
     public String toString() {
         return "Course [" + (name != null ? "name=" + name + ", " : "") + (icon != null ? "icon=" + icon + ", " : "")
-                + (description != null ? "description=" + description + ", " : "") + "open=" + open + ", "
-                + (level != null ? "level=" + level + ", " : "")
-                + (schedules != null ? "schedules=" + schedules + ", " : "") + "price=" + price + ", "
-                + (requirements != null ? "requirements=" + requirements : "") + "]";
+                + (description != null ? "description=" + description + ", " : "")
+                + (level != null ? "level=" + level + ", " : "") + "price=" + price + ", "
+                + (requirements != null ? "requirements=" + requirements + ", " : "")
+                + (place != null ? "place=" + place : "") + "]";
     }
 
 }

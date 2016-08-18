@@ -1,261 +1,81 @@
-<div class="element clearfix col1-1 courses-details" style="background-color:white;width:80%;height:1024px;overflow: auto;color:black; margin-top: 80px;" ng-controller="DetailsCtrl">
-     <p style="font-size: 94%;">
-         <a href="#/"><span>Home</span></a> 
-         / 
-         <a href="#/courses"><span>Courses</span></a>
-         /
-         <a href="#/courses/kids"><span>Kids</span></a>
-         /
-         <span>{{course.course.name}}</span>
-     </p>  
-     <hr style="background-color:#aa0000;height:6px;"/>
-     <div class="contentHeader" >
-         <div class="contentHeader" >
-             <!--div class="headerCourseBanner">
-                 {{course.course.name}}
-             </div-->
-                                    
-             <div ng-controller="TabsCtrl" style="padding-top: 20px;">
+<div class="element clearfix col1-1 courses-details"
+	style="background-color: white; width: 80%; height: 1024px; overflow: auto; color: black; margin-top: 80px;"
+	ng-controller="DetailsCtrl">
+	<ol class="breadcrumb">
+		<li><a href="#/">Home</a></li>
+		<li><a href="#/courses">Kurse</a></li>
+		<li><a href="#/courses/kids">Kinder</a></li>
+		<li class="active">{{course.course.name}}</li>
+	</ol>
 
-                 <tabset>
-                     <tab heading="Description">
-                         <div style="width: 100%;height: 10px;">&nbsp;</div>
-                         <div class="clearfixHeader" style="padding-left: 20px;">
-                             <div class="clearfixLeft cours-details-top" 
-                                  style="width: 45%;padding-top: 16px; padding-bottom: 10px;padding-left: 20px;">
-                                 <p style="font-size: 90%;padding-bottom: 40px;">Kursprogramm August bis Dezember 2014</p>
-                                 <p style="font-size: 130%;font-weight:bold;">{{course.course.name}}</p>
-                             </div> 
-                             <div class="clearfixLeft" style="width: 6%;">
-                                 &nbsp;
-                             </div> 
-                             <div class="clearfixLeft cours-details-top" style="width: 45%;padding-top: 24px;padding-bottom: 16px;padding-left: 20px;">
-                                 <p style="font-size: 100%;float: right;padding-right: 10px;">{{course.course.name}}</p>
-                             </div>
-                         </div>
-                         
-                         <div style="width: 100%;height: 30px;">&nbsp;</div>
-                         
-                         <div class="clearfixHeader" style="padding-left: 20px;">
-                             <div class="clearfixLeft cours-details-bottom" style="width: 45%;height: 340px;padding: 12px; font-size: 86%;">
-                                 <div style="padding: 10px;">
-                                     <p>DATEN :</p>
-                                     <p>
-                                         <span>Serie F:</span><span style="float: right">Jeweils Dienstag, 19 bis 20.30 Uhr</span>
-                                     </p>
-                                     <p style="float: right;">
-                                         26. August, 2., 9., 16. und 23. September 2014
-                                     </p>
-                                     <br>
-                                     <hr style="padding-top: 2px;clear: both;"/>
+	<hr style="background-color: #aa0000; height: 2px;" />
 
-                                     <p>
-                                         <span>Serie G:</span><span style="float: right">Jeweils Mittwoch, 19 bis 20.30 Uhr</span>
-                                     </p>
-                                     <p style="float: right;">
-                                         3., 10., 17., 24. September und 1. Oktober 2014
-                                     </p>
-                                     <hr style="padding-top: 2px;clear: both;"/>
 
-                                     <p>
-                                         <span>Serie H:</span><span style="float: right">Jeweils Dienstag, 19 bis 20.30 Uhr</span>
-                                     </p>
-                                     <p style="float: right;">
-                                         21., 28. Oktober, 4., 11. und 18. November 2014
-                                     </p>
-                                     <hr style="padding-top: 2px;clear: both;"/>
-
-                                     <p>
-                                         <span>Serie I:</span><span style="float: right">Jeweils Mittwoch, 19 bis 20.30 Uhr</span>
-                                     </p>
-                                     <p style="float: right;">
-                                         19. , 26. November, 3. , 10. und 17. Dezember 2014
-                                     </p>
-                                     <hr style="position: relative;top: 40px;clear: both;"/>
-                                 </div>
-                             </div> 
-                             <div class="clearfixLeft" style="width: 6%;">
-                                 &nbsp;
-                             </div> 
-                             <div class="clearfixLeft" style="width: 45%; ">
-                                {{course.course.description}}
-                             </div> 
-                         </div>
-                         
-                         <div class="clearfixHeader" style="padding-left: 20px;">
-                             <div class="clearfixLeft" style="width: 45%;height: 70px; background-color: #aa0000;">
-                                 &nbsp;
-                             </div>
-                             <div class="clearfixLeft" style="width: 6%;">
-                                 &nbsp;
-                             </div> 
-                             <div class="clearfixLeft cours-details-bottom" style="width: 45%;">
-                                 <p style="padding-top: 24px;padding-bottom: 16px;float: right;padding-right: 10px;">Page??</p>
-                             </div>
-                         </div>    
-                         
-                     </tab>
-                     
-                     <tab heading="Content">
-                         <div style="width: 100%;height: 10px;">&nbsp;</div>
-                         <div style="height: 500px;">
-                             
-                             <div class="clearfixHeader" style="padding-left: 20px;">
-                                 <div class="clearfixLeft cours-details-top" style="width: 45%;">
-                                     <p style="padding-top: 24px;padding-bottom: 16px;float: right;padding-right: 10px;">Kursprogramm August bis Dezember 2014</p>
-                                 </div>
-                                 <div class="clearfixLeft" style="width: 6%;">
-                                     &nbsp;
-                                 </div> 
-                                 <div class="clearfixLeft cours-details-top" style="width: 45%;">
-                                     <p style="padding-top: 24px;padding-bottom: 16px;float: right;padding-right: 10px;">{{course.course.name}}</p>
-                                 </div>
-                             </div>
-                             
-
-                             <div class="row" style="height: 400px;font-size: 90%">
-                                 <div class="col-xs-8 col-sm-6">
-                                     <div>
-                                         <div style="position: relative; padding: 14px;">
-                                             <p style="font-size: 140%;font-weight: bold;">Kursinhalt</p>
-
-                                             <p style="padding: 0px;margin: 0px;">1. LEKTION</p>
-                                             <hr style="padding: 0px;margin: 0px;height: 4px; border:solid #0033cc 1px;background-color:#aa0000;"/>
-                                             <p style="font-weight: bold;padding-top: 5px;">Die Schweiz</p>
-                                             <ul>
-                                                 <li>Kennzahlen, Lage, Sprachen</li>
-                                                 <li>Politische Gliederung, Gewaltentrennung</li>
-                                                 <li>Hauptstadt und politische Organe</li>
-                                                 <li>Die Bundesversammlung, der Bundesrat,die Bundesgerichte</li>
-                                             </ul>
-
-                                             <p style="padding: 0px;margin: 0px;">2. LEKTION</p>
-                                             <hr style="padding: 0px;margin: 0px;height: 4px; border:solid #0033cc 1px;background-color:#aa0000;"/>
-                                             <p style="font-weight: bold;padding-top: 5px;">Kanton Basel-Stadt</p>
-                                             <ul>
-                                                 <li>Kennzahlen, Gliederung in drei Gemeinden</li>
-                                                 <li>Organisation,Geschichte, politische Gliederung</li>
-                                                 <li>Der Grosse Rat, der Regierungsrat, die Gerichte des Kantons</li>
-                                                 <li>Zust�ndigkeiten im Kanton, kantonale Gerichte</li>
-                                             </ul>
-
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-xs-4 col-sm-6">
-                                     <div>
-                                         <div style="position: relative; padding: 14px;">
-                                             <p style="padding: 0px;margin: 0px;">3. LEKTION</p>
-                                             <hr style="padding: 0px;margin: 0px;height: 4px; border:solid #0033cc 1px;background-color:#aa0000;"/>
-                                             <p style="font-weight: bold;padding-top: 5px;">Kanton Basel-Stadt</p>
-                                             <ul>
-                                                 <li>Kennzahlen, Gliederung in drei Gemeinden</li>
-                                                 <li>Organisation,Geschichte, politische Gliederung</li>
-                                                 <li>Der Grosse Rat, der Regierungsrat, die Gerichte des Kantons</li>
-                                                 <li>Zust�ndigkeiten im Kanton, kantonale Gerichte</li>
-                                             </ul>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             <div class="row">
-                                 <div class="col-xs-8 col-sm-6">
-                                     <div class="cours-details-bottom" style="margin-right: 5px;">
-                                         <div style="position: relative; padding: 14px;">
-                                             Title
-                                         </div>
-                                     </div>
-                                 </div>
-                                 <div class="col-xs-4 col-sm-6">
-                                     <div class="cours-details-bottom" style="margin-left: 5px;">
-                                         <div style="position: relative; padding: 14px;">
-                                             Title
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     </tab>
-                     <tab heading="Registration">
-                         <div style="width: 100%;height: 10px;">&nbsp;</div>
-                         <div class="clearfixHeader" style="padding-left: 20px;">
-	                        <form role="form" class="form-horizontal" ng-submit="register()">
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="text" class="form-control" id="firstName"
-			                                placeholder="Your First Name" ng-model="credentials.firstName"/>
-			                        </div>
-			                    </div>
-			
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="text" class="form-control" id="lastName"
-			                                placeholder="Your Last Name" ng-model="credentials.lastName"/>
-			                        </div>
-			                    </div>
-			                    
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="text" class="form-control" id="userName"
-			                                placeholder="This will be your username" ng-model="credentials.userName"/>
-			                        </div>
-			                    </div>
-			                    
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="email" class="form-control" id="email"
-			                                placeholder="Your Email" ng-model="credentials.email"/>
-			                        </div>
-			                    </div>
-			                    
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="password" class="form-control" id="password"
-			                                placeholder="Choose a password" ng-model="credentials.password"/>
-			                        </div>
-			                    </div>
-			
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <input type="password" class="form-control" id="confirmPassword"
-			                                placeholder="Confirm password" />
-			                        </div>
-			                    </div>
-			
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <div class="checkbox">
-			                                <label> <input type="checkbox" id="termAggreement">I
-			                                    agree to the <a href="#">Terms of Service</a></input>
-			                                </label>
-			                            </div>
-			                        </div>
-			                    </div>
-			
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <div class="checkbox">
-			                                <label> <input type="checkbox" id="featureUpdates" />Keep
-			                                    me updated on new features
-			                                </label>
-			                            </div>
-			                        </div>
-			                    </div>
-			                    
-			                    <div class="form-group">
-			                        <div class="col-sm-12">
-			                            <button class="btn btn-custom" type="submit" id="commitSignUpBtn">Sign Up</button>
-			                        </div>
-			                    </div>
-			
-			                </form>
-                        </div>
-                     </tab>                     
-                 </tabset>
-
-             </div>
-
-         </div>
-     </div>  
- </div>
+	<div class="panel-group" id="accordion">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						data-target="#collapse1" class="accordion-title"> Allgemein</a>
+				</h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse in">
+				<div class="panel-body">
+				    
+				    <p style="font-size: medium;"><strong>{{course.course.name}}</strong></p>					
+					
+					<p><strong>Mitzubringen / Materialien</strong></p>
+					<p>Lehrbuch: Perspectivas ¡Ya! A2, Cornelsen ISBN 978-3-464-20489-4, ca. ab Lektion 5</p>
+					
+					<p><strong>Kursdaten</strong></p>
+					<p><strong>Zeitraum: </strong>{{course.course.schedules[0].begin}} bis {{course.course.schedules[0].end}}</p>
+					<p><strong>Dauer: </strong>18 Termine Veranstaltung(en), 54 Unterrichtseinheit(en)</p>
+					<p><strong>Kursleitung: </strong>Monika Grabow</p>
+					<p><strong>Kursort: </strong>{{course.course.place}}</p>
+					<p><strong>Kursentgelt: </strong>{{course.course.price}} €
+					<p><strong>Dokumente zum Herunterladen: </strong>Für diesen Kurs sind keine Dokumente vorhanden.</p>
+				
+				
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						data-target="#collapse2" class="accordion-title"> Termine</a>
+				</h4>
+			</div>
+			<div id="collapse2" class="panel-collapse collapse">
+				<div class="panel-body">
+				    <div ng-include="course.course.details.appointments"></div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						data-target="#collapse3" class="accordion-title"> Inhalt </a>
+				</h4>
+			</div>
+			<div id="collapse3" class="panel-collapse collapse">
+				<div class="panel-body">
+					<div ng-include="course.course.details.curriculum"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<table style="width: 30%; float: right;" >
+        <tr>
+            <td width="45%">
+                <a href="#/courses/kids" class="dark_button width-150px">Zurück</a>                                    
+            </td>
+            <td width="10%">&nbsp;</td>
+            <td width="45%">
+                <a href="#/courses/register" class="dark_button width-150px" ng-click='register(course.name)'>Anmelden</a>
+            </td>
+        </tr>
+    </table> 
+</div>
