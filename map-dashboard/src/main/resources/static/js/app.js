@@ -250,33 +250,40 @@ module.controller('CourseDetailsCtrl',
 		        	console.log("switch to register page")
 	            	$location.path("/courses/register");
 		        };
-		        
-		        $scope.register = function(course) {
-		            
-		            $http({
-		                method: 'POST',
-		                url: '/user',
-		                data: $scope.credentials,
-		                params: {'id': course.id},
-		                headers: {
-		                    "Content-Type": "application/json",
-		                    "Accept": "text/plain"
-		                }
-		            })
-		            .then(function (response) {
-		                if (response.status == 200) {
-		                	$location.path("/courses/register/sucess");
-		                }
-		                else {
-		                    $scope.vm.errorMessages = [];
-		                    $scope.vm.errorMessages.push({description: response.data});
-		                    $rootScope.authenticated = false;
-		                    console.log("failed user creation: " + response.data);
-		                }
-		            });        
-		        };
 		}
-	);
+);
+
+module.controller('RegisterCtrl',
+
+		function($rootScope, $scope, $http, $location) {
+				
+			$scope.register = function(course) {
+				console.log("Register for ");
+				console.log(course);
+				$http({
+					method: 'POST',
+					url: '/user',
+					data: $scope.credentials,
+					params: {'id': course.id},
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "text/plain"
+					}
+				})
+				.then(function (response) {
+					if (response.status == 200) {
+						$location.path("/courses/register/sucess");
+					}
+					else {
+						$scope.vm.errorMessages = [];
+						$scope.vm.errorMessages.push({description: response.data});
+						$rootScope.authenticated = false;
+						console.log("failed user creation: " + response.data);
+					}
+				});        
+			};
+		}
+);
 
 function formatTimeStamp(timeStamp){    
     if(timeStamp === undefined){

@@ -1,10 +1,7 @@
 package de.goldmann.apps.root.controller;
 
-import java.io.IOException;
 import java.security.Principal;
 import java.util.Objects;
-
-import javax.mail.MessagingException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -65,7 +62,8 @@ public class AuthenticationController {
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(method = RequestMethod.POST)
-	public void registerUser(@RequestBody final String payload, @RequestParam("id") final String courseId) {
+	public void registerUser(@RequestBody final String payload, @RequestParam("id") final String courseId)
+			throws Exception {
 		final ObjectMapper mapper = new ObjectMapper();
 
 		try {
@@ -76,11 +74,11 @@ public class AuthenticationController {
 			courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 
 			activityReport.registered(storedUser, course);
-
 		}
-		catch (final IOException | MessagingException e) {
+		catch (final Exception e) {
 			// TODO unzureichende Fehlerbehandlung
-			LOGGER.error("Fehler bei der Benutzerregistrierung:", e);
+			LOGGER.error("Fehler bei Benutzerregistrierung:" + payload, e);
+			throw e;
 		}
 
 	}

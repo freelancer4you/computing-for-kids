@@ -62,7 +62,8 @@ public class UiApplication extends SpringBootServletInitializer implements Comma
 	private void insertDescription(final String courseId, final String courseDescFile) throws IOException {
 		final Course course = courseRepo.findOne(courseId);
 
-		if (StringUtils.isEmpty(course.getDescription()) || "TODO".equals(course.getDescription())) {
+		if (course != null && StringUtils.isEmpty(course.getDescription())
+		        || course != null && "TODO".equals(course.getDescription())) {
 			final InputStream in = new ClassPathResource(courseDescFile).getInputStream();
 			course.setDescription(new String(IOUtils.toString(in, Charset.defaultCharset())));
 			courseRepo.save(course);
