@@ -38,31 +38,6 @@ public class CourseController {
 	@RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
 	public List<CourseDTO> listCourses() {
 
-<<<<<<< 20a7dd30f10a7c11d77e9e485318c4ab9598c6dc
-        final List<CourseDTO> courses = new ArrayList<>();
-        for (final Course course : courseRepo.findAll()) {
-            final Schedule schedule = course.getSchedule();
-            final CourseDTO courseDTO = new CourseDTO(course.getId(),
-                    course.getName(),
-                    course.getIcon(),
-                    course.getDescription(),
-                    course.getLevel(),
-                    course.getPrice(),
-                    course.getPlace(), course.getRequirements(),
-                    new ScheduleDTO(formatter.format(schedule.getBegin()), formatter.format(schedule.getEnd())));
-
-            courses.add(courseDTO);
-        }
-        return courses;
-    }
-
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
-    public CourseDetailsDTO courseDetails(@RequestParam("id") final String name) {
-        final Course course = courseRepo.findOne(name);
-        final CourseDetails courseDetails = course.getDetails();
-=======
 		final List<CourseDTO> courses = new ArrayList<>();
 		for (final Course course : courseRepo.findAll()) {
 			final Schedule schedule = course.getSchedule();
@@ -79,7 +54,6 @@ public class CourseController {
 		}
 		return courses;
 	}
->>>>>>> Zurück zu altem Design
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
