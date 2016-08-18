@@ -13,11 +13,12 @@ body, html, .container {
 
 .top-buffer { margin-top:20px; }
 
-img {
+/*img {
+>>>>>>> Zurück zu altem Design
     z-index: 10;
     position: relative;
     display: block;
-}
+}*/
 
 a {
     color: 	#4B0082;
@@ -249,7 +250,7 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
 --------------------------------------------------------------------------------------------------------*/
 
 /* Control-Background Carousels */
-.carousel-control.right {
+/*.carousel-control.right {
     left: auto;
     right: 0;
     background-image: -webkit-linear-gradient(left, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
@@ -265,7 +266,12 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
     background-image: linear-gradient(to right, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
-}
+}*/
+
+ .carousel-inner > .item > img,
+          .carousel-inner > .item > a > img {
+              margin: auto;
+          }
 
 .accordion-title{
 	font-weight: bold; 

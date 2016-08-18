@@ -144,8 +144,6 @@ function($rootScope, $scope, $http, $location) {
         })
         .then(function (response) {
             if (response.status == 200) {
-                //$("#modalSingup").modal('hide');
-                //$scope.login();
             	$location.path("/courses/register/sucess");
             }
             else {
@@ -229,31 +227,35 @@ module.controller('CourseCtrl',
 		            }
 		        });        
 		    //};
-		        
+		  
 		        $scope.showDetails = function(course) {
-		        	
-		        	if($rootScope.course === undefined || $rootScope.course.name !== course.name) {
-		        	
-			            $http.get('/course/details', {params: {'name': course.name}}).then(function(response) {
-			            	console.log("Successfully loaded details");
-			            	$rootScope.course = course;
+		            
+		            $http({
+		                method: 'GET',
+		                url: '/course/details',
+		                params: {'name': course.name}
+		                
+		            })
+		            .then(function (response) {
+		                if (response.status == 200) {
+		                	console.log("Successfully loaded details");
+		                	$rootScope.course = course;
 			            	$rootScope.course.details = response.data;
 			            	// TODO hier sollte auch das Routing stattfinden
-			            	//$location.path("/courses/kids/details");
-			                } 
-			            );        
-		        	}
-		        	else {
-		        		console.log("Neues Laden des Kurses '" + course.name +"' nicht notwendig");
-		        	}
+			            	$location.path("/courses/details");
+		                }
+		                else {
+		                    console.log("loading details failed");
+		                }
+		            });        
 		        };
 		        
 		        $scope.registerForCourse = function(course) {
 		        	$rootScope.course = course;
 		        	// TODO hier sollte auch das Routing stattfinden
-	            	//$location.path("/courses/register");
+		        	console.log("switch to register page")
+	            	$location.path("/courses/register");
 		        };
-	
 	}
 );
 
