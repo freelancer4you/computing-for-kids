@@ -28,6 +28,9 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 8137228294211060781L;
 
+    private static final int  MAXLEN_NAME      = 81;
+    private static final int  MAXLEN_USER_NAME = 12;
+
     @Id
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -38,14 +41,11 @@ public class User implements Serializable {
     @Column(name = "title", nullable = true)
     private String            title;
 
-    @Column(name = "lastname", nullable = false)
+    @Column(name = "lastname", nullable = false, length = MAXLEN_NAME)
     private String lastName;
 
-    @Column(name = "firstname", nullable = true)
+    @Column(name = "firstname", nullable = true, length = MAXLEN_NAME)
     private String firstName;
-
-    @Column(name = "username", nullable = false, unique = true)
-    private String username;
 
     @Column(name = "password", nullable = false)
     private String passwordDigest;
@@ -80,7 +80,6 @@ public class User implements Serializable {
     public User(final UserDTO user, final UserRole role) {
         this.salutation = user.getSalutation();
         this.title = user.getTitle();
-        this.username = user.getUserName();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.passwordDigest = new BCryptPasswordEncoder().encode(RandomStringUtils.random(10));
@@ -114,10 +113,6 @@ public class User implements Serializable {
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getPasswordDigest() {
@@ -179,16 +174,16 @@ public class User implements Serializable {
         return true;
     }
 
-	@Override
-	public String toString() {
-		return "User [" + (email != null ? "email=" + email + ", " : "")
-		        + (lastName != null ? "lastName=" + lastName + ", " : "")
-		        + (firstName != null ? "firstName=" + firstName + ", " : "")
-		        + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
-		        + (adresse != null ? "adresse=" + adresse + ", " : "")
-		        + (registrationDate != null ? "registrationDate=" + registrationDate + ", " : "")
-		        + (childName != null ? "childName=" + childName + ", " : "")
-		        + (childAge != null ? "childAge=" + childAge : "") + "]";
-	}
+    @Override
+    public String toString() {
+        return "User [" + (email != null ? "email=" + email + ", " : "")
+                + (lastName != null ? "lastName=" + lastName + ", " : "")
+                + (firstName != null ? "firstName=" + firstName + ", " : "")
+                + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
+                + (adresse != null ? "adresse=" + adresse + ", " : "")
+                + (registrationDate != null ? "registrationDate=" + registrationDate + ", " : "")
+                + (childName != null ? "childName=" + childName + ", " : "")
+                + (childAge != null ? "childAge=" + childAge : "") + "]";
+    }
 
 }

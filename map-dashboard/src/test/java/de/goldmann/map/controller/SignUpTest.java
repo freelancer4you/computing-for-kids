@@ -100,7 +100,6 @@ public class SignUpTest extends WebTest {
 			HelperUtils.setInputValue(signUpForm, "city", adress.getZipcode());
 			HelperUtils.setInputValue(signUpForm, "phonenumber", dto.getPhoneNumber());
 
-			HelperUtils.setInputValue(signUpForm, "userName", dto.getUserName());
 			final String userMail = dto.getEmail();
 			HelperUtils.setInputValue(signUpForm, "email", userMail);
 

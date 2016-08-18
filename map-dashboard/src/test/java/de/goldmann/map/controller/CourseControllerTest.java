@@ -1,5 +1,6 @@
 package de.goldmann.map.controller;
 
+import static de.goldmann.apps.root.UIConstants.COURSES_KIDS_PATH;
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +23,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
-import de.goldmann.map.UIConstants;
 import de.goldmann.map.UiApplication;
 import de.goldmann.map.WebTest;
 
@@ -50,7 +50,7 @@ public class CourseControllerTest extends WebTest {
 
         final FluentWait<WebDriver> wait = setupFluentWait(driver);
         try {
-            driver.get(HOST_ADRESS + UIConstants.COURSES_KIDS_PATH);
+            driver.get(HOST_ADRESS + COURSES_KIDS_PATH);
 
             final WebElement courseBannerElement = wait
                     .until(new VisibilityFunction(By.cssSelector(COURSE_BANNER_SELECTOR)));

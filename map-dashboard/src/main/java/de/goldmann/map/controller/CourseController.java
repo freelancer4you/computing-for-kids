@@ -1,8 +1,8 @@
 package de.goldmann.map.controller;
 
-import static de.goldmann.map.UIConstants.COURSES_DETAILS_REQUEST_PATH;
-import static de.goldmann.map.UIConstants.COURSES_REQUEST_PATH;
-import static de.goldmann.map.UIConstants.COURSE_DATE_FORMAT;
+import static de.goldmann.apps.root.UIConstants.COURSES_DETAILS_REQUEST_PATH;
+import static de.goldmann.apps.root.UIConstants.COURSES_REQUEST_PATH;
+import static de.goldmann.apps.root.UIConstants.COURSE_DATE_FORMAT;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

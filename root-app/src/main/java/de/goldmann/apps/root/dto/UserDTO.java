@@ -10,7 +10,6 @@ public class UserDTO implements Serializable {
     private String            title;
     private String            firstName;
     private String            lastName;
-    private String            userName;
     private String            email;
     private String            password;
     private String            phoneNumber;
@@ -22,7 +21,6 @@ public class UserDTO implements Serializable {
     public UserDTO() {}
 
     public UserDTO(final String salutation, final String title, final String firstName, final String lastName,
-            final String userName,
             final String email,
             final String password, final String phoneNumber, final Adress adress, final String registration,
             final String childName, final String childAge) {
@@ -30,7 +28,6 @@ public class UserDTO implements Serializable {
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
         this.email = email;
         this.password = password;
         this.adress = adress;
@@ -55,10 +52,6 @@ public class UserDTO implements Serializable {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getUserName() {
-        return userName;
     }
 
     public String getEmail() {

@@ -1,0 +1,222 @@
+<div class="element clearfix col1-1 courses-details">
+
+	<ol class="breadcrumb">
+		<li><a href="#/">Home</a></li>
+		<li><a href="#/courses">Kurse</a></li>
+		<li><a href="#/courses/kids">Kinder</a></li>
+		<li><a href="#/courses/details">{{course.name}}</a></li>
+        <li class="active">Anmeldung</li>
+	</ol>
+
+	<hr style="background-color: #aa0000; height: 2px;" />
+
+	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="register(course)" data-toggle="validator" ng-controller="RegisterCtrl">
+
+        <div class="form-group required">
+
+            <label for="salutation" class="col-sm-2 control-label">Anrede:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+	                <select type="text" class="form-control" id="salutation"
+	                     ng-model="credentials.salutation"
+	                    required="required" >
+	                    <option value="Frau">Frau</option>
+	                    <option value="Herr">Herr</option>
+	                 </select>
+                 </div>   
+            </div>
+
+            <label for="title" class="col-sm-2 control-label">Title:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+	                <select class="form-control" id="title" ng-model="credentials.title">
+	                     <option value="dr">Dr.</option>
+	                </select>
+                </div>
+            </div>
+        </div>
+
+		<div class="form-group required">
+        
+			<label for="firstName" class="col-sm-2 control-label">Vorname:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group"> 
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+					<input type="text" class="form-control" id="firstName"
+						placeholder="Vorname" ng-model="credentials.firstName"
+						required="required" />
+				</div>	
+			</div>
+
+			<label for="lastName" class="col-sm-2 control-label">Nachname:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group"> 
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="lastName"
+						placeholder="Nachname" ng-model="credentials.lastName"
+						required="required" />
+				</div>	
+			</div>
+		</div>
+		
+		<div class="form-group required">
+
+            <label for="street" class="col-sm-2 control-label">Stra&szlig;e:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+	                <input type="text" class="form-control" id="street"
+	                    placeholder="Stra&szlig;e" ng-model="credentials.adress.street"
+	                    required="required" />
+                 </div>   
+            </div>
+
+            <label for="houseNr" class="col-sm-2 control-label">Hausnummer:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">    
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+	                <input type="text" class="form-control" id="houseNr"
+	                    placeholder="Hausnummer" ng-model="credentials.adress.houseNr"
+	                    required="required" />
+                </div>    
+            </div>
+        </div>
+        
+        <div class="form-group required">
+
+            <label for="zipcode" class="col-sm-2 control-label">PLZ:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+	                <input type="text" class="form-control" id="zipcode"
+	                    placeholder="PLZ" ng-model="credentials.adress.zipcode"
+	                    required="required" />
+                 </div>   
+            </div>
+
+            <label for="city" class="col-sm-2 control-label">Ort:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+	                <input type="text" class="form-control" id="city"
+	                    placeholder="Hausnummer" ng-model="credentials.adress.city"
+	                    required="required" />
+                </div>    
+            </div>
+        </div>
+        
+        <div class="form-group required">
+
+            <label for="phonenumber" class="col-sm-2 control-label">Telefon:</label>
+
+            <div class="col-sm-4">
+                <div class="input-group">
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+	                <input type="text" class="form-control" id="phonenumber"
+	                    placeholder="Telefon" ng-model="credentials.phoneNumber"
+	                    required="required" />
+                </div>   
+            </div>
+
+        </div>
+
+		<div class="form-group">
+			<label for="childName" class="col-sm-2 control-label">Name
+				des Kindes:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group">
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
+					<input type="text" class="form-control" id="childName"
+						placeholder="Name des Kindes" ng-model="credentials.childName"
+						required="required" />
+				</div>	
+			</div>
+		
+			<label for="childAge" class="col-sm-2 control-label">Alter
+				des Kindes:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group"> 
+	                <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+					<select ng-model="credentials.childAge" id="childAge"
+						class="form-control" required="required">
+						<option value="younger">J&uuml;nger</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="older">&Auml;lter</option>
+					</select>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="form-group">
+			<label for="userName" class="col-sm-2 control-label">Benutzername:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group">
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" id="userName"
+						placeholder="Benutzername" ng-model="credentials.userName"
+						required="required" />
+				</div>	
+			</div>
+		
+			<label for="userName" class="col-sm-2 control-label">Email:</label>
+
+			<div class="col-sm-4">
+			    <div class="input-group"> 
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="email" class="form-control" id="email"
+						placeholder="Email" ng-model="credentials.email"
+						required="required" />
+				</div>	
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-8">
+				<div class="checkbox" style="float: right;" required="required">
+					<label> 
+					   <input type="checkbox" id="termAggreement">Ich erkenne die <a href="#">Allgemeinen Gesch&auml;ftsbedingungen</a> an.</input>
+					</label>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="checkbox" style="float: right;" required="required">
+					<label> 
+					   <input type="checkbox" id="featureUpdates" />Ich nehme die <a href="#">Widerrufsbelehrung</a> zur Kenntnis.
+					</label>
+				</div>
+			</div>
+		</div>
+        
+		<div class="form-group">
+		    <div class="col-sm-11">
+		      <button class="btn btn-primary" type="button" style="float: right;margin-right: 24px;">&Auml;ndern</button>
+		    </div>
+		    
+		    <div class="col-sm-1">
+		        <button class="btn btn-primary" type="submit" style="float: right;" id="singUpBtn">Best&auml;tigen</button>
+			</div>
+		</div>
+       
+	</form>
+</div>

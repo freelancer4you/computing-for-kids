@@ -56,7 +56,9 @@ var module = angular.module("MapApp", ['ngRoute', 'adminModule'])
     .otherwise('/');
     
     $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-}).controller('navigation',
+});
+
+module.controller('navigation',
 
 function($rootScope, $scope, $http, $location) {
     
@@ -71,11 +73,10 @@ function($rootScope, $scope, $http, $location) {
             return null;
         }
         
-        var username = $scope.credentials.userName != undefined ? $scope.credentials.userName : '';
         var password = $scope.credentials.password != undefined ? $scope.credentials.password : '';
         var email = $scope.credentials.email != undefined ? $scope.credentials.email : '';
 
-        return 'username=' + username + '&password=' + password + '&email=' + email;
+        return 'password=' + password + '&email=' + email;
     }
     
     var authenticate = function(credentials, callback) {
@@ -262,7 +263,7 @@ module.controller('RegisterCtrl',
 				console.log(course);
 				$http({
 					method: 'POST',
-					url: '/user',
+					url: '/registration',
 					data: $scope.credentials,
 					params: {'id': course.id},
 					headers: {

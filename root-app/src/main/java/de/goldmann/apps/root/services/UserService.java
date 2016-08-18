@@ -1,7 +1,6 @@
 package de.goldmann.apps.root.services;
 
 import static de.goldmann.apps.root.services.ValidationUtils.assertMatches;
-import static de.goldmann.apps.root.services.ValidationUtils.assertMinimumLength;
 import static de.goldmann.apps.root.services.ValidationUtils.assertNotBlank;
 
 import java.util.Objects;
@@ -17,8 +16,6 @@ import de.goldmann.apps.root.model.User;
 
 @Service
 public class UserService {
-    // private static final Logger LOGGER =
-    // LogManager.getLogger(UserService.class);
 
     private static final Pattern EMAIL_REGEX = Pattern
             .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -40,20 +37,12 @@ public class UserService {
      */
     @Transactional
     public User createUser(final UserDTO userDto) {
-        final String username = userDto.getUserName();
         final String email = userDto.getEmail();
-        assertNotBlank(username, "Username cannot be empty.");
-        assertMinimumLength(username, 6, "Username must have at least 6 characters.");
         assertNotBlank(email, "Email cannot be empty.");
         assertMatches(email, EMAIL_REGEX, "Invalid email.");
 
         return userRepository.save(new User(userDto));
 
-    }
-
-    @Transactional(readOnly = true)
-    public User findUserByUsername(final String username) {
-        return userRepository.findByUsername(username);
     }
 
 }
