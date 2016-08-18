@@ -1,5 +1,9 @@
 package de.goldmann.map.config;
 
+
+import static de.goldmann.map.UIConstants.COURSES_DETAILS_REQUEST_PATH;
+import static de.goldmann.map.UIConstants.COURSES_REQUEST_PATH;
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -34,7 +38,6 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import de.goldmann.apps.root.security.AjaxAuthenticationSuccessHandler;
 import de.goldmann.apps.root.security.CsrfHeaderFilter;
 import de.goldmann.apps.root.services.VisitorsCounter;
-import de.goldmann.map.UIConstants;
 
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
@@ -88,8 +91,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.antMatchers("/index.html", "/header.html", "/modalLogin.html", "/", "/modalSignup.html",
 				"/partials/index.html").permitAll()
 		.antMatchers(HttpMethod.POST, USER_PATH).permitAll()
-		.antMatchers(HttpMethod.GET, UIConstants.COURSES_REQUEST_PATH).permitAll()
-		.antMatchers(HttpMethod.GET, UIConstants.COURSES_DETAILS_REQUEST_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, COURSES_REQUEST_PATH).permitAll()
+		.antMatchers(HttpMethod.GET, COURSES_DETAILS_REQUEST_PATH).permitAll()
 
 		.anyRequest().authenticated().and()
 

@@ -1,5 +1,8 @@
 package de.goldmann.map.controller;
 
+import static de.goldmann.map.UIConstants.COURSES_DETAILS_REQUEST_PATH;
+import static de.goldmann.map.UIConstants.COURSES_REQUEST_PATH;
+import static de.goldmann.map.UIConstants.COURSE_DATE_FORMAT;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +23,6 @@ import de.goldmann.apps.root.dto.CourseDetailsDTO;
 import de.goldmann.apps.root.dto.ScheduleDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.Schedule;
-import de.goldmann.map.UIConstants;
 
 
 @Controller
@@ -29,12 +31,11 @@ public class CourseController {
 	@Autowired
 	private CourseRepository courseRepo;
 
-
-	private final SimpleDateFormat	formatter				= new SimpleDateFormat("dd.MM.yyyy");
+	private final SimpleDateFormat	formatter	= new SimpleDateFormat(COURSE_DATE_FORMAT);
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = UIConstants.COURSES_REQUEST_PATH, method = RequestMethod.GET)
+	@RequestMapping(value = COURSES_REQUEST_PATH, method = RequestMethod.GET)
 	public List<CourseDTO> listCourses() {
 
 		final List<CourseDTO> courses = new ArrayList<>();
@@ -56,7 +57,7 @@ public class CourseController {
 
 	@ResponseBody
 	@ResponseStatus(HttpStatus.OK)
-	@RequestMapping(value = UIConstants.COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
+	@RequestMapping(value = COURSES_DETAILS_REQUEST_PATH, method = RequestMethod.GET)
 	public CourseDetailsDTO courseDetails(@RequestParam("name") final String name) {
 		// System.out.println("Lade details für Kurs:" + name);
 		final Course course = courseRepo.findByName(name);

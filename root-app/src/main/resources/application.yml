@@ -10,8 +10,8 @@ spring:
 logging:
   level:
     org.springframework.security: WARN
-    org.hibernate.SQL: TRACE
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
 server:
    session.timeout: 300    
    
