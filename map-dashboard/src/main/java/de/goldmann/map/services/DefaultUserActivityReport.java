@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import de.goldmann.apps.root.model.Course;
@@ -17,6 +18,7 @@ import de.goldmann.apps.root.services.MailService;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @Component
+@Profile("production")
 public class DefaultUserActivityReport implements UserActivityReport {
 
 	private static final String   EMAIL_ADMIN = "goldi23@freenet.de";

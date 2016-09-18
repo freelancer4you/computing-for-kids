@@ -15,21 +15,28 @@
 	            <th>FirstName</th>
 	            <th>LastName</th>
 	            <th>Email</th>
-	            <th>Street</th>
-	            <th>PLZ</th>
-	            <th>City</th>
-	            <th>Registration</th>
+	            <th>ChildName</th>
+	            <th>ChildAge</th>
+	            <th>Registration-Date</th>	            
+	            <th>CourseName</th>
+	            <th>CourseEnd</th>
+	            <th>CourseBegin</th>
+	            <th>SubscriptionDate</th>
 	        </tr>
 	    </thead>
 	    
 	    <tr ng-repeat="user in users" style="margin-bottom:2px">
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
-            <td>{{user.email}}</td>
-            <td>{{user.adress.street}}</td>
-            <td>{{user.adress.zip}}</td>
-            <td>{{user.adress.city}}</td>
-            <td>{{user.registrationDate}}</td>
+            <td>{{user.userMail}}</td>
+            <td>{{user.childName}}</td>
+            <td>{{user.childAge}}</td>
+            <td>{{user.registrationDate}}</td>            
+            <td>{{user.courseName}}</td>
+            <td>{{user.courseEnd}}</td>
+            <td>{{user.courseBegin}}</td>
+            <td>{{user.subscriptionDate}}</td>
+            
 	    </tr>   
 	</table>
 </div>

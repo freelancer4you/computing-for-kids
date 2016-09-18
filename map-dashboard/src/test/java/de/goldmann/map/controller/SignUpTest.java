@@ -120,7 +120,7 @@ public class SignUpTest extends WebTest {
 			final CourseParticipant registrationEntry = courseParticipantRepository
 					.findOne(new CourseParticipantPK("1", userMail));
 			assertNotNull("Es sollte ein Registrierungseintrag vorhanden sein:", registrationEntry);
-
+			HelperUtils.analyzeLog(driver);
 		}
 		catch (final Exception e) {
 			fail(e.getMessage());

@@ -93,6 +93,7 @@ function($rootScope, $scope, $http, $location) {
             }
         })
         .then(function(response) {
+        	console.log(response);
             if (response.data == 'ROLE_USER') {
                 $rootScope.authenticated = true;
                 $rootScope.userRole = response.data;
@@ -122,7 +123,8 @@ function($rootScope, $scope, $http, $location) {
 	                $('#loginAlert').html("<div></div>");
 	                $("#modalLogin").modal('hide');
 	                $scope.error = false;
-            	}else if($rootScope.userRole == 'ROLE_ADMIN'){
+            	}
+            	else if($rootScope.userRole == 'ROLE_ADMIN'){
             		$location.path("/admin");
             		$('#loginAlert').html("<div></div>");
 	                $("#modalLogin").modal('hide');
@@ -158,22 +160,30 @@ module.controller('LogoutCtrl',
 		            console.log("Logout failed!");
 		        }
 		    });        
-		};
-	
+		};	
 	}
 );
 
 module.controller('CoursesCtrl',
 
-	function($rootScope, $scope, $http, $location) {
+	function($scope, $http, $location, SharedCourses) {
 			
+		    $scope.$watch('courses', function (newValue, oldValue) {
+		        if (newValue !== oldValue) SharedCourses.setCourses(newValue);
+		    });
+			
+			if(SharedCourses.getCourses() !== undefined && SharedCourses.getCourses() !== '') {
+				console.log("Kurse bereits geladen ...")
+				$scope.courses = SharedCourses.getCourses();
+			}	
+
 			// TODO das sollte in eine Methode und auch über Methode aufgerufen werden
 			// in der Methode muss noch der Pfad übergeben werden
 			// /courses/pfad z.B. /courses/kids
 			// dann muss aber wahrscheinlich der Controller verschoben werden
 			//$scope.listCourses = function(path) {
 			$scope.listCourses = function() {
-		        if($rootScope.courses == undefined){
+				if($scope.courses == undefined){
 			        $http({
 			            method: 'GET',
 			            url: '/listCourses'
@@ -183,7 +193,7 @@ module.controller('CoursesCtrl',
 			                
 			            	var courses = response.data;
 			                
-			                if(courses !== undefined){
+			                if(courses !== undefined) {
 			                  for(var i = 0; i < courses.length; i++){
 			                      var course = courses[i];
 			                      var schedules = course.schedules;
@@ -202,69 +212,109 @@ module.controller('CoursesCtrl',
 			                        }
 			                      }          
 			                  }
-			                  $rootScope.courses = courses; 
-			                  //$scope.courses = courses; 
+			                  $scope.courses = courses;
+			                  //SharedCourses.setCourses(courses);
+			                  $location.path("/courses/kids");
 			                }
-			            	
-			                //$location.path("/courses/kids");
-			               
-	//		                console.log("Successfully loaded courses:");
-	//		                console.log($scope.courses);
+			                else{
+			                	console.log("Es konnten keine Kurse geladen werden");
+			            		console.log(response.data);
+			                }
 			            }
 			            else {
-			                console.log("Logout failed!");
+			                console.log("Fehler beim Laden der Kurse:");
+			                console.log(response);
 			            }
 			        });
 		        }
 		        else{
-		        	console.log("Courses allready loaded.");
-		        	//$location.path("/courses/kids");
+		        	$location.path("/courses/kids");
 		        }
 		    };
 	}
 );
 
+module.controller('CourseSelectionCtrl',
+
+		function($scope, $http, $location, SharedCourses, SharedData) {
+//			console.log("Setup CoursesCtrl");
+//			console.log(SharedCourses.getCourses());
+			$scope.course = '';
+			
+			$scope.$watch('course', function (newValue, oldValue) {
+		        if (newValue !== oldValue) SharedData.setCourse(newValue);
+		    });
+			
+			$scope.$watch('course.details', function (newValue, oldValue) {
+		        if (newValue !== oldValue) SharedData.setCourseDetails(newValue);
+		    });
+			
+			$scope.courses = SharedCourses.getCourses();
+			
+	        $scope.showDetails = function(course) {
+	            $http({
+	                method: 'GET',
+	                url: '/course/details',
+	                params: {'id': course.id}		                
+	            })
+	            .then(function (response) {
+	                if (response.status == 200) {
+	                	$scope.course = course;
+		            	$scope.course.details = response.data;
+		            	$location.path("/courses/details");
+	                }
+	                else {
+	                    console.log("loading details failed");
+	                }
+	            });        
+	        };
+	        
+	        $scope.registerForCourse = function(course) {
+	        	$scope.course = course;
+	        	$location.path("/courses/register");
+	        };
+		}
+);
+
 module.controller('CourseDetailsCtrl',
 
-		function($rootScope, $scope, $http, $location) {
-				
-		        $scope.showDetails = function(course) {
-		            
-		            $http({
-		                method: 'GET',
-		                url: '/course/details',
-		                params: {'id': course.id}		                
-		            })
-		            .then(function (response) {
-		                if (response.status == 200) {
-//		                	console.log("Successfully loaded details");
-		                	$rootScope.course = course;
-			            	$rootScope.course.details = response.data;
-			            	// TODO hier sollte auch das Routing stattfinden
-			            	$location.path("/courses/details");
-		                }
-		                else {
-		                    console.log("loading details failed");
-		                }
-		            });        
-		        };
-		        
-		        $scope.registerForCourse = function(course) {
-		        	$rootScope.course = course;
-		        	// TODO hier sollte auch das Routing stattfinden
-		        	console.log("switch to register page")
-	            	$location.path("/courses/register");
-		        };
+		function($scope, $http, $location, SharedData) {
+			$scope.course = SharedData.getCourse();
+			$scope.course.details = SharedData.getCourseDetails();
+			
+			$scope.cancel = function(course) {
+				SharedData.setCourse(undefined);
+				SharedData.setCourseDetails(undefined);
+				$location.path("/courses/kids");
+			}
+			
+			$scope.registerForCourse = function(course) {
+	        	$scope.course = course;
+	        	$location.path("/courses/register");
+	        };
 		}
 );
 
 module.controller('RegisterCtrl',
 
-		function($rootScope, $scope, $http, $location) {
-				
+		function($scope, $http, $location, SharedData) {
+			$scope.course = SharedData.getCourse();
+			// Wenn benoetigt auskommentieren
+			//$scope.course.details = SharedData.getCourseDetails();
+			
+			$scope.cancel = function(course) {
+				SharedData.setCourse(undefined);
+				SharedData.setCourseDetails(undefined);
+				$location.path("/courses/kids");
+			}
+			
+			$scope.$watch('credentials', function (newValue, oldValue) {
+		        if (newValue !== oldValue) SharedData.setCredentials(newValue);
+		    });
+			
 			$scope.register = function(course) {
-				console.log("Register for ");
-				console.log(course);
+//				console.log("Register for ");
+//				console.log(course);
 				$http({
 					method: 'POST',
 					url: '/registration',
@@ -277,12 +327,11 @@ module.controller('RegisterCtrl',
 				})
 				.then(function (response) {
 					if (response.status == 200) {
-						$location.path("/courses/register/sucess");
+						$location.path("/courses/register/sucess");						
 					}
 					else {
 						$scope.vm.errorMessages = [];
 						$scope.vm.errorMessages.push({description: response.data});
-						$rootScope.authenticated = false;
 						console.log("failed user creation: " + response.data);
 					}
 				});        
@@ -290,10 +339,80 @@ module.controller('RegisterCtrl',
 		}
 );
 
+
+module.controller('VerificationCtrl',
+	function($scope, $http, $location, SharedData) {
+		$scope.course = SharedData.getCourse();
+		$scope.credentials = SharedData.getCredentials();
+	}
+);
+
+module.factory('SharedCourses', function () {
+
+    var data = {
+    		courses: ''
+    };
+
+    return {
+        getCourses: function () {
+            return data.courses;
+        },
+        setCourses: function (courses) {
+            data.courses = courses;
+        }
+    };
+});
+
+module.factory('SharedData', function () {
+
+    var data = {
+    		course: '',
+    		courseDetails: '',
+    		credentials: ''
+    };
+
+    return {
+        getCourse: function () {
+            return data.course;
+        },
+        setCourse: function (course) {
+            data.course = course;
+        },        
+        getCourseDetails: function () {
+            return data.courseDetails;
+        },
+        setCourseDetails: function (details) {
+            data.courseDetails = details;
+        },        
+        getCredentials: function () {
+            return data.credentials;
+        },
+        setCredentials: function (credentials) {
+            data.credentials = credentials;
+        }
+    };
+});
+
 function formatTimeStamp(timeStamp){    
     if(timeStamp === undefined){
         return "";
     }
     return timeStamp;
+}
+
+function printDiv(divName) {
+	var div = document.getElementById(divName);
+	console.log("print from :");
+	console.log(divName);
+    console.log(div);
+    
+    var printContents = div.innerHTML;
+    var originalContents = document.body.innerHTML;
+    console.log(originalContents);
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
 }
 

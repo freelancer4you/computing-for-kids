@@ -1,4 +1,4 @@
-<div class="element clearfix col1-1 courses-details">
+<div class="element clearfix col1-1 courses-details" ng-controller="CourseDetailsCtrl">
 
     <ol class="breadcrumb">
         <li><a href="#/">Home</a></li>
@@ -33,7 +33,6 @@
                     <p><strong>Kursentgelt: </strong>{{course.price}} &euro;
                     <p><strong>Dokumente zum Herunterladen: </strong>F&uuml;r diesen Kurs sind keine Dokumente vorhanden.</p>
                     <p><strong>Teilnahmebedingungen: </strong> <span style="color: red; font-weight: bold;">{{course.requirements}}</span></p>
-
                 
                 </div>
             </div>
@@ -69,11 +68,11 @@
     <table style="width: 30%; float: right;" >
         <tr>
             <td width="45%">
-                <a href="#/courses/kids" class="dark_button width-150px">Zur&uuml;ck</a>                                    
+                <a href="" class="dark_button width-150px" ng-click="cancel()">Zur&uuml;ck</a>                                    
             </td>
             <td width="10%">&nbsp;</td>
             <td width="45%">
-                <a href="#/courses/register" class="dark_button width-150px" >Anmelden</a>
+                <a href="" class="dark_button width-150px" ng-click='registerForCourse(course)'>Anmelden</a>
             </td>
         </tr>
     </table> 

@@ -78,21 +78,21 @@ public class User implements Serializable {
     }
 
     public User(final UserDTO user, final UserRole role) {
-        this.salutation = user.getSalutation();
-        this.title = user.getTitle();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.passwordDigest = new BCryptPasswordEncoder().encode(RandomStringUtils.random(10));
-        this.email = user.getEmail();
-        this.phoneNumber = user.getPhoneNumber();
+        salutation = user.getSalutation();
+        title = user.getTitle();
+        firstName = user.getFirstName();
+        lastName = user.getLastName();
+        passwordDigest = new BCryptPasswordEncoder().encode(RandomStringUtils.random(10));
+        email = user.getEmail();
+        phoneNumber = user.getPhoneNumber();
         final Adress adress = user.getAdress();
-        this.adresse = new PostAdress(adress.getStreet(), adress.getZipcode(), adress.getCity(), adress.getHouseNr());
+        adresse = new PostAdress(adress.getStreet(), adress.getZipcode(), adress.getCity(), adress.getHouseNr());
         this.role = role;
         final LocalDateTime ldt = LocalDateTime.now();
         final ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
-        this.registrationDate = Date.from(zdt.toInstant());
-        this.childName = user.getChildName();
-        this.childAge = user.getChildAge();
+        registrationDate = Date.from(zdt.toInstant());
+        childName = user.getChildName();
+        childAge = user.getChildAge();
     }
 
     public String getSalutation() {

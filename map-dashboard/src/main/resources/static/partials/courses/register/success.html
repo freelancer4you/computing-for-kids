@@ -1,1 +1,120 @@
-Vielen Dank für die Anmeldung.
+<div class="element clearfix col1-1 courses-details" ng-controller="VerificationCtrl">
+
+    <ol class="breadcrumb">
+        <li><a href="#/">Home</a></li>
+        <li><a href="#/courses">Kurse</a></li>
+        <li><a href="#/courses/kids">Kinder</a></li>
+        <li><a href="#/courses/details">{{course.name}}</a></li>
+        <li><a href="#/courses/details/Anmeldung">Anmeldung</a></li>
+        <li class="active">Best&auml;tigung</li>
+    </ol>
+    
+    <hr style="background-color: #aa0000; height: 2px;" />
+    
+    <div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.7";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+    
+    <!-- p style="font-family: 'Pacifico', cursive;font-size:x-large;">Vielen Dank f&uuml;r Ihre Anmeldung zum Kurs {{course.name}}</p-->
+    <p style="font-family: 'Lobster Two', cursive;font-size:x-large;color: #22185E;">
+        Vielen Dank f&uuml;r Ihre Anmeldung zum Kurs '{{course.name}}'
+    </p>
+    <br>
+    <a class="btn btn-primary" role="button" data-toggle="collapse" data-target="#courseDetails" aria-expanded="false" 
+            aria-controls="courseDetails" style="float: right;">
+        Kursdetails einblenden
+    </a>
+    <br>
+    <br>
+	<div class="collapse" id="courseDetails">
+	  <div class="well" id="content">
+	      <div class="panel panel-info">
+	          <div class="panel-heading">Kursdetails</div>
+	          <div class="panel-body">
+			    {{course.name}}
+			    <p>{{course.description}}</p>
+			    <p>{{course.schedule.begin}} - {{course.schedule.end}}</p>
+			    <p>{{course.place}}</p>
+			    <p>{{course.price}}</p>
+			    <p>{{course.requirements}}</p>
+			  </div>
+		  </div>
+		  
+		  <div class="panel panel-info">
+              <div class="panel-heading">Kundendetails</div>
+              <div class="panel-body">
+                Name:{{credentials.firstName}} {{credentials.lastName}}
+                <br>
+                Email:{{credentials.email}}
+              </div>
+          </div>
+	  </div>
+	  
+	  <a class="btn btn-primary" href="javascript:void(0);" id="printButton">Drucken</a>  
+	  
+	  <script>
+		$(document).ready(function(){
+		    $("#printButton").click(function(){
+		        var mode = 'iframe'; //popup
+		        var close = mode == "popup";
+		        var options = { mode : mode, popClose : close};
+		        $("#content").printArea( options );
+		    });
+		});
+	  </script>
+	  
+	</div> 
+    
+    <br>
+    
+    <p>So geht&prime;s weiter:</p>
+    <ol>
+        <li>Sie erhalten die Buchungsbest&auml;tigung an Ihre EMail-Adresse {{credentials.email}}</li>
+        <li>Sie erhalten die Rechnung innerhalb der n&auml;chsten zwei Wochen.</li>
+        <li>Wir freuen uns Ihr Kind am {{course.schedule.begin}} in {{course.place}} begr&uuml;&szlig;en zu d&uuml;rfen.</li>
+    </ol> 
+    
+    <br>
+    
+    <table>
+        <tr>
+            <td width="45%">
+			    <p>Bei Fragen stehen wir Ihnen jederzeit zur Verf&uuml;gung:</p>
+			    <strong>Computing For Kids</strong>
+			    <br>
+			    Andr&eacute; Goldmann
+			    <br>
+			    Alte Stra&szlig;e 39
+			    <br>
+			    04229 Leipzig
+			    <br>
+			    Tel: 0176/24008873
+			    <br>
+			    Email: info@computing-for-kids.de
+		    </td>
+		    <td width="10%"></td>
+		    <td width="45%" valign="top">
+                <p>Empfehlen Sie uns weiter und erhalten sie 20 &euro; Rabatt auf Ihre Buchung*</p>
+                
+                <div class="fb-share-button" data-href="http://computing-for-kids.de" data-layout="button_count" 
+                    data-size="small" data-mobile-iframe="true">
+                    <a class="fb-xfbml-parse-ignore" target="_blank" 
+                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fcomputing-for-kids.de%2F&amp;src=sdkpreparse">
+                    Teilen
+                    </a>
+                </div>
+                <br>
+                <br>
+                <p style="font-size: x-small;">*Sie erhalten den Rabatt, sobald sich die Person, die Ihre Empfehlung 
+                erhalten hat, sich f&uuml;r einen unserer Kurse anmeldet. Sie k&ouml;nnen auch nach Ende des Kurses eine Empfehlung abgeben.</p>
+            </td>
+	    </tr>
+    </table>
+    
+    
+</div>

@@ -1,11 +1,21 @@
 package de.goldmann.apps.root.model;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "course_participants")
@@ -22,6 +32,17 @@ public class CourseParticipant {
 	@JoinColumn(name = "user_email", nullable = false)
 	private User userMail;
 
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "subscription", nullable = false)
+	private Date	subscriptionDate;
+
+	@Column(name = "termagreed", nullable = true)
+	private Boolean	termAgreed;
+
+	@Column(name = "disclaimeragreed", nullable = true)
+	private Boolean	disclaimerAgreed;
+
 	CourseParticipant() {
 		super();
 	}
@@ -29,6 +50,11 @@ public class CourseParticipant {
 	public CourseParticipant(final Course course, final User userMail) {
 		this.course = course;
 		this.userMail = userMail;
+		final LocalDateTime ldt = LocalDateTime.now();
+		final ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
+		subscriptionDate = Date.from(zdt.toInstant());
+		disclaimerAgreed = Boolean.TRUE;
+		termAgreed = Boolean.TRUE;
 	}
 
 	public Course getCourse() {
@@ -37,6 +63,10 @@ public class CourseParticipant {
 
 	public User getUserMail() {
 		return userMail;
+	}
+
+	public Date getSubscriptionDate() {
+		return subscriptionDate;
 	}
 
 	@Override
