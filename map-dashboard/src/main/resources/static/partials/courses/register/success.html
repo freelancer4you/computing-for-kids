@@ -36,21 +36,32 @@
 	      <div class="panel panel-info">
 	          <div class="panel-heading">Kursdetails</div>
 	          <div class="panel-body">
-			    {{course.name}}
-			    <p>{{course.description}}</p>
-			    <p>{{course.schedule.begin}} - {{course.schedule.end}}</p>
-			    <p>{{course.place}}</p>
-			    <p>{{course.price}}</p>
-			    <p>{{course.requirements}}</p>
+			   <strong> {{course.name}}</strong>
+			    <br>
+			    <strong>Beschreibung:</strong> {{course.description}}
+			    <br>
+			    <strong>Beginn:</strong>{{course.schedule.begin}}
+			    <br>
+			    <strong>Zeitraum:</strong>{{course.schedule.begin}} - {{course.schedule.end}}
+			    <br>
+			    <strong>Ort:</strong>{{course.place}}
+			    <br>
+			    <strong>Preis:</strong>{{course.price}}
+			    <br>
+			    <strong>Anforderungen:</strong>{{course.requirements}}
 			  </div>
 		  </div>
 		  
 		  <div class="panel panel-info">
               <div class="panel-heading">Kundendetails</div>
               <div class="panel-body">
-                Name:{{credentials.firstName}} {{credentials.lastName}}
+                <strong>Name:</strong>{{credentials.firstName}} {{credentials.lastName}}
                 <br>
-                Email:{{credentials.email}}
+                <strong>Email:</strong>{{credentials.email}}
+                <br>
+                <strong>Adresse:</strong> {{credentials.adress.street}} {{credentials.adress.houseNr}},  {{credentials.adress.zipcode}} {{credentials.adress.city}}
+                <br> 
+                <strong>Telefon:</strong> {{credentials.phoneNumber}} 
               </div>
           </div>
 	  </div>
