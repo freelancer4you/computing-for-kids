@@ -86,6 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/partials/courses/teachers/index.html").permitAll()
         .antMatchers("/partials/courses/register/index.html").permitAll()
         .antMatchers("/partials/courses/register/success.html").permitAll()
+        .antMatchers("/partials/impressum/index.html").permitAll()
         .antMatchers("/partials/courses/details/**").permitAll()
         .antMatchers("/partials/courses/register/modalAgb.htm").permitAll()
         .antMatchers("/partials/courses/register/modalDisclaimer.htm").permitAll()
