@@ -15,3 +15,7 @@
 - https ??? --> https://www.drissamri.be/blog/java/enable-https-in-spring-boot/ , https://sslmate.com/pricing
 
 java -cp ~/.m2/repository/org/jasypt/jasypt/1.9.2/jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="contactspassword" password=supersecretz algorithm=PBEWithMD5AndDES
+
+- Termin für Kurs festlegen, sind bis X-Tage vor Kursbeginn nicht X-Anmeldungen eingegangen, wird der Kurs bis zum Tag X
+verschoben, erst wenn  X-Anmeldungen eingegangen sind startet der Kurs
+
