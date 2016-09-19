@@ -1,0 +1,17 @@
+- bei gleicher Email, erfolgt bei Registrierung ein Überschreiben (des Passwortes) !!
+- Beschreibung der Kurse (Übersetzung)
+- Termine für die Kurse
+- Anzeige aktueller/maximaler Kursbesucher
+- UserChat
+- Bewertung
+- Überarbeitung AGB und Wiederufsbelehrung
+- Analyse: Wann muss bei anderen Kursen das Geld bezahlt werden? z.B. VHS: in der ersten Kurswoche (Rechnung)
+	- 14 Tagen nach Rechnungsdatum zu zahlen, spätestens jedoch bis zu dem in der Rechnung genannten Termin.
+	- Die Rechnung ist sofort nach Eingang ohne Abzug fällig.
+	https://www.ars.de/web/firma/agb/agb_schulungen.html
+	 - Die Rechnung wird nach dem Seminarende per Post verschickt und ist innerhalb von 8 Tagen ohne Abzug zu begleichen.
+
+
+- https ??? --> https://www.drissamri.be/blog/java/enable-https-in-spring-boot/ , https://sslmate.com/pricing
+
+java -cp ~/.m2/repository/org/jasypt/jasypt/1.9.2/jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="contactspassword" password=supersecretz algorithm=PBEWithMD5AndDES
