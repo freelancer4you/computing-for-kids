@@ -11,8 +11,7 @@ adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $h
     .then(function (response) {
     	console.log(response.data);
         if (response.status == 200) {
-        	$scope.users = response.data;
-        	   
+        	$scope.users = response.data;        	   
             console.log("Successfully loaded users");
         }
         else {
@@ -28,8 +27,7 @@ adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $h
     .then(function (response) {
     	console.log(response.data);
         if (response.status == 200) {
-        	$scope.visitorsCount = response.data;
-        	   
+        	$scope.visitorsCount = response.data;        	   
             console.log("Successfully loaded visitorsCount");
         }
         else {
@@ -37,6 +35,11 @@ adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $h
             console.log("Loading users failed!");
         }
     });
+	
+	$scope.printBill = function(user) {
+		console.log("Rechnung Drucken ...");
+		console.log(user);
+	}
 	
 }
 ]);

@@ -1,0 +1,186 @@
+<div style="font-size: 72.5%; font-family: Helvetica, sans-serif; float:left;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-left:100px;" >
+    <tr>
+      <td colspan="2" align="center">Logo Hier<br><br></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>               
+  </tr> 
+  <tr>
+    <td width="67%"
+        ><span style="font-size: 65%;text-decoration: underline;">
+          sotope · Isotope Demo · 1 Isotope Lane · 01027 · Easthampton
+        </span><br>
+        <br>
+        Kirsten Roschanski
+        <br>
+        Alsenstraße 17
+        <br>
+        42103 Wuppertal
+        <br>
+        USA
+        <br><br><br><br><br
+      ><table width="100%" cellspacing="0" cellpadding="0" >  
+      <tr>        
+        <td width="20%"><strong>Betreff:</strong></td>          
+        <td width="80%">Kursbuchung</td>  
+      </tr>
+      <tr>        
+        <td width="20%"><strong>&nbsp;</strong></td>          
+        <td width="80%">&nbsp;</td>  
+      </tr>
+      </table>
+     </td>
+    <td width="3%" style="border-left: 1px solid #000;"></td>
+    <td width="40%"><span style="font-size: 100%;font-weight: bold;">Rechnung</span><br>
+        <br>
+        Kundennummer: -
+        <br>
+        <br>
+        Bestelldatum: 2012-12-02
+        <br>
+        Rechnungsnummer: 0003
+        <br>
+        Datum: 2012-12-26<br>
+    </td>
+  </tr> 
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>               
+  </tr>  
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>               
+  </tr> 
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>               
+  </tr> 
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>               
+  </tr>
+    </table>
+    
+  <table width="100%" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="15%" ><strong>Position</strong></td>
+      <td width="50%" ><strong>Artikel</strong></td>
+      <td width="10%" ><strong>Menge</strong></td>
+      <td width="15%" ><strong>Einzelpreis</strong></td>
+      <td width="10%" ><strong>Preis</strong></td>                
+    </tr>   
+    <tr>
+      <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+    </tr>
+    <tr>
+      <td width="15%">KursNr</td>    
+      <td width="50%">Kursname</td>  
+      <td width="10%" align="center">Menge?</td>
+      <td width="15%">EinzelPreis</td>
+      <td width="10%" align="right">Gesamtpreis</td>
+    </tr>
+    <tr>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+    </tr> 
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>                
+    </tr>
+    <tr>    
+      <td colspan="4" align="right">Zwischensumme:</td>  
+      <td align="right">Zwischensumme</td>  
+    </tr>               
+    <!--tr>    
+      <td colspan="4" align="right">??????</td>               
+      <td align="right"><?php echo $surcharge['total_price']; ?></td>  
+    </tr-->
+    <tr>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+    </tr>  
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>                
+    </tr>      
+    <tr>     
+      <td colspan="4" align="right"><strong>Gesamtpreis:</strong></td>                
+      <td align="right"><strong>Gesamtpreis</strong></td>  
+    </tr>  
+    <tr>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+      <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+    </tr> 
+  </table>
+  <br><br><br>
+  <table width="100%" cellspacing="0" cellpadding="0">  
+    <tr>        
+      <td width="80%"><?php echo $this->notes; ?></td>          
+      <td width="20%" style="color:#a3a3a3;" align="right"><?php 
+      echo $GLOBALS['TL_LANG']['isoInvoice']['shippingAddress'] . "<br>"; 
+      echo $this->arrShippingAddress['company'] ? $this->arrShippingAddress['company'] . "<br>" : "";  
+      echo $this->arrShippingAddress['firstname'] . " ";
+      echo $this->arrShippingAddress['lastname'] . "<br>";
+      echo $this->arrShippingAddress['street_1'] ? $this->arrShippingAddress['street_1'] . "<br>" : "";
+      echo $this->arrShippingAddress['street_2'] ? $this->arrShippingAddress['street_2'] . "<br>" : "";
+      echo $this->arrShippingAddress['street_3'] ? $this->arrShippingAddress['street_3'] . "<br>" : "";
+      echo $this->arrShippingAddress['postal'] . " ";
+      echo $this->arrShippingAddress['city'] . "<br>";
+      echo $GLOBALS['TL_LANG']['CNT'][$this->arrShippingAddress['country']];     
+      ?></td>
+    </tr> 
+  </table>
+</div>
+<div style="background-color:#dcdcdc; width: 100%; padding: 20px 80px; font-size: 72.5%; font-family: Helvetica, sans-serif;"><table 
+   width="100%" cellspacing="0" cellpadding="0">  
+    <tr><td colspan="4"></td></tr>
+    <tr>    
+      <td width="10%"></td>             
+      <td width="40%">
+        <strong>Computing-For-Kids</strong><br>
+        Alte Straße 39<br>
+        04229 Leipzig<br>
+        Deutschland<br><br>
+        Telefon: 0176/24008873<br>
+        Email: info@computing-for-kids.de<br>
+      </td>                   
+      <td width="10%"></td> 
+      <td width="40%">
+        <strong>Bank</strong>
+        <br>
+        Deutsche Kredit Bank
+        <br>
+        Konto: 1007512476
+        <br>
+        BLZ 12030000
+        <br> 
+        IBAN XXX
+        <br>
+        BIC-/SWIFT-Code: ABCDEFGHIJ
+        <br>
+        Umsatz-Steuer-ID: 123456789
+      </td>
+    </tr> 
+  </table>  
+</div>
