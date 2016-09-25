@@ -9,6 +9,10 @@
 - AGB und Wiederufsbelehrung nochmal genau lesen, 
     eventuell AGB noch mit Paragraphen aus http://www.vhs-leipzig.de/agb/ ergänzen
 - Die Rechnung ist sofort nach Eingang ohne Abzug fällig. https://www.ars.de/web/firma/agb/agb_schulungen.html
+- Benutzerbereich
+- Git-Server für Schüler
+- Newsletter
+- Kursangebot für Lehrer
 	
 - https ??? --> https://www.drissamri.be/blog/java/enable-https-in-spring-boot/ , https://sslmate.com/pricing
 

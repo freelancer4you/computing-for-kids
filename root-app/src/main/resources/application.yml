@@ -30,7 +30,7 @@ spring:
     profiles: production
     datasource:
       driver-class-name: com.mysql.jdbc.Driver 
-      url:  jdbc:mysql://localhost:3306/cfk
+      url:  jdbc:mysql://localhost:3306/portfolio
       username: cfk
       password:  ENC(0rLh75nem1Q2ZK74T6Vq+IZmyy/a3Gyj)
     jpa:
