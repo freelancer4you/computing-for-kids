@@ -1,11 +1,14 @@
 - bei gleicher Email, erfolgt bei Registrierung ein Überschreiben (des Passwortes) !!
+    --> Option für bereits registierte Benutzer
 - Beschreibung der Kurse (Übersetzung)
+- Links zu den Beschreibungen hinzufügen
 - Termine für die Kurse
 - Anzeige aktueller/maximaler Kursbesucher
 - UserChat
 - Drucken über Adminseite
-- Bewertung
 - Erstellung einer Rechnung wie VHS
+- Füllen der Rechnung mit richtigen Daten
+- Bewertung
 - AGB und Wiederufsbelehrung nochmal genau lesen, 
     eventuell AGB noch mit Paragraphen aus http://www.vhs-leipzig.de/agb/ ergänzen
 - Die Rechnung ist sofort nach Eingang ohne Abzug fällig. https://www.ars.de/web/firma/agb/agb_schulungen.html
@@ -17,14 +20,12 @@ java -cp ~/.m2/repository/org/jasypt/jasypt/1.9.2/jasypt-1.9.2.jar org.jasypt.in
 - Termin für Kurs festlegen, sind bis X-Tage vor Kursbeginn nicht X-Anmeldungen eingegangen, wird der Kurs bis zum Tag X
 verschoben, erst wenn  X-Anmeldungen eingegangen sind startet der Kurs oder gar nicht
 
-verschoben, erst wenn  X-Anmeldungen eingegangen sind startet der Kurs
-
 Kursdauer/Kosten:
  Gessamtdauer: 6 Wochen
  			   		2mal pro Woche jeweils 2 Stunden =  24 Stunden
  			oder/und    jeden Samstag 4 Stunden (9-10:30 und 11:00 - 12:30) = 24 Stunden
 
- 			Stundenlohn 18.0€ --> 432€
- 			Stundenlohn 17.5€ --> 420€
- 			Stundenlohn 16.0€ --> 384€
+ 			Stundenlohn 18.0€ --> 432€  Lego --> 456€
+ 			Stundenlohn 17.5€ --> 420€  Lego --> 444€
+ 			Stundenlohn 16.0€ --> 384€  Lego --> 408€
 

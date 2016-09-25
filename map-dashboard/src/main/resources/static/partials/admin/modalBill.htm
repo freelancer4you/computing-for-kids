@@ -1,0 +1,205 @@
+<div class="modal fade" id="modalBill" role="dialog" style="width: 55%; margin-left: 30%;">
+     <div class="modal-dialog modal-sm" style="width: 100%">
+         <div class="modal-content" style="width: 100%">
+             <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Rechnung</h4>
+             </div>
+             <div class="modal-body">
+                
+                 <!-- ############ Content ############## -->
+                 <style>
+                    @page { size: auto;  margin: 0mm; }
+                 </style>
+                     <div id="content">
+                         {{course}}
+                         <div style="background-color:white;font-size: 72.5%; font-family: Helvetica, sans-serif;">
+                             <table style="width: 100%; margin-left:80px;background-color: white;" >
+                                 <tr>
+                                     <td colspan="2" align="center">
+                                         <img src="img/logos/big/logo_four.png" alt="" width="140px;" height="54px;" style="margin-left: 150px;"/>
+                                         <br><br>
+                                      </td>
+                                 </tr>
+                                 <tr>
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>               
+                                 </tr> 
+                                 <tr>
+                                   <td width="67%"
+                                       ><span style="font-size: 65%;text-decoration: underline;">
+                                         Coputing-For-Kids  &sdot; Alte Stra&szlig;e 39 &sdot; 04229 Leipzig &sdot; Deutschland
+                                       </span><br>
+                                       <br>
+                                       {{courseRegistration.firstName}} {{courseRegistration.lastName}}
+                                       <br>
+                                       {{courseRegistration.street}} {{courseRegistration.housNr}}
+                                       <br>
+                                       {{courseRegistration.zipcode}} {{courseRegistration.city}}
+                                       <br>
+                                       Deutschland
+                                       <br><br><br><br><br
+                                     ><table style="width: 100%;" >  
+                                     <tr>        
+                                       <td width="20%"><strong>Betreff:</strong></td>          
+                                       <td width="80%">{{courseRegistration.courseName}}</td>  
+                                     </tr>
+                                     <tr>        
+                                       <td width="20%"><strong>&nbsp;</strong></td>          
+                                       <td width="80%">&nbsp;</td>  
+                                     </tr>
+                                     </table>
+                                    </td>
+                                   <td width="3%" style="border-left: 1px solid #000;"></td>
+                                   <td width="40%"><span style="font-size: 100%;font-weight: bold;">Rechnung</span><br>
+                                       <!-- br>
+                                       Kundennummer: -
+                                       <br-->
+                                       <br>
+                                       Anmeldedatum: {{courseRegistration.subscriptionDate}}
+                                       <br>
+                                       Kursnummer: {{courseRegistration.courseId}}
+                                       <br>
+                                       Datum: {{date | date:'dd.MM.yyyy'}}<br>
+                                   </td>
+                                 </tr> 
+                                 <tr>
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>               
+                                 </tr>  
+                                 <tr>
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>               
+                                 </tr> 
+                                 <tr>
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>               
+                                 </tr> 
+                                 <tr>
+                                   <td>&nbsp;</td>
+                                   <td>&nbsp;</td>               
+                                 </tr>
+                             </table>
+                             
+                             <table style="width: 90%;margin-left:80px;margin-right: 120px;background-color: white;">
+                                  <tr>
+                                    <td width="15%" ><strong>Kurs-Nr</strong></td>
+                                    <td width="50%" ><strong>Kurstitel</strong></td>
+                                    <td width="10%" ><strong>Menge</strong></td>
+                                    <td width="15%" ><strong>Einzelpreis</strong></td>
+                                    <td width="10%" ><strong>Preis</strong></td>                
+                                  </tr>   
+                                  <tr>
+                                    <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-top: 0.5px solid #000;">&nbsp;</td>
+                                  </tr>
+                                  <tr>
+                                    <td width="15%">{{courseRegistration.courseId}}</td>    
+                                    <td width="50%">{{courseRegistration.courseName}}</td>  
+                                    <td width="10%" align="center">1</td>
+                                    <td width="15%">{{courseRegistration.coursePrice}}</td>
+                                    <td width="10%" align="right">{{courseRegistration.coursePrice}}</td>
+                                  </tr>
+                                  <tr>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                  </tr> 
+                                  <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>                
+                                  </tr>
+                                  <tr>    
+                                    <td colspan="4" align="right">Zwischensumme:</td>  
+                                    <td align="right">{{courseRegistration.coursePrice}}</td>  
+                                  </tr>               
+                                  <tr>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                  </tr>  
+                                  <tr>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>                
+                                  </tr>      
+                                  <tr>     
+                                    <td colspan="4" align="right"><strong>Gesamtpreis:</strong></td>                
+                                    <td align="right"><strong>{{courseRegistration.coursePrice}}</strong></td>  
+                                  </tr>  
+                                  <tr>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
+                                  </tr> 
+                             </table>
+                           <br><br><br>
+                         </div>
+                         <div style="background-color:#dcdcdc; width: 100%; padding: 20px 80px; font-size: 72.5%; font-family: Helvetica, sans-serif;">
+                             <table style="width: 100%;">  
+                                 <tr><td colspan="4"></td></tr>
+                                 <tr>    
+                                   <td width="10%"></td>             
+                                   <td width="40%">
+                                     <strong>Computing-For-Kids</strong><br>
+                                     Alte Straße 39<br>
+                                     04229 Leipzig<br>
+                                     Deutschland<br><br>
+                                     Telefon: 0176/24008873<br>
+                                     Email: info@computing-for-kids.de<br>
+                                   </td>                   
+                                   <td width="10%"></td> 
+                                   <td width="40%">
+                                     <strong>Bank</strong>
+                                     <br>
+                                     Deutsche Kredit Bank
+                                     <br>
+                                     Konto: 1007512476
+                                     <br>
+                                     BLZ: 12030000
+                                     <br> 
+                                     IBAN: DE96 1203 0000 1007 5124 76
+                                     <br>
+                                     BIC / Bankleitzahl: BYLADEM1001 / 12030000 
+                                     <br>
+                                     Umsatz-Steuer-ID: 123456789
+                                   </td>
+                                 </tr> 
+                             </table>  
+                         </div>
+                     </div>
+                     
+                     <button id="printBillBtn">Print</button>
+                     
+                     <script>
+                        $(document).ready(function(){
+                            $("#printBillBtn").click(function(){
+                                // Beim Drucken Kopf- und Fusszeile deaktivieren
+                                //var mode = 'iframe'; //popup
+                                var mode = 'popup'; //popup
+                                var close = mode == "popup";
+                                var options = { mode : mode, popClose : close};
+                                $("#content").printArea( options );
+                            });
+                        });
+                      </script>                 
+                 
+             </div>
+            <div class="modal-footer"></div>
+         </div>
+     </div>
+ </div>

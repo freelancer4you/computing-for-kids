@@ -9,26 +9,35 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
+import de.goldmann.apps.root.model.PostAdress;
 import de.goldmann.apps.root.model.Schedule;
 import de.goldmann.apps.root.model.User;
 
 public class CourseParticipantDto implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long		serialVersionUID	= 1L;
 
 	private String					subscriptionDate;
-	private String				courseEnd;
-	private String				courseBegin;
+	private String					courseId;
+	private String					courseEnd;
+	private String					courseBegin;
 	private String					courseName;
+	private double					coursePrice;
 	private String					childName;
 	private String					childAge;
 	private String					userMail;
 	private String					lastName;
 	private String					firstName;
-	private String				registrationDate;
+	private String					street;
+	private String					city;
+	private String					registrationDate;
 
 	@JsonIgnore
 	private final SimpleDateFormat	formatter			= new SimpleDateFormat(DATE_FORMAT);
+
+	private String					houseNr;
+
+	private String					zipcode;
 
 	public CourseParticipantDto() {
 	}
@@ -37,6 +46,8 @@ public class CourseParticipantDto implements Serializable {
 
 		final Course course = courseParticipant.getCourse();
 		final User user = courseParticipant.getUserMail();
+		courseId = course.getId();
+		coursePrice = course.getPrice();
 		firstName = user.getFirstName();
 		lastName = user.getLastName();
 		userMail = user.getEmail();
@@ -48,6 +59,11 @@ public class CourseParticipantDto implements Serializable {
 		final Schedule schedule = course.getSchedule();
 		courseBegin = formatter.format(schedule.getBegin());
 		courseEnd = formatter.format(schedule.getEnd());
+		final PostAdress adresse = user.getAdresse();
+		city = adresse.getCity();
+		houseNr = adresse.getHouseNr();
+		zipcode = adresse.getZipcode();
+		street = adresse.getStreet();
 	}
 
 	public String getSubscriptionDate() {
@@ -88,6 +104,38 @@ public class CourseParticipantDto implements Serializable {
 
 	public String getCourseBegin() {
 		return courseBegin;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public SimpleDateFormat getFormatter() {
+		return formatter;
+	}
+
+	public String getHouseNr() {
+		return houseNr;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public String getCourseId() {
+		return courseId;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public double getCoursePrice() {
+		return coursePrice;
 	}
 
 }

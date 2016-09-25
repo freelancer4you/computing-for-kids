@@ -52,7 +52,6 @@ public class CourseController {
 
             courses.add(courseDTO);
         }
-        System.out.println("Courses loaded..");
         return courses;
     }
 

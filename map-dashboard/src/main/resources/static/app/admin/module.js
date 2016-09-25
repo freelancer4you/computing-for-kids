@@ -2,7 +2,7 @@
 
 var adminModule = angular.module('adminModule', []);
 
-adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $http) {
+adminModule.controller('AdminAreaCtrl',  function ($scope, $http) {
 	
 	$http({
         method: 'GET',
@@ -36,10 +36,13 @@ adminModule.controller('AdminAreaCtrl', ['$scope', '$http', function ($scope, $h
         }
     });
 	
-	$scope.printBill = function(user) {
-		console.log("Rechnung Drucken ...");
-		console.log(user);
-	}
+	$scope.openModalBill = function(courseRegistration) {
+		$scope.date = new Date();
+		$scope.courseRegistration = courseRegistration;
+		$("#modalBill").modal();
+	}	
 	
-}
-]);
+	$scope.printBill = function() {
+		console.log($scope.course);
+	}	
+});

@@ -12,34 +12,45 @@
 	<table class="table table table-striped table-bordered table-hover" id="usersTable">
 	    <thead>
 	        <tr>
-	            <th>FirstName</th>
-	            <th>LastName</th>
+	            <th>Users Adress</th>
 	            <th>Email</th>
 	            <th>ChildName</th>
 	            <th>ChildAge</th>
 	            <th>Registration-Date</th>	            
-	            <th>CourseName</th>
-	            <th>CourseEnd</th>
-	            <th>CourseBegin</th>
+	            <th>CourseName</th>	           
 	            <th>SubscriptionDate</th>
 	            <th>Actions</th>
 	        </tr>
 	    </thead>
 	    
-	    <tr ng-repeat="user in users" style="margin-bottom:2px">
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>{{user.userMail}}</td>
-            <td>{{user.childName}}</td>
-            <td>{{user.childAge}}</td>
-            <td>{{user.registrationDate}}</td>            
-            <td>{{user.courseName}}</td>
-            <td>{{user.courseEnd}}</td>
-            <td>{{user.courseBegin}}</td>
-            <td>{{user.subscriptionDate}}</td>
+	    <tr ng-repeat="courseRegistration in users" style="margin-bottom:2px">
             <td>
-                <button class="btn btn-primary" type="button" style="float: right;" ng-click="printBill(user)">Rechnung</button>
+                {{courseRegistration.firstName}} {{courseRegistration.lastName}}
+                <br>
+                {{courseRegistration.street}} {{courseRegistration.housNr}}, 
+                {{courseRegistration.zipcode}} {{courseRegistration.city}}
+            
+            
+            </td>
+            <td>{{courseRegistration.userMail}}</td>
+            <td>{{courseRegistration.childName}}</td>
+            <td>{{courseRegistration.childAge}}</td>
+            <td>{{courseRegistration.registrationDate}}</td>            
+            <td>
+                Name:  {{courseRegistration.courseName}}
+                <br> 
+                ID: {{courseRegistration.courseId}}
+                <br> 
+                Preis: {{courseRegistration.coursePrice}}
+                Zeitraum: {{courseRegistration.courseEnd}} {{courseRegistration.courseBegin}}</td>
+            <td>{{courseRegistration.subscriptionDate}}</td>
+            <td>
+                <button class="btn btn-primary" type="button" style="float: right;" 
+                ng-click="openModalBill(courseRegistration)">Rechnung</button>
             </td>
 	    </tr>   
 	</table>
+	
+	<div ng-include="'/partials/admin/modalBill.htm'"/>
+	
 </div>
