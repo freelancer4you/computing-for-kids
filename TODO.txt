@@ -5,9 +5,6 @@
 - Termine für die Kurse
 - Anzeige aktueller/maximaler Kursbesucher
 - UserChat
-- Drucken über Adminseite
-- Erstellung einer Rechnung wie VHS
-- Füllen der Rechnung mit richtigen Daten
 - Bewertung
 - AGB und Wiederufsbelehrung nochmal genau lesen, 
     eventuell AGB noch mit Paragraphen aus http://www.vhs-leipzig.de/agb/ ergänzen
