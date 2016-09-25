@@ -26,10 +26,13 @@
                                    <td>&nbsp;</td>               
                                  </tr> 
                                  <tr>
-                                   <td width="67%"
-                                       ><span style="font-size: 65%;text-decoration: underline;">
+                                   <td width="67%">
+                                       <span style="font-size: 65%;text-decoration: underline;">
                                          Coputing-For-Kids  &sdot; Alte Stra&szlig;e 39 &sdot; 04229 Leipzig &sdot; Deutschland
-                                       </span><br>
+                                       </span>
+                                       <br>
+                                       <br>
+                                       {{courseRegistration.salutation}}
                                        <br>
                                        {{courseRegistration.firstName}} {{courseRegistration.lastName}}
                                        <br>
@@ -41,15 +44,18 @@
                                        <br><br><br><br><br
                                      ><table style="width: 100%;" >  
                                      <tr>        
-                                       <td width="20%"><strong>Betreff:</strong></td>          
-                                       <td width="80%">{{courseRegistration.courseName}}</td>  
+                                       <td width="80%">
+                                        <strong>Betreff: </strong>
+                                        Kursbuchung {{courseRegistration.courseName}} 
+                                       </td>          
+                                       <td width="20%"></td>  
                                      </tr>
                                      <tr>        
                                        <td width="20%"><strong>&nbsp;</strong></td>          
                                        <td width="80%">&nbsp;</td>  
                                      </tr>
                                      </table>
-                                    </td>
+                                   </td>
                                    <td width="3%" style="border-left: 1px solid #000;"></td>
                                    <td width="40%"><span style="font-size: 100%;font-weight: bold;">Rechnung</span><br>
                                        <!-- br>
@@ -59,35 +65,35 @@
                                        Anmeldedatum: {{courseRegistration.subscriptionDate}}
                                        <br>
                                        Kursnummer: {{courseRegistration.courseId}}
-                                       <br>
+                                       <br><br>
                                        Datum: {{date | date:'dd.MM.yyyy'}}<br>
                                    </td>
                                  </tr> 
                                  <tr>
                                    <td>&nbsp;</td>
+                                   <td>&nbsp;</td>
                                    <td>&nbsp;</td>               
                                  </tr>  
                                  <tr>
                                    <td>&nbsp;</td>
-                                   <td>&nbsp;</td>               
-                                 </tr> 
-                                 <tr>
                                    <td>&nbsp;</td>
                                    <td>&nbsp;</td>               
                                  </tr> 
                                  <tr>
                                    <td>&nbsp;</td>
                                    <td>&nbsp;</td>               
-                                 </tr>
+                                   <td>&nbsp;</td>
+                                 </tr> 
+                                 
                              </table>
                              
-                             <table style="width: 90%;margin-left:80px;margin-right: 120px;background-color: white;">
+                             <table style="width: 90%;margin-left:80px;margin-right: 120px;" border="0">
                                   <tr>
                                     <td width="15%" ><strong>Kurs-Nr</strong></td>
                                     <td width="50%" ><strong>Kurstitel</strong></td>
-                                    <td width="10%" ><strong>Menge</strong></td>
-                                    <td width="15%" ><strong>Einzelpreis</strong></td>
-                                    <td width="10%" ><strong>Preis</strong></td>                
+                                    <td width="12%" ><strong>Dauer</strong></td>
+                                    <td width="15%" align="right"><strong>Fachentgelt</strong></td>
+                                    <td width="8%" align="right"><strong>Betrag</strong></td>                
                                   </tr>   
                                   <tr>
                                     <td style="border-top: 0.5px solid #000;">&nbsp;</td>
@@ -99,9 +105,9 @@
                                   <tr>
                                     <td width="15%">{{courseRegistration.courseId}}</td>    
                                     <td width="50%">{{courseRegistration.courseName}}</td>  
-                                    <td width="10%" align="center">1</td>
-                                    <td width="15%">{{courseRegistration.coursePrice}}</td>
-                                    <td width="10%" align="right">{{courseRegistration.coursePrice}}</td>
+                                    <td width="12%">{{courseRegistration.courseEnd}} {{courseRegistration.courseBegin}}</td>
+                                    <td width="15%" align="right">{{courseRegistration.coursePrice}}</td>
+                                    <td width="8%" align="right">{{courseRegistration.coursePrice}}</td>
                                   </tr>
                                   <tr>
                                     <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
@@ -109,25 +115,7 @@
                                     <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
                                     <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
                                     <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                  </tr> 
-                                  <tr>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>
-                                    <td>&nbsp;</td>                
-                                  </tr>
-                                  <tr>    
-                                    <td colspan="4" align="right">Zwischensumme:</td>  
-                                    <td align="right">{{courseRegistration.coursePrice}}</td>  
-                                  </tr>               
-                                  <tr>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                  </tr>  
+                                  </tr>                                   
                                   <tr>
                                     <td>&nbsp;</td>
                                     <td>&nbsp;</td>
@@ -136,16 +124,16 @@
                                     <td>&nbsp;</td>                
                                   </tr>      
                                   <tr>     
-                                    <td colspan="4" align="right"><strong>Gesamtpreis:</strong></td>                
-                                    <td align="right"><strong>{{courseRegistration.coursePrice}}</strong></td>  
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td style="border-bottom-style: double;" align="right">
+                                        <strong>Gesamtpreis:</strong>
+                                    </td>                
+                                    <td style="border-bottom-style: double;" align="right">
+                                        <strong>{{courseRegistration.coursePrice}}</strong>
+                                    </td>  
                                   </tr>  
-                                  <tr>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                    <td style="border-bottom: 0.5px solid #000;">&nbsp;</td>
-                                  </tr> 
                              </table>
                            <br><br><br>
                          </div>
@@ -156,7 +144,7 @@
                                    <td width="10%"></td>             
                                    <td width="40%">
                                      <strong>Computing-For-Kids</strong><br>
-                                     Alte Straße 39<br>
+                                     Alte Stra&szlig;e 39<br>
                                      04229 Leipzig<br>
                                      Deutschland<br><br>
                                      Telefon: 0176/24008873<br>

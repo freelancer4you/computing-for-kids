@@ -22,10 +22,11 @@ public class CourseParticipantDto implements Serializable {
 	private String					courseEnd;
 	private String					courseBegin;
 	private String					courseName;
-	private double					coursePrice;
+	private String					coursePrice;
 	private String					childName;
 	private String					childAge;
 	private String					userMail;
+	private String					salutation;
 	private String					lastName;
 	private String					firstName;
 	private String					street;
@@ -47,8 +48,9 @@ public class CourseParticipantDto implements Serializable {
 		final Course course = courseParticipant.getCourse();
 		final User user = courseParticipant.getUserMail();
 		courseId = course.getId();
-		coursePrice = course.getPrice();
+		// coursePrice = course.getPrice();
 		firstName = user.getFirstName();
+		salutation = user.getSalutation();
 		lastName = user.getLastName();
 		userMail = user.getEmail();
 		childAge = user.getChildAge();
@@ -64,6 +66,12 @@ public class CourseParticipantDto implements Serializable {
 		houseNr = adresse.getHouseNr();
 		zipcode = adresse.getZipcode();
 		street = adresse.getStreet();
+	}
+
+	public static void main(final String[] args) {
+		final String result = String.format("%1$,.2f", 10.1);
+		System.out.println(result);
+		System.out.println(String.format("%s", 10.1));
 	}
 
 	public String getSubscriptionDate() {
@@ -84,6 +92,10 @@ public class CourseParticipantDto implements Serializable {
 
 	public String getUserMail() {
 		return userMail;
+	}
+
+	public String getSalutation() {
+		return salutation;
 	}
 
 	public String getLastName() {
@@ -134,7 +146,7 @@ public class CourseParticipantDto implements Serializable {
 		return serialVersionUID;
 	}
 
-	public double getCoursePrice() {
+	public String getCoursePrice() {
 		return coursePrice;
 	}
 
