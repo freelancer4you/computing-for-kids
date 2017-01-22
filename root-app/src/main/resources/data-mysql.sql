@@ -2,9 +2,14 @@
 insert into users (salutation, email, firstname, lastname, password, phonenumber, role, registration, street, zipcode, city, houseNr) values('Herr', 'goldi23@freenet.de', 'goldi', 'goldi', '$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.', 'phone', 'ADMIN', CURRENT_TIMESTAMP, 'street', 'plz', 'city', '8') on duplicate key update registration = CURRENT_TIMESTAMP;
 
 -- TODO: Feld: description fuellen: mit h2 = FILE_READ('classpath:lego-kurs-beschreibung.dat')
-insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('LegoOct2016', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Volkshochschule, Löhrstraße 3 - 7', 'lego-curriculum', 'lego-appointments', '18 Termine Veranstaltung(en), 54 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'LegoOct2016';
---insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('JSOct2016', 'Javascript for Kids', 'javascript.jpg', 'TODO', 'Beginner', 495.99, 'Volkshochschule, Löhrstraße 3 - 7', 'javascript-curriculum', 'vex-appointments', '18 Termine Veranstaltung(en), 54 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'JSOct2016';
-insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values('VexOct2016', 'VEX IQ Programmierung', 'lex.jpg', 'TODO', 'Beginner', 444.00, 'Volkshochschule, Löhrstraße 3 - 7', 'vex-curriculum', 'vex-appointments', '18 Termine Veranstaltung(en), 54 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'VexOct2016';
+--Februar
+insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values('VexFeb2017', 'VEX IQ Programmierung', 'lex.jpg', 'TODO', 'Beginner', 444.00, 'Chopinstraße 9A, 04103 Leipzig', 'vex-curriculum', 'vex-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'VexFeb2017';
+insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('LegoFeb2017', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Chopinstraße 9A, 04103 Leipzig', 'lego-curriculum', 'lego-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'LegoFeb2017';
+
+
+--Maerz
+insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('LegoMar2017', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Chopinstraße 9A, 04103 Leipzig', 'lego-curriculum', 'lego-mar-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'LegoMar2017';
+
 
 -- VEX-IQ (Beschreibung) Links
 --http://education.rec.ri.cmu.edu/vex/iq/

@@ -32,41 +32,41 @@ import de.goldmann.apps.root.model.Course;
 @ComponentScan(basePackages = { "de.goldmann.apps.root", "de.goldmann.map" })
 public class UiApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
-	@Autowired
-	private CourseRepository courseRepo;
+    @Autowired
+    private CourseRepository courseRepo;
 
-	@Autowired
-	private ApplicationContext	rootContext;
+    @Autowired
+    private ApplicationContext	rootContext;
 
-	@Override
-	protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
-		application.registerShutdownHook(true);
-		application.web(true);
-		((AnnotationConfigWebApplicationContext) rootContext).register(UiApplication.class);
-		((ConfigurableApplicationContext) rootContext).registerShutdownHook();
+    @Override
+    protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
+        application.registerShutdownHook(true);
+        application.web(true);
+        ((AnnotationConfigWebApplicationContext) rootContext).register(UiApplication.class);
+        ((ConfigurableApplicationContext) rootContext).registerShutdownHook();
 
-		return application.sources(UiApplication.class);
-	}
+        return application.sources(UiApplication.class);
+    }
 
-	public static void main(final String[] args) {
-		SpringApplication.run(UiApplication.class, args);
-	}
+    public static void main(final String[] args) {
+        SpringApplication.run(UiApplication.class, args);
+    }
 
-	@Override
-	public void run(final String... arg0) throws Exception {
-		insertDescription("LegoOct2016", "lego-kurs-beschreibung.dat");
-		insertDescription("JSOct2016", "javascript-kurs-beschreibung.dat");
-		insertDescription("VexOct2016", "vex-kurs-beschreibung.dat");
-	}
+    @Override
+    public void run(final String... arg0) throws Exception {
+        insertDescription("LegoFeb2017", "lego-kurs-beschreibung.dat");
+        insertDescription("LegoMar2017", "lego-kurs-beschreibung.dat");
+        insertDescription("VexFeb2017", "vex-kurs-beschreibung.dat");
+    }
 
-	private void insertDescription(final String courseId, final String courseDescFile) throws IOException {
-		final Course course = courseRepo.findOne(courseId);
+    private void insertDescription(final String courseId, final String courseDescFile) throws IOException {
+        final Course course = courseRepo.findOne(courseId);
 
-		if (course != null && StringUtils.isEmpty(course.getDescription())
-		        || course != null && "TODO".equals(course.getDescription())) {
-			final InputStream in = new ClassPathResource(courseDescFile).getInputStream();
-			course.setDescription(new String(IOUtils.toString(in, Charset.defaultCharset())));
-			courseRepo.save(course);
-		}
-	}
+        if (course != null && StringUtils.isEmpty(course.getDescription())
+                || course != null && "TODO".equals(course.getDescription())) {
+            final InputStream in = new ClassPathResource(courseDescFile).getInputStream();
+            course.setDescription(new String(IOUtils.toString(in, Charset.defaultCharset())));
+            courseRepo.save(course);
+        }
+    }
 }

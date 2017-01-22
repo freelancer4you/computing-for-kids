@@ -320,3 +320,8 @@ h1.csc-firstHeader {
     padding: 0px 0 5px 0px !important;
     margin: 0;
 }
+
+.btn-gplus {
+    background-color: #DD4B39;
+    color: #fff!important;
+}

@@ -1,1 +1,0 @@
-Hierbei handelt es sich um das Projekt: Muslim Advertising Platform (MAP)

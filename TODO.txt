@@ -1,8 +1,9 @@
 - bei gleicher Email, erfolgt bei Registrierung ein Überschreiben (des Passwortes) !!
     --> Option für bereits registierte Benutzer
+    --> Neben Registrierung sollte auch Login für bereits angemeldet Benutzer möglich sein
 - Beschreibung der Kurse (Übersetzung)
+- Altersangabe: 9-18
 - Links zu den Beschreibungen hinzufügen
-- Termine für die Kurse
 - Anzeige aktueller/maximaler Kursbesucher
 - UserChat
 - Bewertung
@@ -12,7 +13,7 @@
 - Benutzerbereich
 - Git-Server für Schüler
 - Newsletter
-- Kursangebot für Lehrer
+- Kursangebot für Lehrer(nnur wenn Lehrer interessiert sind: Anmeldungs-Anfrage)
 	
 - https ??? --> https://www.drissamri.be/blog/java/enable-https-in-spring-boot/ , https://sslmate.com/pricing
 

@@ -103,6 +103,17 @@
     <script src="js/jquery.printarea.js" type="text/javascript"></script>
     <script src="app/admin/module.js" type="text/javascript"></script>
 	<script src="js/app.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	   (function(){
+		   var p = document.createElement("script");
+		   p.type = "text/javascript";
+		   p.async = true;
+		   p.src = "https://apis.google.com/js/client.js?onload=loadGoolgeApi";
+		   var s = document.getElementsByTagName("script")[3];
+		   s.parentNode.insertBefore(p, s);
+		   
+	   })();
+	</script>
 	
 </body>
 </html>

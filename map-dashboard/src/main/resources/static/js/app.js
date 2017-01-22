@@ -113,9 +113,9 @@ function($rootScope, $scope, $http, $location) {
                 $location.path("/admin");
             }
             else {
-                $scope.vm.errorMessages = [];
+            	$scope.vm.errorMessages = [];
                 $scope.vm.errorMessages.push({description: 'Access denied'});
-                $rootScope.authenticated = false;
+                $rootScope.authenticated = false;                
             }
             callback && callback();
         });
@@ -321,8 +321,6 @@ module.controller('RegisterCtrl',
 		    });
 			
 			$scope.register = function(course) {
-//				console.log("Register for ");
-//				console.log(course);
 				$http({
 					method: 'POST',
 					url: '/registration',
@@ -330,20 +328,60 @@ module.controller('RegisterCtrl',
 					params: {'id': course.id},
 					headers: {
 						"Content-Type": "application/json",
-						"Accept": "text/plain"
+						"Accept": "application/json"
 					}
 				})
-				.then(function (response) {
-					if (response.status == 200) {
-						$location.path("/courses/register/sucess");						
-					}
-					else {
-						$scope.vm.errorMessages = [];
-						$scope.vm.errorMessages.push({description: response.data});
-						console.log("failed user creation: " + response.data);
-					}
-				});        
+				.success(function (data, status, headers, config) {
+					//$(".alert").alert('close');
+					$location.path("/courses/register/sucess");
+	            })
+	            .error(function (data, status, header, config) {
+	            	if(status == 409) {
+	            		$('#alert_placeholder').html('<div class="alert alert-danger alert-dismissable" role="alert">'+ data.message +'</div>');
+	            	}
+	            	else {
+	            		$('#alert_placeholder').html('<div class="alert alert-danger alert-dismissable" role="alert">Unbekannter Fehler</div>');
+	            	}
+	            });				
 			};
+			
+			$scope.google = function() {
+				var params = {
+						'clientid': '554536775328-40gntdhkh3ep0irr0t4is5g46m9t5if0.apps.googleusercontent.com',
+						'cookiepolicy': 'single_host_origin',
+						'callback': function(result){
+							//console.log(result);
+							if(result['status']['signed_in']){
+								var request = gapi.client.plus.people.get(
+										{
+											'userId': 'me'
+										}								
+								);
+								
+								request.execute(function(resp){
+									//$scope.apply(function(){
+										console.log(resp.name.familyName);
+										console.log(resp.name.givenName);
+										console.log(resp.language);
+										console.log(resp.displayName);
+										console.log(resp.emails[0].value);
+										console.log(resp.image.url);
+									//});
+										//TODO now we can register here
+										var googleAccount = {
+												'name' : resp.displayName,
+												'email' : resp.emails[0].value,
+												'image' : resp.image.url
+										};
+										//register(googleAccount, course);
+								});
+							}
+						},
+						'approvalprompt': 'auto',//'force'
+						'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+				};
+				gapi.auth.signIn(params);
+			}
 		}
 );
 
@@ -424,3 +462,7 @@ function printDiv(divName) {
     document.body.innerHTML = originalContents;
 }
 
+function loadGoolgeApi() {
+	gapi.client.setApiKey('AIzaSyD_Vd8fw0bJcWU9WyxioBCKin1YjlWTuBU');
+	gapi.client.load('plus', 'v1', function() {});	
+}

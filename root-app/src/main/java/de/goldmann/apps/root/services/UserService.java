@@ -29,10 +29,19 @@ public class UserService {
     }
 
     /**
+     * Prueft, anhand der Email, ob ein Benutzer bereits existiert.
      *
+     * @param email
+     * @return
+     */
+    public boolean userExists(final String email) {
+        return userRepository.findByEmail(email) != null;
+    }
+
+    /**
      * creates a new {@link User} in the database
      *
-     * @return
+     * @return {@link User}
      *
      */
     @Transactional

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,25 +55,39 @@ public class RegistrationController {
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(method = RequestMethod.POST)
-    public void registerUser(@RequestBody final String payload, @RequestParam("id") final String courseId)
-            throws Exception {
+    public ResponseEntity<String> registerUser(@RequestBody final String payload,
+            @RequestParam("id") final String courseId)
+                    throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
 
         try {
             final UserDTO user = mapper.readValue(payload, UserDTO.class);
-            final User storedUser = userService.createUser(user);
-            final Course course = courseRepo.findOne(courseId);
 
-            courseParticipantRepository.save(new CourseParticipant(course, storedUser));
+            final String email = user.getEmail();
+            if (userService.userExists(email))
+            {
+                // {"phonetype":"N95","cat":"WP"}
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                        .body(
+                                "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '"
+                                        + email
+                                        + "'.\"}");
+            }
+            else
+            {
+                final User storedUser = userService.createUser(user);
+                final Course course = courseRepo.findOne(courseId);
 
-            activityReport.registered(storedUser, course);
+                courseParticipantRepository.save(new CourseParticipant(course, storedUser));
+
+                activityReport.registered(storedUser, course);
+            }
         }
         catch (final Exception e) {
-            // TODO unzureichende Fehlerbehandlung
             LOGGER.error("Fehler bei Benutzerregistrierung:" + payload, e);
-            throw e;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
-
+        return ResponseEntity.ok().body("");
     }
 
 }
