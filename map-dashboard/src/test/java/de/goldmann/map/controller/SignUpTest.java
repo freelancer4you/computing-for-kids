@@ -26,7 +26,7 @@ import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.CourseParticipant;
 import de.goldmann.apps.root.model.CourseParticipantPK;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
@@ -113,7 +113,7 @@ public class SignUpTest extends WebTest {
 
 			Thread.sleep(5000);
 
-			final User registeredUser = userRepository.findByEmail(userMail);
+			final DefaultAccount registeredUser = userRepository.findByEmail(userMail);
 			assertNotNull("Der Benutzer sollte nicht null sein:", registeredUser);
 			assertEquals(dto.getFirstName(), registeredUser.getFirstName());
 			assertEquals(dto.getLastName(), registeredUser.getLastName());

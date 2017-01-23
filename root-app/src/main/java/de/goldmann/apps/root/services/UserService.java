@@ -14,10 +14,11 @@ import de.goldmann.apps.root.dao.GoogleAccountRepository;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.GoogleAccountDTO;
 import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.GoogleAccount;
-import de.goldmann.apps.root.model.User;
 import de.goldmann.apps.root.model.UserId;
 
+@Transactional
 @Service
 public class UserService {
 
@@ -47,9 +48,9 @@ public class UserService {
     }
 
     /**
-     * stores a new {@link User} in the database
+     * stores a new {@link DefaultAccount} in the database
      *
-     * @return {@link User}
+     * @return {@link DefaultAccount}
      *
      */
     @Transactional
@@ -58,7 +59,7 @@ public class UserService {
         assertNotBlank(email, "Email cannot be empty.");
         assertMatches(email, EMAIL_REGEX, "Invalid email.");
 
-        return userRepository.save(new User(userDto));
+        return userRepository.save(new DefaultAccount(userDto));
 
     }
 
@@ -79,7 +80,11 @@ public class UserService {
      *
      */
     @Transactional
-    public GoogleAccount createAcc(final GoogleAccountDTO acc) {
+    public UserId createAcc(final GoogleAccountDTO acc) {
+        final String email = acc.getEmail();
+        assertNotBlank(email, "Email cannot be empty.");
+        assertMatches(email, EMAIL_REGEX, "Invalid email.");
+
         return googleAccountRepository.save(new GoogleAccount(acc));
     }
 

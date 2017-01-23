@@ -338,26 +338,23 @@ module.controller('RegisterCtrl',
 								);
 								
 								request.execute(function(resp){
-									//$scope.apply(function(){
-										console.log(resp.name.familyName);
-										console.log(resp.name.givenName);
-										console.log(resp.language);
-										console.log(resp.displayName);
-										console.log(resp.emails[0].value);
-										console.log(resp.image.url);
-									//});
-									
+									$scope.$apply(function(){
 										var googleAccount = {
-												'name' : resp.displayName,
+												'familyName' : resp.name.familyName,
+												'gender' : resp.gender,
+												'givenName' : resp.name.givenName,
+												'language' : resp.language,
+												'displayName' : resp.displayName,
 												'email' : resp.emails[0].value,
-												'image' : resp.image.url
+												'imageUrl' : resp.image.url,												
 										};
-										register('googleRegistration', googleAccount,course);
-										
+										console.log(googleAccount);
+										register('googleRegistration', googleAccount, course);										
+									});		
 								});
 							}
 						},
-						'approvalprompt': 'auto',//'force'
+						'approvalprompt': 'force',//'auto' Auto nicht verwenden, da ansonsten request.execute 2mal aufgerufen wird
 						'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
 				};
 				gapi.auth.signIn(params);

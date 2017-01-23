@@ -2,8 +2,8 @@ package de.goldmann.apps.root.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 
-public interface UserRepository extends JpaRepository<User, String> {
-    User findByEmail(String email);
+public interface UserRepository extends JpaRepository<DefaultAccount, String> {
+    DefaultAccount findByEmail(String email);
 }

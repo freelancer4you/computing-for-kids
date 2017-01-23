@@ -20,6 +20,8 @@ public class UIConstants {
 
 	public static final String  USER_PATH = "/user";
 
-	public static final String REGISTRATION_PATH            = "/registration";
+    public static final String               DEFAULT_REGISTRATION = "/defaultRegistration";
+
+    public static final String               GOOGLE_REGISTRATION  = "/googleRegistration";
 
 }

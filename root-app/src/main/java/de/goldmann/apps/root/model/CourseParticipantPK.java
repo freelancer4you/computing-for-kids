@@ -16,9 +16,9 @@ public class CourseParticipantPK implements Serializable {
 
 	/**
 	 * @param course
-	 *            der Name des Kurses, an dem ein {@link User} teilnimmt
+	 *            der Name des Kurses, an dem ein {@link DefaultAccount} teilnimmt
 	 * @param mail
-	 *            die Email-Adresse des {@link User}
+	 *            die Email-Adresse des {@link DefaultAccount}
 	 */
 	public CourseParticipantPK(final String course, final String userMail) {
 		this.course = course;

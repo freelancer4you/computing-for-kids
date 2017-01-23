@@ -19,7 +19,7 @@ import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.map.UiApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -46,8 +46,8 @@ public class CourseRepositoryTest {
 
         tr.execute(s -> {
             final Course storedCourse = this.courseRepository.save(new Course("Englisch"));
-            final User storedUser = this.userRepository
-                    .save(new User(buildUserDto()));
+            final DefaultAccount storedUser = this.userRepository
+                    .save(new DefaultAccount(buildUserDto()));
 
             this.courseParticipantRepository.save(new CourseParticipant(storedCourse, storedUser));
 

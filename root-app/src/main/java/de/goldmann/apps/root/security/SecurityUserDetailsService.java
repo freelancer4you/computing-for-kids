@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @Service
@@ -39,7 +39,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        final User user = userRepository.findByEmail(email);
+        final DefaultAccount user = userRepository.findByEmail(email);
 
         if (user == null) {
             final String message = "Email '" + email + "' not found!!!";

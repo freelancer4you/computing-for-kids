@@ -12,13 +12,10 @@ import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.UserDTO;
 
 @Entity
-@DiscriminatorValue("USER")
-public class User extends UserId {
+@DiscriminatorValue("DEFAULTACCOUNT")
+public class DefaultAccount extends UserId {
 
     private static final long serialVersionUID = 8137228294211060781L;
-
-    private static final int  MAXLEN_NAME      = 81;
-    // private static final int MAXLEN_USER_NAME = 12;
 
     @Column(name = "salutation", nullable = false)
     private String            salutation;
@@ -47,18 +44,14 @@ public class User extends UserId {
     @Column(name = "childage", nullable = true)
     private String            childAge;
 
-    User() {
-        super();
-        setRegistrationTyp(RegistrationTyp.DEFAULT);
-    }
+    DefaultAccount() {}
 
-    public User(final UserDTO user) {
+    public DefaultAccount(final UserDTO user) {
         this(user, UserRole.USER);
     }
 
-    public User(final UserDTO user, final UserRole role) {
-        super(user.getEmail(), role);
-        setRegistrationTyp(RegistrationTyp.DEFAULT);
+    public DefaultAccount(final UserDTO user, final UserRole role) {
+        super(user.getEmail(), role, RegistrationTyp.DEFAULTACCOUNT);
         salutation = user.getSalutation();
         title = user.getTitle();
         firstName = user.getFirstName();
@@ -109,12 +102,13 @@ public class User extends UserId {
 
     @Override
     public String toString() {
-        return "User [" + (email != null ? "email=" + email + ", " : "")
+        return "User ["
+                + (getEmail() != null ? "email=" + getEmail() + ", " : "")
                 + (lastName != null ? "lastName=" + lastName + ", " : "")
                 + (firstName != null ? "firstName=" + firstName + ", " : "")
                 + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
                 + (adresse != null ? "adresse=" + adresse + ", " : "")
-                + (registrationDate != null ? "registrationDate=" + registrationDate + ", " : "")
+                + (getRegistrationDate() != null ? "registrationDate=" + getRegistrationDate() + ", " : "")
                 + (childName != null ? "childName=" + childName + ", " : "")
                 + (childAge != null ? "childAge=" + childAge : "") + "]";
     }

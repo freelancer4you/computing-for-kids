@@ -15,7 +15,7 @@ import com.google.common.io.Resources;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.Schedule;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserId;
 
 @Service
@@ -30,8 +30,8 @@ public class PrepareUserMail {
         final SimpleDateFormat dayFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
-        if (userId instanceof User) {
-            final User user = (User) userId;
+        if (userId instanceof DefaultAccount) {
+            final DefaultAccount user = (DefaultAccount) userId;
 
             final String salutation = user.getSalutation();
             final String salutationPrefix = salutation.equals("Herr") ? "geehrter" : "geehrte";

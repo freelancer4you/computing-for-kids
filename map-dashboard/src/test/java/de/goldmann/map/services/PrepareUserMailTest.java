@@ -16,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.model.Course;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.map.UiApplication;
@@ -39,7 +39,8 @@ public class PrepareUserMailTest {
     @Test
     @Sql("testListCourses.sql")
     public void testPrepare() throws IOException {
-        final UserId user = new User(TestUtils.buildUserDto());
+
+        final UserId user = new DefaultAccount(TestUtils.buildUserDto());
         final Course course = this.courseRepo.findOne("Lego Programmierung");
         final String result = this.prepare.prepare(user, course);
         System.out.println(result);

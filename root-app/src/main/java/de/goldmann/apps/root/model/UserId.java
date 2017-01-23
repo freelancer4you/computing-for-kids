@@ -14,43 +14,43 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @DiscriminatorColumn(name = "registrationtyp")
 public abstract class UserId implements Serializable {
 
     private static final long serialVersionUID = -7954540961709019241L;
 
+    protected static final int MAXLEN_NAME = 81;
+
     @Id
     @Column(name = "email", nullable = false, unique = true)
-    protected String email;
+    private String            email;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "registration", nullable = false)
-    protected Date registrationDate;
+    private Date              registrationDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    protected UserRole role;
+    private UserRole          role;
 
-    @Column(name = "registrationtyp", nullable = false, insertable = false, updatable = false)
+    @Column(name = "registrationtyp", nullable = false, length = 15)
     @Enumerated(EnumType.STRING)
     private RegistrationTyp   registrationTyp;
 
     UserId() {}
 
-    public UserId(final String email, final UserRole role) {
+    public UserId(final String email, final UserRole role, final RegistrationTyp registrationTyp) {
         this.email = email;
         this.role = role;
+        this.registrationTyp = registrationTyp;
         final LocalDateTime ldt = LocalDateTime.now();
         final ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
-        this.registrationDate = Date.from(zdt.toInstant());
+        registrationDate = Date.from(zdt.toInstant());
     }
 
     public String getEmail() {
@@ -67,10 +67,6 @@ public abstract class UserId implements Serializable {
 
     public RegistrationTyp getRegistrationTyp() {
         return registrationTyp;
-    }
-
-    public void setRegistrationTyp(final RegistrationTyp registrationTyp) {
-        this.registrationTyp = registrationTyp;
     }
 
     @Override

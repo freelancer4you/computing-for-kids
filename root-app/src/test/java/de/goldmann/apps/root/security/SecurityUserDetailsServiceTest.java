@@ -17,7 +17,7 @@ import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.Course;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
 
@@ -53,7 +53,7 @@ public class SecurityUserDetailsServiceTest {
     @Test
     public void testLoadUserByUsername() {
         final UserDTO dto = buildUserDto();
-        final User user = new User(dto);
+        final DefaultAccount user = new DefaultAccount(dto);
         this.userRepository.save(user);
         final UserDetails result = service.loadUserByUsername(dto.getEmail());
         assertNotNull(result);

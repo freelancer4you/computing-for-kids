@@ -32,7 +32,7 @@ public class UserDTO implements Serializable {
         this.password = password;
         this.adress = adress;
         this.phoneNumber = phoneNumber;
-        this.registrationDate = registration;
+        registrationDate = registration;
         this.childName = childName;
         this.childAge = childAge;
 
@@ -88,6 +88,23 @@ public class UserDTO implements Serializable {
 
     public String getChildAge() {
         return childAge;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO ["
+                + (salutation != null ? "salutation=" + salutation + ", " : "")
+                + (title != null ? "title=" + title + ", " : "")
+                + (firstName != null ? "firstName=" + firstName + ", " : "")
+                + (lastName != null ? "lastName=" + lastName + ", " : "")
+                + (email != null ? "email=" + email + ", " : "")
+                + (password != null ? "password=" + password + ", " : "")
+                + (phoneNumber != null ? "phoneNumber=" + phoneNumber + ", " : "")
+                + (adress != null ? "adress=" + adress + ", " : "")
+                + (registrationDate != null ? "registrationDate=" + registrationDate + ", " : "")
+                + (childName != null ? "childName=" + childName + ", " : "")
+                + (childAge != null ? "childAge=" + childAge : "")
+                + "]";
     }
 
 }

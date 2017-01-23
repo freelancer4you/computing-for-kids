@@ -7,33 +7,30 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.goldmann.apps.root.UIConstants;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.dto.GoogleAccountDTO;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
-import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserService;
 
 @RestController
+@Transactional
 public class RegistrationController {
-
-    private static final String DEFAULT_REGISTRATION = "defaultRegistration";
-
-    private static final String GOOGLE_REGISTRATION = "googleRegistration";
 
     private static final Logger               LOGGER = LogManager.getLogger(RegistrationController.class);
 
@@ -57,30 +54,34 @@ public class RegistrationController {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = GOOGLE_REGISTRATION, method = RequestMethod.POST)
+    @RequestMapping(value = UIConstants.GOOGLE_REGISTRATION, method = RequestMethod.POST)
     public ResponseEntity<String> googleRegistration(@RequestBody final String payload,
             @RequestParam("id") final String courseId) throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
 
-        try {
+        try
+        {
             final GoogleAccountDTO acc = mapper.readValue(payload, GoogleAccountDTO.class);
 
             final String email = acc.getEmail();
-            if (userService.googleAccountExists(email)) {
+            if (userService.googleAccountExists(email))
+            {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(
-                        "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '" + email + "'.\"}"
-                        );
-            } else {
-                final GoogleAccount storedUser = userService.createAcc(acc);
+                        "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '" + email + "'.\"}");
+            }
+            else
+            {
+                final UserId storedUser = userService.createAcc(acc);
                 final Course course = courseRepo.findOne(courseId);
 
+                // TODO das führt zu einer Violation-Exception
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 
                 activityReport.registered(storedUser, course);
             }
         }
-        catch (final Exception e) {
+        catch (final Exception e)
+        {
             LOGGER.error("Fehler bei Benutzerregistrierung:" + payload, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
         }
@@ -88,8 +89,7 @@ public class RegistrationController {
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = DEFAULT_REGISTRATION, method = RequestMethod.POST)
+    @RequestMapping(value = UIConstants.DEFAULT_REGISTRATION, method = RequestMethod.POST)
     public ResponseEntity<String> defaultRegistration(@RequestBody final String payload,
             @RequestParam("id") final String courseId)
                     throws Exception {
@@ -111,7 +111,8 @@ public class RegistrationController {
             {
                 final UserId storedUser = userService.createUser(user);
                 final Course course = courseRepo.findOne(courseId);
-
+                
+                // TODO das führt zu einer Violation-Exception
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 
                 activityReport.registered(storedUser, course);

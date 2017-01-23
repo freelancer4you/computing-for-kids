@@ -12,8 +12,6 @@ public class GoogleAccount extends UserId {
 
     private static final long serialVersionUID = -247943674703330516L;
 
-    private static final int  MAXLEN_NAME      = 81;
-
     @Column(name = "familyname", nullable = false, length = MAXLEN_NAME)
     private String            familyName;
 
@@ -33,7 +31,6 @@ public class GoogleAccount extends UserId {
     private String            imageUrl;
 
     GoogleAccount() {
-        setRegistrationTyp(RegistrationTyp.GOOGLE);
     }
 
     public GoogleAccount(final GoogleAccountDTO acc) {
@@ -41,13 +38,13 @@ public class GoogleAccount extends UserId {
     }
 
     public GoogleAccount(final GoogleAccountDTO acc, final UserRole role) {
-        super(acc.getEmail(), role);
-        setRegistrationTyp(RegistrationTyp.GOOGLE);
-        this.displayName = acc.getDisplayName();
-        this.familyName = acc.getFamilyName();
-        this.gender = acc.getGender();
-        this.givenName = acc.getGivenName();
-        this.imageUrl = acc.getImageUrl();
+        super(acc.getEmail(), role, RegistrationTyp.GOOGLEACCOUNT);
+        displayName = acc.getDisplayName();
+        familyName = acc.getFamilyName();
+        gender = acc.getGender();
+        givenName = acc.getGivenName();
+        imageUrl = acc.getImageUrl();
+        language = acc.getLanguage();
     }
 
     public String getFamilyName() {
@@ -82,7 +79,7 @@ public class GoogleAccount extends UserId {
                 + (givenName != null ? "givenName=" + givenName + ", " : "")
                 + (language != null ? "language=" + language + ", " : "")
                 + (displayName != null ? "displayName=" + displayName + ", " : "")
-                + (email != null ? "email=" + email + ", " : "")
+                + (getEmail() != null ? "email=" + getEmail() + ", " : "")
                 + (imageUrl != null ? "imageUrl=" + imageUrl : "")
                 + "]";
     }

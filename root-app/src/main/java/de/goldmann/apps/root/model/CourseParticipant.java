@@ -29,7 +29,7 @@ public class CourseParticipant {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "user_email", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserId  userId;
 
     @CreatedDate
