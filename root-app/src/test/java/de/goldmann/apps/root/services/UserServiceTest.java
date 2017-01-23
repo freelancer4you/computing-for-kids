@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
+import de.goldmann.apps.root.dao.GoogleAccountRepository;
 import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.UserDTO;
 
@@ -26,11 +27,15 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    private UserService userService;
+    @Autowired
+    private GoogleAccountRepository googleAccRepo;
+
+    private UserService             userService;
+
 
     @Before
     public void setup() {
-        this.userService = new UserService(userRepository);
+        this.userService = new UserService(userRepository, googleAccRepo);
     }
 
     @Test(expected = IllegalArgumentException.class)

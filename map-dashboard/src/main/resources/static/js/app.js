@@ -320,32 +320,11 @@ module.controller('RegisterCtrl',
 		        if (newValue !== oldValue) SharedData.setCredentials(newValue);
 		    });
 			
-			$scope.register = function(course) {
-				$http({
-					method: 'POST',
-					url: '/registration',
-					data: $scope.credentials,
-					params: {'id': course.id},
-					headers: {
-						"Content-Type": "application/json",
-						"Accept": "application/json"
-					}
-				})
-				.success(function (data, status, headers, config) {
-					//$(".alert").alert('close');
-					$location.path("/courses/register/sucess");
-	            })
-	            .error(function (data, status, header, config) {
-	            	if(status == 409) {
-	            		$('#alert_placeholder').html('<div class="alert alert-danger alert-dismissable" role="alert">'+ data.message +'</div>');
-	            	}
-	            	else {
-	            		$('#alert_placeholder').html('<div class="alert alert-danger alert-dismissable" role="alert">Unbekannter Fehler</div>');
-	            	}
-	            });				
+			$scope.defaultRegistration = function(course) {
+				register('defaultRegistration', $scope.credentials,course);						
 			};
 			
-			$scope.google = function() {
+			$scope.googleRegistration = function(course) {
 				var params = {
 						'clientid': '554536775328-40gntdhkh3ep0irr0t4is5g46m9t5if0.apps.googleusercontent.com',
 						'cookiepolicy': 'single_host_origin',
@@ -367,13 +346,14 @@ module.controller('RegisterCtrl',
 										console.log(resp.emails[0].value);
 										console.log(resp.image.url);
 									//});
-										//TODO now we can register here
+									
 										var googleAccount = {
 												'name' : resp.displayName,
 												'email' : resp.emails[0].value,
 												'image' : resp.image.url
 										};
-										//register(googleAccount, course);
+										register('googleRegistration', googleAccount,course);
+										
 								});
 							}
 						},
@@ -381,6 +361,31 @@ module.controller('RegisterCtrl',
 						'scope': 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
 				};
 				gapi.auth.signIn(params);
+			}
+			
+			function register(url, data, course) {
+				$http({
+					method: 'POST',
+					url: '/' + url,
+					data: data,
+					params: {'id': course.id},
+					headers: {
+						"Content-Type": "application/json",
+						"Accept": "application/json"
+					}
+				})
+				.success(function (data, status, headers, config) {
+					//$(".alert").alert('close');
+					$location.path("/courses/register/sucess");
+	            })
+	            .error(function (data, status, header, config) {
+	            	if(status == 409) {
+	            		$('#alert_placeholder').html("<div class='alert alert-danger' role='alert'>" + data.message + "</div>");
+	            	}
+	            	else {
+	            		$('#alert_placeholder').html("<div class='alert alert-danger' role='alert'>Unbekannter Fehler</div>");
+	            	}
+	            });
 			}
 		}
 );

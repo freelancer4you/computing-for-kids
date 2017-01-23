@@ -5,13 +5,13 @@ import java.io.IOException;
 import javax.mail.MessagingException;
 
 import de.goldmann.apps.root.model.Course;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserId;
 
 public interface UserActivityReport {
 
-    void registered(User user, Course course) throws IOException, MessagingException;
+    void registered(UserId user, Course course) throws IOException, MessagingException;
 
-    void login(User user);
+    void login(UserId user);
 
-    void logout(User user);
+    void logout(UserId user);
 }

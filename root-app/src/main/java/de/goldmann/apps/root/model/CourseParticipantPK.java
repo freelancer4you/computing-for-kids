@@ -8,7 +8,7 @@ public class CourseParticipantPK implements Serializable {
 
 	private String course;
 
-	private String userMail;
+	private String userId;
 
 	CourseParticipantPK() {
 		super();
@@ -22,7 +22,7 @@ public class CourseParticipantPK implements Serializable {
 	 */
 	public CourseParticipantPK(final String course, final String userMail) {
 		this.course = course;
-		this.userMail = userMail;
+		this.userId = userMail;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class CourseParticipantPK implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (course == null ? 0 : course.hashCode());
-		result = prime * result + (userMail == null ? 0 : userMail.hashCode());
+		result = prime * result + (userId == null ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -39,7 +39,7 @@ public class CourseParticipantPK implements Serializable {
 	}
 
 	public String getUserMail() {
-		return userMail;
+		return userId;
 	}
 
 	@Override
@@ -62,12 +62,12 @@ public class CourseParticipantPK implements Serializable {
 		else if (!course.equals(other.course)) {
 			return false;
 		}
-		if (userMail == null) {
-			if (other.userMail != null) {
+		if (userId == null) {
+			if (other.userId != null) {
 				return false;
 			}
 		}
-		else if (!userMail.equals(other.userMail)) {
+		else if (!userId.equals(other.userId)) {
 			return false;
 		}
 		return true;
@@ -75,6 +75,6 @@ public class CourseParticipantPK implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CourseParticipantPK [course=" + course + ", email=" + userMail + "]";
+		return "CourseParticipantPK [course=" + course + ", email=" + userId + "]";
 	}
 }

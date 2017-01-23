@@ -18,6 +18,7 @@ import de.goldmann.apps.root.dao.UserRepository;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,15 +36,15 @@ public class SecurityUserDetailsServiceTest {
 
 
             @Override
-            public void logout(final User user) {
+            public void logout(final UserId user) {
             }
 
             @Override
-            public void login(final User user) {
+            public void login(final UserId user) {
             }
 
             @Override
-            public void registered(final User user, final Course course) {
+            public void registered(final UserId user, final Course course) {
             }
         };
         service = new SecurityUserDetailsService(userRepository, activityReport);

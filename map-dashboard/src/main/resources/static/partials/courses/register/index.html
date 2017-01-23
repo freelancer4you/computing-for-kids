@@ -13,7 +13,7 @@
     <div ng-include="'/partials/courses/register/modalAgb.htm'"/>
     <div ng-include="'/partials/courses/register/modalDisclaimer.htm'"/>
 
-	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="register(course)" data-toggle="validator">
+	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="defaultRegistration(course)" data-toggle="validator">
 
         <div class="form-group required">
 
@@ -198,7 +198,7 @@
 		<div class="form-group">
 		    <div class="col-sm-12">
 		        
-                <button class="btn btn-gplus" type="button" style="float: right;" ng-click="google()">
+                <button class="btn btn-gplus" type="button" style="float: right;" ng-click="googleRegistration(course)">
                  <i class="fa fa-google-plus left"></i> Google +
                  </button>
                      

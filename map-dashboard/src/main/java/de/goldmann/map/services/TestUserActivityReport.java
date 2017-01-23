@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import de.goldmann.apps.root.model.Course;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
 
 @Component
@@ -31,7 +31,7 @@ public class TestUserActivityReport implements UserActivityReport {
 	}
 
 	@Override
-	public void registered(final User user, final Course course) throws IOException, MessagingException {
+	public void registered(final UserId user, final Course course) throws IOException, MessagingException {
 		final String adminMail = user + " registriert für " + course + " registriert.";
 		final String userMail = prepareUserMail.prepare(user, course);
 		LOGGER.info(userMail);
@@ -39,12 +39,12 @@ public class TestUserActivityReport implements UserActivityReport {
 	}
 
 	@Override
-	public void login(final User user) {
+	public void login(final UserId user) {
 		LOGGER.info(user + " login.");
 	}
 
 	@Override
-	public void logout(final User user) {
+	public void logout(final UserId user) {
 		LOGGER.info(user + " logout.");
 	}
 

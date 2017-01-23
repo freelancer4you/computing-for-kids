@@ -13,40 +13,76 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
 import de.goldmann.apps.root.model.Course;
+import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.Schedule;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserId;
 
 @Service
 public class PrepareUserMail {
 
-    public String prepare(final User user, final Course course) throws IOException {
+    public String prepare(final UserId userId, final Course course) throws IOException {
+
         final URL url = Resources.getResource("registrationMail.html");
         final String templateContent = Resources.toString(url, Charsets.UTF_8);
         final Schedule schedule = course.getSchedule();
-        final Date registrationDate = user.getRegistrationDate();
+        final Date registrationDate = userId.getRegistrationDate();
         final SimpleDateFormat dayFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        final String salutation = user.getSalutation();
-        final String salutationPrefix = salutation.equals("Herr") ? "geehrter" : "geehrte";
-        return MessageFormat.format(
-                templateContent,
-                salutationPrefix + " " + user.getTitle() + " " + salutation,
 
-                StringEscapeUtils.escapeHtml4(user.getLastName()),
-                dayFormat.format(registrationDate),
-                timeFormat.format(registrationDate),
-                StringEscapeUtils.escapeHtml4(user.getFirstName()),
-                StringEscapeUtils.escapeHtml4(user.getLastName()),
-                StringEscapeUtils.escapeHtml4(user.getChildName()),
-                StringEscapeUtils.escapeHtml4(user.getAdresse().getStreet()),
-                user.getAdresse().getHouseNr(),
-                user.getAdresse().getZipcode(),
-                StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
-                user.getEmail(),
-                user.getChildAge(),
-                StringEscapeUtils.escapeHtml4(course.getName()),
-                schedule.getBegin(),
-                StringEscapeUtils.escapeHtml4(course.getPlace()));
+        if (userId instanceof User) {
+            final User user = (User) userId;
+
+            final String salutation = user.getSalutation();
+            final String salutationPrefix = salutation.equals("Herr") ? "geehrter" : "geehrte";
+            return MessageFormat.format(
+                    templateContent,
+                    salutationPrefix + " " + user.getTitle() + " " + salutation,
+
+                    StringEscapeUtils.escapeHtml4(user.getLastName()),
+                    dayFormat.format(registrationDate),
+                    timeFormat.format(registrationDate),
+                    StringEscapeUtils.escapeHtml4(user.getFirstName()),
+                    StringEscapeUtils.escapeHtml4(user.getLastName()),
+                    StringEscapeUtils.escapeHtml4(user.getChildName()),
+                    StringEscapeUtils.escapeHtml4(user.getAdresse().getStreet()),
+                    user.getAdresse().getHouseNr(),
+                    user.getAdresse().getZipcode(),
+                    StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
+                    user.getEmail(),
+                    user.getChildAge(),
+                    StringEscapeUtils.escapeHtml4(course.getName()),
+                    schedule.getBegin(),
+                    StringEscapeUtils.escapeHtml4(course.getPlace()));
+        } else if (userId instanceof GoogleAccount) {
+            // TODO Testen und eventuell andere Vorlage verwenden
+            final GoogleAccount acc = (GoogleAccount) userId;
+            final String salutation = acc.getGender();
+            final String salutationPrefix = salutation.equals("male") ? "geehrter" : "geehrte";
+            return MessageFormat.format(
+                    templateContent,
+                    salutationPrefix + " " + salutation,
+
+                    StringEscapeUtils.escapeHtml4(acc.getFamilyName()),
+                    dayFormat.format(registrationDate),
+                    timeFormat.format(registrationDate),
+                    StringEscapeUtils.escapeHtml4(acc.getGivenName()),
+                    StringEscapeUtils.escapeHtml4(acc.getFamilyName()),
+                    // StringEscapeUtils.escapeHtml4(user.getChildName()),
+                    // StringEscapeUtils.escapeHtml4(user.getAdresse().getStreet()),
+                    // user.getAdresse().getHouseNr(),
+                    // user.getAdresse().getZipcode(),
+                    // StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
+                    acc.getEmail(),
+                    // user.getChildAge(),
+                    StringEscapeUtils.escapeHtml4(course.getName()),
+                    schedule.getBegin(),
+                    StringEscapeUtils.escapeHtml4(course.getPlace())
+                    );
+
+        } else {
+            throw new IllegalArgumentException("Unknown type of parameter 'userId': " + userId.getClass());
+        }
 
     }
 }

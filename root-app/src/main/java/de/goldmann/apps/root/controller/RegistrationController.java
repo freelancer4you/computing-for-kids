@@ -17,19 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.goldmann.apps.root.UIConstants;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
+import de.goldmann.apps.root.dto.GoogleAccountDTO;
 import de.goldmann.apps.root.dto.UserDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
-import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.GoogleAccount;
+import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
 import de.goldmann.apps.root.services.UserService;
 
 @RestController
-@RequestMapping(UIConstants.REGISTRATION_PATH)
 public class RegistrationController {
+
+    private static final String DEFAULT_REGISTRATION = "defaultRegistration";
+
+    private static final String GOOGLE_REGISTRATION = "googleRegistration";
 
     private static final Logger               LOGGER = LogManager.getLogger(RegistrationController.class);
 
@@ -54,8 +58,39 @@ public class RegistrationController {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<String> registerUser(@RequestBody final String payload,
+    @RequestMapping(value = GOOGLE_REGISTRATION, method = RequestMethod.POST)
+    public ResponseEntity<String> googleRegistration(@RequestBody final String payload,
+            @RequestParam("id") final String courseId) throws Exception {
+        final ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            final GoogleAccountDTO acc = mapper.readValue(payload, GoogleAccountDTO.class);
+
+            final String email = acc.getEmail();
+            if (userService.googleAccountExists(email)) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                        "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '" + email + "'.\"}"
+                        );
+            } else {
+                final GoogleAccount storedUser = userService.createAcc(acc);
+                final Course course = courseRepo.findOne(courseId);
+
+                courseParticipantRepository.save(new CourseParticipant(course, storedUser));
+
+                activityReport.registered(storedUser, course);
+            }
+        }
+        catch (final Exception e) {
+            LOGGER.error("Fehler bei Benutzerregistrierung:" + payload, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
+        }
+        return ResponseEntity.ok().body("");
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = DEFAULT_REGISTRATION, method = RequestMethod.POST)
+    public ResponseEntity<String> defaultRegistration(@RequestBody final String payload,
             @RequestParam("id") final String courseId)
                     throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
@@ -66,7 +101,6 @@ public class RegistrationController {
             final String email = user.getEmail();
             if (userService.userExists(email))
             {
-                // {"phonetype":"N95","cat":"WP"}
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body(
                                 "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '"
@@ -75,7 +109,7 @@ public class RegistrationController {
             }
             else
             {
-                final User storedUser = userService.createUser(user);
+                final UserId storedUser = userService.createUser(user);
                 final Course course = courseRepo.findOne(courseId);
 
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));

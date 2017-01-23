@@ -10,9 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.goldmann.apps.root.dao.GoogleAccountRepository;
 import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dto.GoogleAccountDTO;
 import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.User;
+import de.goldmann.apps.root.model.UserId;
 
 @Service
 public class UserService {
@@ -22,10 +26,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final GoogleAccountRepository googleAccountRepository;
+
     @Autowired
-    public UserService(final UserRepository userRepository) {
+    public UserService(final UserRepository userRepository, final GoogleAccountRepository googleAccountRepository) {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository' darf nicht null sein.");
+        this.googleAccountRepository = Objects
+                .requireNonNull(googleAccountRepository, "Parameter 'googleAccountRepository' darf nicht null sein.");
     }
 
     /**
@@ -39,19 +47,40 @@ public class UserService {
     }
 
     /**
-     * creates a new {@link User} in the database
+     * stores a new {@link User} in the database
      *
      * @return {@link User}
      *
      */
     @Transactional
-    public User createUser(final UserDTO userDto) {
+    public UserId createUser(final UserDTO userDto) {
         final String email = userDto.getEmail();
         assertNotBlank(email, "Email cannot be empty.");
         assertMatches(email, EMAIL_REGEX, "Invalid email.");
 
         return userRepository.save(new User(userDto));
 
+    }
+
+    /**
+     * Prueft, anhand der Email, ob der Account bereits existiert.
+     *
+     * @param email
+     * @return
+     */
+    public boolean googleAccountExists(final String email) {
+        return googleAccountRepository.findByEmail(email) != null;
+    }
+
+    /**
+     * stores a new {@link GoogleAccount} in the database
+     *
+     * @return {@link GoogleAccount}
+     *
+     */
+    @Transactional
+    public GoogleAccount createAcc(final GoogleAccountDTO acc) {
+        return googleAccountRepository.save(new GoogleAccount(acc));
     }
 
 }
