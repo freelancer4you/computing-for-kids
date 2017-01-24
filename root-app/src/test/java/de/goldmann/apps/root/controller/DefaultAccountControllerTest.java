@@ -1,9 +1,13 @@
 package de.goldmann.apps.root.controller;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -14,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.goldmann.apps.root.config.InfrastructureConfig;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.services.UserActivityReport;
@@ -27,7 +31,7 @@ public class DefaultAccountControllerTest {
     private DefaultAccountController cut;
 
     @Autowired
-    private UserRepository              userRepository;
+    private DefaultAccountRepository              userRepository;
 
     @Autowired
     private UserActivityReport          activityReport;
@@ -59,7 +63,10 @@ public class DefaultAccountControllerTest {
                 "childName",
                 "childAge");
         final String json = mapper.writeValueAsString(acc);
-        cut.defaultRegistration(json, "LegoOct2016");
+
+        final ResponseEntity<String> result = cut.defaultRegistration(json, "LegoOct2016");
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+
     }
 
 

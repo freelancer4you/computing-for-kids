@@ -20,7 +20,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
@@ -31,17 +31,17 @@ public abstract class WebTest {
     protected static final String HOST_ADRESS = "http://localhost:8080";
     protected WebDriver driver;
     @Autowired
-    protected UserRepository userRepository;
+    protected DefaultAccountRepository userRepository;
 
     @Before
     public void setUp() throws Exception {
-        this.driver = setupDriver();
+        driver = setupDriver();
         userRepository.deleteAll();
     }
 
     @After
     public void tearDown() throws Exception {
-        this.driver.quit();
+        driver.quit();
     }
 
     private String getChromeDriverPath() {

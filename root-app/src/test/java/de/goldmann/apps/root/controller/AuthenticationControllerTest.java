@@ -24,7 +24,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.UserId;
 
@@ -38,7 +38,7 @@ public class AuthenticationControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private UserRepository userRepository;
+    private DefaultAccountRepository userRepository;
 
     @Autowired
     WebApplicationContext ctx;

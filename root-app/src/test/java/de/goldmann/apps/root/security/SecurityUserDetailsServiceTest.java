@@ -14,7 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.DefaultAccount;
@@ -26,7 +26,7 @@ import de.goldmann.apps.root.services.UserActivityReport;
 @ContextConfiguration(classes = { InfrastructureConfig.class })
 public class SecurityUserDetailsServiceTest {
     @Autowired
-    private UserRepository userRepository;
+    private DefaultAccountRepository userRepository;
 
     private SecurityUserDetailsService service;
 
@@ -54,7 +54,7 @@ public class SecurityUserDetailsServiceTest {
     public void testLoadUserByUsername() {
         final DefaultAccountDTO dto = buildUserDto();
         final DefaultAccount user = new DefaultAccount(dto);
-        this.userRepository.save(user);
+        userRepository.save(user);
         final UserDetails result = service.loadUserByUsername(dto.getEmail());
         assertNotNull(result);
     }

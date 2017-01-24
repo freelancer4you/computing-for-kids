@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.goldmann.apps.root.UIConstants;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
@@ -35,15 +35,16 @@ public class DefaultAccountController {
     private static final Logger               LOGGER = LogManager.getLogger(DefaultAccountController.class);
 
     private final CourseParticipantRepository courseParticipantRepository;
-    private final UserRepository              userRepository;
+    private final DefaultAccountRepository    accountRepository;
     private final UserActivityReport          activityReport;
     private final CourseRepository            courseRepo;
 
     @Autowired
-    public DefaultAccountController(final UserRepository userRepository, final UserActivityReport activityReport,
+    public DefaultAccountController(final DefaultAccountRepository accountRepository,
+            final UserActivityReport activityReport,
             final CourseRepository courseRepo, final CourseParticipantRepository courseParticipantRepository) {
-        this.userRepository = Objects
-                .requireNonNull(userRepository, "Parameter 'userRepository' darf nicht null sein.");
+        this.accountRepository = Objects
+                .requireNonNull(accountRepository, "Parameter 'accountRepository' darf nicht null sein.");
         this.activityReport = Objects
                 .requireNonNull(activityReport, "Parameter 'activityReport' darf nicht null sein.");
         this.courseRepo = Objects.requireNonNull(courseRepo, "Parameter 'courseRepo' darf nicht null sein.");
@@ -65,7 +66,7 @@ public class DefaultAccountController {
             final DefaultAccountDTO user = mapper.readValue(payload, DefaultAccountDTO.class);
 
             final String email = user.getEmail();
-            if (userRepository.findByEmail(email) != null)
+            if (accountRepository.findByEmail(email) != null)
             {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body(
@@ -75,10 +76,9 @@ public class DefaultAccountController {
             }
             else
             {
-                final UserId storedUser = userRepository.save(new DefaultAccount(user));
+                final UserId storedUser = accountRepository.save(new DefaultAccount(user));
                 final Course course = courseRepo.findOne(courseId);
 
-                // TODO das führt zu einer Violation-Exception
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 
                 activityReport.registered(storedUser, course);

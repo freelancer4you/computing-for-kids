@@ -1,9 +1,13 @@
 package de.goldmann.apps.root.controller;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
@@ -54,7 +58,9 @@ public class GoogleAccountControllerTest {
                 "email",
                 "imageUrl");
         final String json = mapper.writeValueAsString(acc);
-        cut.googleRegistration(json, "LegoOct2016");
+
+        final ResponseEntity<String> result = cut.googleRegistration(json, "LegoOct2016");
+        assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 
 }

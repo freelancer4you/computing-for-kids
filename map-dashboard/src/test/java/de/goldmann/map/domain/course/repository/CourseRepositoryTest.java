@@ -16,7 +16,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
 import de.goldmann.apps.root.model.DefaultAccount;
@@ -33,7 +33,7 @@ public class CourseRepositoryTest {
     private CourseParticipantRepository courseParticipantRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private DefaultAccountRepository userRepository;
 
     @Autowired
     private PlatformTransactionManager transactionManager;

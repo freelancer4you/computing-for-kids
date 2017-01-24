@@ -6,11 +6,8 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,18 +16,10 @@ import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "course_participants")
-@IdClass(CourseParticipantPK.class)
 public class CourseParticipant {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "course_id", nullable = false)
-    private Course course;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserId  userId;
+    @EmbeddedId
+    private CourseParticipantPK id;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -43,13 +32,16 @@ public class CourseParticipant {
     @Column(name = "disclaimeragreed", nullable = true)
     private Boolean	disclaimerAgreed;
 
+    @Column(name = "registrationtyp", nullable = false)
+    private RegistrationTyp     registrationTyp;
+
     CourseParticipant() {
         super();
     }
 
     public CourseParticipant(final Course course, final UserId userId) {
-        this.course = course;
-        this.userId = userId;
+        id = new CourseParticipantPK(course.getId(), userId.getEmail());
+        registrationTyp = userId.getRegistrationTyp();
         final LocalDateTime ldt = LocalDateTime.now();
         final ZonedDateTime zdt = ldt.atZone(ZoneId.systemDefault());
         subscriptionDate = Date.from(zdt.toInstant());
@@ -57,61 +49,58 @@ public class CourseParticipant {
         termAgreed = Boolean.TRUE;
     }
 
-    public Course getCourse() {
-        return course;
+    public String getCourse() {
+        return id.getCourse();
     }
 
-    public UserId getUserId() {
-        return userId;
+    public String getUserMail() {
+        return id.getUserMail();
     }
 
     public Date getSubscriptionDate() {
         return subscriptionDate;
     }
 
+    public RegistrationTyp getRegistrationTyp() {
+        return registrationTyp;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (course == null ? 0 : course.hashCode());
-        result = prime * result + (userId == null ? 0 : userId.hashCode());
+        result = prime * result + (id == null ? 0 : id.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
+        if (this == obj)
+        {
             return true;
         }
-        if (obj == null) {
+        if (obj == null)
+        {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
+        {
             return false;
         }
         final CourseParticipant other = (CourseParticipant) obj;
-        if (course == null) {
-            if (other.course != null) {
+        if (id == null)
+        {
+            if (other.id != null)
+            {
                 return false;
             }
         }
-        else if (!course.equals(other.course)) {
-            return false;
-        }
-        if (userId == null) {
-            if (other.userId != null) {
-                return false;
-            }
-        }
-        else if (!userId.equals(other.userId)) {
+        else if (!id.equals(other.id))
+        {
             return false;
         }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "CourseParticipant [course=" + course + ", user=" + userId + "]";
-    }
 
 }

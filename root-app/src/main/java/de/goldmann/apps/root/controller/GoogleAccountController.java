@@ -74,7 +74,6 @@ public class GoogleAccountController {
                 final UserId storedUser = accountRepository.save(new GoogleAccount(acc));
                 final Course course = courseRepo.findOne(courseId);
 
-                // TODO das führt zu einer Violation-Exception
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 
                 activityReport.registered(storedUser, course);

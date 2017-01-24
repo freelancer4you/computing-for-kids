@@ -42,10 +42,8 @@ public class CourseParticipantDto implements Serializable {
     public CourseParticipantDto() {
     }
 
-    public CourseParticipantDto(final CourseParticipant courseParticipant) {
+    public CourseParticipantDto(final Course course, final UserId user, final CourseParticipant courseParticipant) {
 
-        final Course course = courseParticipant.getCourse();
-        final UserId user = courseParticipant.getUserId();
         courseId = course.getId();
         // coursePrice = course.getPrice();
         // firstName = user.getFirstName();

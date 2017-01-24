@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.services.UserActivityReport;
 
@@ -24,12 +24,12 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     private static final Logger LOGGER = LogManager.getLogger(SecurityUserDetailsService.class);
 
-    private final UserRepository userRepository;
+    private final DefaultAccountRepository userRepository;
 
     private final UserActivityReport activityReport;
 
     @Autowired
-    public SecurityUserDetailsService(final UserRepository userRepository,
+    public SecurityUserDetailsService(final DefaultAccountRepository userRepository,
             @Lazy final UserActivityReport activityReport) {
         this.userRepository = Objects.requireNonNull(userRepository,
                 "Parameter 'userRepository'  darf nicht null sein.");
