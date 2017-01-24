@@ -7,15 +7,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 
 import de.goldmann.apps.root.model.Course;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.Schedule;
-import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserId;
 
 @Service
@@ -55,10 +56,14 @@ public class PrepareUserMail {
                     schedule.getBegin(),
                     StringEscapeUtils.escapeHtml4(course.getPlace()));
         } else if (userId instanceof GoogleAccount) {
-            // TODO Testen und eventuell andere Vorlage verwenden
             final GoogleAccount acc = (GoogleAccount) userId;
-            final String salutation = acc.getGender();
-            final String salutationPrefix = salutation.equals("male") ? "geehrter" : "geehrte";
+            String salutation = "male".equals(acc.getGender()) ? "Herr" : "Frau";
+            String salutationPrefix = "male".equals(acc.getGender()) ? "geehrter" : "geehrte";
+            if(StringUtils.isEmpty(acc.getGender())){
+                salutation ="";
+                salutationPrefix = "";
+            }
+
             return MessageFormat.format(
                     templateContent,
                     salutationPrefix + " " + salutation,
@@ -68,13 +73,13 @@ public class PrepareUserMail {
                     timeFormat.format(registrationDate),
                     StringEscapeUtils.escapeHtml4(acc.getGivenName()),
                     StringEscapeUtils.escapeHtml4(acc.getFamilyName()),
-                    // StringEscapeUtils.escapeHtml4(user.getChildName()),
-                    // StringEscapeUtils.escapeHtml4(user.getAdresse().getStreet()),
-                    // user.getAdresse().getHouseNr(),
-                    // user.getAdresse().getZipcode(),
-                    // StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
                     acc.getEmail(),
-                    // user.getChildAge(),
+                    "",
                     StringEscapeUtils.escapeHtml4(course.getName()),
                     schedule.getBegin(),
                     StringEscapeUtils.escapeHtml4(course.getPlace())

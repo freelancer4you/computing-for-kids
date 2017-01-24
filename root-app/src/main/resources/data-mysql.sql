@@ -6,7 +6,6 @@ insert into users (salutation, email, firstname, lastname, password, phonenumber
 insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values('VexFeb2017', 'VEX IQ Programmierung', 'lex.jpg', 'TODO', 'Beginner', 444.00, 'Chopinstraße 9A, 04103 Leipzig', 'vex-curriculum', 'vex-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'VexFeb2017';
 insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('LegoFeb2017', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Chopinstraße 9A, 04103 Leipzig', 'lego-curriculum', 'lego-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'LegoFeb2017';
 
-
 --Maerz
 insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration, requirements, begindate, enddate) values ('LegoMar2017', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Chopinstraße 9A, 04103 Leipzig', 'lego-curriculum', 'lego-mar-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 'Eigener Laptop', '2016-01-31 10:10:10', '2017-01-31 10:10:10') on duplicate key update id = 'LegoMar2017';
 
