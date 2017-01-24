@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
 import de.goldmann.apps.tests.helpers.WaitDefinition;
@@ -76,7 +76,7 @@ public abstract class WebTest {
         logoutBtn.click();
     }
 
-    protected void login(final FluentWait<WebDriver> wait, final UserDTO dto) {
+    protected void login(final FluentWait<WebDriver> wait, final DefaultAccountDTO dto) {
         final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("loginBtn")));
         singUpBtn.click();
 

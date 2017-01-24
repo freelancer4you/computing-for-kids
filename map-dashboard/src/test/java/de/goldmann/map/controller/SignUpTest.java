@@ -23,7 +23,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.dto.Adress;
-import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.CourseParticipant;
 import de.goldmann.apps.root.model.CourseParticipantPK;
 import de.goldmann.apps.root.model.DefaultAccount;
@@ -75,7 +75,7 @@ public class SignUpTest extends WebTest {
 			final WebElement registerBtn = wait.until(new VisibilityFunction(By.cssSelector(SELCTOR_REGISTER_BTN)));
 			registerBtn.click();
 
-			final UserDTO dto = TestUtils.buildUserDto();
+			final DefaultAccountDTO dto = TestUtils.buildUserDto();
 
 			final WebElement signUpForm = wait.until(new VisibilityFunction(By.id("signUpForm")));
 

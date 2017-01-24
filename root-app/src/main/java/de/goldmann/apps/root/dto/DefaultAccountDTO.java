@@ -2,7 +2,7 @@ package de.goldmann.apps.root.dto;
 
 import java.io.Serializable;
 
-public class UserDTO implements Serializable {
+public class DefaultAccountDTO implements Serializable {
 
     private static final long serialVersionUID = -1973241612748624323L;
 
@@ -18,9 +18,9 @@ public class UserDTO implements Serializable {
     private String            childName;
     private String            childAge;
 
-    public UserDTO() {}
+    public DefaultAccountDTO() {}
 
-    public UserDTO(final String salutation, final String title, final String firstName, final String lastName,
+    public DefaultAccountDTO(final String salutation, final String title, final String firstName, final String lastName,
             final String email,
             final String password, final String phoneNumber, final Adress adress, final String registration,
             final String childName, final String childAge) {

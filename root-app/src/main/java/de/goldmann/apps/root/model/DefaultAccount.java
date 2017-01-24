@@ -9,7 +9,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import de.goldmann.apps.root.dto.Adress;
-import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 
 @Entity
 @DiscriminatorValue("DEFAULTACCOUNT")
@@ -46,11 +46,11 @@ public class DefaultAccount extends UserId {
 
     DefaultAccount() {}
 
-    public DefaultAccount(final UserDTO user) {
+    public DefaultAccount(final DefaultAccountDTO user) {
         this(user, UserRole.USER);
     }
 
-    public DefaultAccount(final UserDTO user, final UserRole role) {
+    public DefaultAccount(final DefaultAccountDTO user, final UserRole role) {
         super(user.getEmail(), role, RegistrationTyp.DEFAULTACCOUNT);
         salutation = user.getSalutation();
         title = user.getTitle();

@@ -17,7 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.goldmann.apps.root.dao.CourseRepository;
 import de.goldmann.apps.root.dto.Adress;
-import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserRole;
 import de.goldmann.apps.root.test.utils.TestUtils;
@@ -31,7 +31,7 @@ import de.goldmann.map.WebTest;
 @IntegrationTest
 public class LoginTest extends WebTest {
 
-    private UserDTO dto;
+    private DefaultAccountDTO dto;
 
     @Override
     @Before
@@ -118,9 +118,9 @@ public class LoginTest extends WebTest {
         }
     }
 
-    private UserDTO adminDto() {
+    private DefaultAccountDTO adminDto() {
 
-        final UserDTO userDTO = new UserDTO("Herr", null, "goldi", "lastName", "goldi23@freenet.de",
+        final DefaultAccountDTO userDTO = new DefaultAccountDTO("Herr", null, "goldi", "lastName", "goldi23@freenet.de",
                 "$2a$10$kElbYwnGCPrd3ogjEN8wVOuJ/xCuz.FrnoHigLydnE0U2qsmGE4v.", "phone",
                 new Adress("street", "plz", "city", "8"), "2016-08-15 15:20", "Ali", "10");
         final DefaultAccount admin = new DefaultAccount(userDTO, UserRole.ADMIN);

@@ -20,29 +20,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.goldmann.apps.root.UIConstants;
 import de.goldmann.apps.root.dao.CourseParticipantRepository;
 import de.goldmann.apps.root.dao.CourseRepository;
-import de.goldmann.apps.root.dto.GoogleAccountDTO;
-import de.goldmann.apps.root.dto.UserDTO;
+import de.goldmann.apps.root.dao.UserRepository;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
+import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserId;
 import de.goldmann.apps.root.services.UserActivityReport;
-import de.goldmann.apps.root.services.UserService;
 
 @RestController
 @Transactional
-public class RegistrationController {
+public class DefaultAccountController {
 
-    private static final Logger               LOGGER = LogManager.getLogger(RegistrationController.class);
+    private static final Logger               LOGGER = LogManager.getLogger(DefaultAccountController.class);
 
     private final CourseParticipantRepository courseParticipantRepository;
-    private final UserService                 userService;
+    private final UserRepository              userRepository;
     private final UserActivityReport          activityReport;
     private final CourseRepository            courseRepo;
 
     @Autowired
-    public RegistrationController(final UserService userService, final UserActivityReport activityReport,
+    public DefaultAccountController(final UserRepository userRepository, final UserActivityReport activityReport,
             final CourseRepository courseRepo, final CourseParticipantRepository courseParticipantRepository) {
-        this.userService = Objects.requireNonNull(userService, "Parameter 'userService' darf nicht null sein.");
+        this.userRepository = Objects
+                .requireNonNull(userRepository, "Parameter 'userRepository' darf nicht null sein.");
         this.activityReport = Objects
                 .requireNonNull(activityReport, "Parameter 'activityReport' darf nicht null sein.");
         this.courseRepo = Objects.requireNonNull(courseRepo, "Parameter 'courseRepo' darf nicht null sein.");
@@ -54,41 +55,6 @@ public class RegistrationController {
     }
 
     @ResponseBody
-    @RequestMapping(value = UIConstants.GOOGLE_REGISTRATION, method = RequestMethod.POST)
-    public ResponseEntity<String> googleRegistration(@RequestBody final String payload,
-            @RequestParam("id") final String courseId) throws Exception {
-        final ObjectMapper mapper = new ObjectMapper();
-
-        try
-        {
-            final GoogleAccountDTO acc = mapper.readValue(payload, GoogleAccountDTO.class);
-
-            final String email = acc.getEmail();
-            if (userService.googleAccountExists(email))
-            {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body(
-                        "{\"message\":\" Es existiert bereits ein Nutzer mit der Email-Adresse '" + email + "'.\"}");
-            }
-            else
-            {
-                final UserId storedUser = userService.createAcc(acc);
-                final Course course = courseRepo.findOne(courseId);
-
-                // TODO das führt zu einer Violation-Exception
-                courseParticipantRepository.save(new CourseParticipant(course, storedUser));
-
-                activityReport.registered(storedUser, course);
-            }
-        }
-        catch (final Exception e)
-        {
-            LOGGER.error("Fehler bei Benutzerregistrierung:" + payload, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
-        }
-        return ResponseEntity.ok().body("");
-    }
-
-    @ResponseBody
     @RequestMapping(value = UIConstants.DEFAULT_REGISTRATION, method = RequestMethod.POST)
     public ResponseEntity<String> defaultRegistration(@RequestBody final String payload,
             @RequestParam("id") final String courseId)
@@ -96,10 +62,10 @@ public class RegistrationController {
         final ObjectMapper mapper = new ObjectMapper();
 
         try {
-            final UserDTO user = mapper.readValue(payload, UserDTO.class);
+            final DefaultAccountDTO user = mapper.readValue(payload, DefaultAccountDTO.class);
 
             final String email = user.getEmail();
-            if (userService.userExists(email))
+            if (userRepository.findByEmail(email) != null)
             {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body(
@@ -109,9 +75,9 @@ public class RegistrationController {
             }
             else
             {
-                final UserId storedUser = userService.createUser(user);
+                final UserId storedUser = userRepository.save(new DefaultAccount(user));
                 final Course course = courseRepo.findOne(courseId);
-                
+
                 // TODO das führt zu einer Violation-Exception
                 courseParticipantRepository.save(new CourseParticipant(course, storedUser));
 

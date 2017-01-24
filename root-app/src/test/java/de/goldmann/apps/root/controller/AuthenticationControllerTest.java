@@ -12,10 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -27,18 +24,14 @@ import org.springframework.web.context.WebApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import de.goldmann.apps.root.config.InfrastructureConfig;
-import de.goldmann.apps.root.controller.AuthenticationControllerTest.AuthenticationConfig;
 import de.goldmann.apps.root.dao.UserRepository;
-import de.goldmann.apps.root.dto.UserDTO;
-import de.goldmann.apps.root.model.Course;
+import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.UserId;
-import de.goldmann.apps.root.services.UserActivityReport;
-import de.goldmann.apps.root.services.UserServiceTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("test")
 @ContextConfiguration(classes = { InfrastructureConfig.class, AuthenticationController.class, TestConfig.class,
-        AuthenticationConfig.class })
+        AdditionalConfig.class })
 @WebAppConfiguration
 public class AuthenticationControllerTest {
 
@@ -52,17 +45,17 @@ public class AuthenticationControllerTest {
 
     @Before
     public void init() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(this.ctx).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
     }
 
     @Test
     public void testCreateUser() throws Exception {
         final ObjectMapper mapper = new ObjectMapper();
-        final UserDTO userDto = buildUserDto();
+        final DefaultAccountDTO userDto = buildUserDto();
         final String content = mapper.writeValueAsString(userDto);
         System.out.println(content);
         mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content(content)
-                .accept(MediaType.APPLICATION_JSON).principal(new BasicUserPrincipal(UserServiceTest.USERNAME)))
+                .accept(MediaType.APPLICATION_JSON).principal(new BasicUserPrincipal("test123")))
         .andDo(print()).andExpect(status().isOk());
 
         final String email = "test@gmx.de";
@@ -72,42 +65,5 @@ public class AuthenticationControllerTest {
         assertTrue("email not correct: " + user.getEmail(), email.equals(user.getEmail()));
     }
 
-    // @Configuration
-    static class AuthenticationConfig {
 
-        @Bean
-        JavaMailSenderImpl mailSender() {
-            return new JavaMailSenderImpl();
-        }
-
-        @Bean
-        SimpleMailMessage mailMessage() {
-            return new SimpleMailMessage();
-        }
-
-        @Bean
-        UserActivityReport userActivityReport() {
-            return new UserActivityReport() {
-
-
-                @Override
-                public void logout(final UserId user) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void login(final UserId user) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void registered(final UserId user, final Course course) {
-                    // TODO Auto-generated method stub
-
-                }
-            };
-        }
-    }
 }

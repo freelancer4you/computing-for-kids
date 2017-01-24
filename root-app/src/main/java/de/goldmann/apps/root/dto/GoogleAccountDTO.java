@@ -16,6 +16,18 @@ public class GoogleAccountDTO implements Serializable {
 
     public GoogleAccountDTO() {}
 
+    public GoogleAccountDTO(final String familyName, final String gender, final String givenName, final String language,
+            final String displayName, final String email, final String imageUrl) {
+        super();
+        this.familyName = familyName;
+        this.gender = gender;
+        this.givenName = givenName;
+        this.language = language;
+        this.displayName = displayName;
+        this.email = email;
+        this.imageUrl = imageUrl;
+    }
+
     public String getFamilyName() {
         return familyName;
     }
