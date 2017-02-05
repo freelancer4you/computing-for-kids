@@ -76,7 +76,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         // Nur ohne Login erlaubte URLS
         .antMatchers("/app/**").permitAll()
         .antMatchers("/img/**").permitAll()
-        // TODO nicht alle JS-Skripte sollte erlaubt sein
+        // TODO nicht alle JS-Skripte sollten erlaubt sein
         .antMatchers("/js/**").permitAll()
         .antMatchers("/fonts/**").permitAll()
         .antMatchers("/css/**").permitAll()
@@ -91,7 +91,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .antMatchers("/partials/courses/details/**").permitAll()
         .antMatchers("/partials/courses/register/modalAgb.htm").permitAll()
         .antMatchers("/partials/courses/register/modalDisclaimer.htm").permitAll()
-        .antMatchers("/partials/admin/modalBill.htm").permitAll()
         .antMatchers("/index.html", "/modalLogin.htm", "/",  "/home",
                 "/partials/index.html").permitAll()
         .antMatchers(HttpMethod.POST, USER_PATH).permitAll()

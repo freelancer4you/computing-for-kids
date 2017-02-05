@@ -1,9 +1,10 @@
 package de.goldmann.map.controller;
 
-import static de.goldmann.apps.root.UIConstants.COURSES_KIDS_PATH;
-import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -33,8 +34,8 @@ import de.goldmann.map.WebTest;
 public class CourseControllerTest extends WebTest {
 
     private static final String COURSE_BANNER_SELECTOR = "#container > div.ng-scope > div > div > div > div > div.headerCourseBanner.ng-binding";
-    private static final String COURSE_PRICE_SELECTOR  = "#container > div.ng-scope > div > div:nth-child(6) > div > div > div.clearfixHeader > div:nth-child(3) > p";
-    private static final String COURSE_ICON_SELECTOR   = "#container > div.ng-scope > div > div:nth-child(6) > div > div > div.clearfixHeader > div:nth-child(1) > img";
+    private static final String COURSE_PRICE_SELECTOR  = "#container > div:nth-child(2) > div > div > div > div > div.clearfixHeader > div:nth-child(3) > table > tbody > tr:nth-child(1) > td > p";
+    private static final String COURSE_ICON_SELECTOR   = "#container > div:nth-child(2) > div > div > div > div > div.clearfixHeader > div:nth-child(1) > img";
 
     @Autowired
     private CourseRepository    courseRepo;
@@ -44,27 +45,26 @@ public class CourseControllerTest extends WebTest {
     public void testListCourses() {
 
         final List<Course> findAll = courseRepo.findAll();
-        assertEquals(1, findAll.size());
+        assertThat(findAll, hasSize(1));
         final Course existingCourse = findAll.get(0);
-        assertNotNull(existingCourse);
 
         final FluentWait<WebDriver> wait = setupFluentWait(driver);
         try {
-            driver.get(HOST_ADRESS + COURSES_KIDS_PATH);
+            driver.get(HOST_ADRESS);
+
+            kursSeiteOeffnen(wait);
 
             final WebElement courseBannerElement = wait
                     .until(new VisibilityFunction(By.cssSelector(COURSE_BANNER_SELECTOR)));
-            assertEquals(existingCourse.getName(), courseBannerElement.getText());
+            assertThat(existingCourse.getName(), is(equalTo(courseBannerElement.getText())));
 
             final WebElement coursePriceElement = driver.findElement(By.cssSelector(COURSE_PRICE_SELECTOR));
-            assertEquals(
-                    String.valueOf(existingCourse.getPrice()),
-                    coursePriceElement.getText().replaceAll("€", "").trim());
+            assertThat(
+                    existingCourse.getPrice(),
+                    is(equalTo(Double.valueOf(coursePriceElement.getText().replaceAll("€", "").trim()))));
 
             final WebElement courseIconElement = driver.findElement(By.cssSelector(COURSE_ICON_SELECTOR));
-            System.out.println(courseIconElement.getAttribute("ng-src"));
-
-            assertEquals("img/" + existingCourse.getIcon(), courseIconElement.getAttribute("ng-src"));
+            assertThat("img/" + existingCourse.getIcon(), is(equalTo(courseIconElement.getAttribute("ng-src"))));
 
             Thread.sleep(1000);
 

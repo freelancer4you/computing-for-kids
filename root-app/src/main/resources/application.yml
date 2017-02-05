@@ -14,9 +14,9 @@ spring:
 logging:
   level:
     com.ulisesbocchio.jasyptspringboot: WARN
-    org.springframework.security: WARN
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: DEBUG              
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN              
 ---
 
 spring:
@@ -30,16 +30,16 @@ spring:
     profiles: production
     datasource:
       driver-class-name: com.mysql.jdbc.Driver 
-      url:  jdbc:mysql://localhost:3306/portfolio
-      username: cfk
-      password:  ENC(0rLh75nem1Q2ZK74T6Vq+IZmyy/a3Gyj)
+      url:  jdbc:mysql://localhost:3306/cfk
+      username: root
+      password:  ENC(XOS6wgCxGDE2zLIAIKh4mO5rm64nGdr3)
     jpa:
       database-platform: org.hibernate.dialect.MySQL5Dialect
       show-sql:  false
       hibernate:
         ddl-auto: update     
 server:
-    port: 9000
+    port: 8080
 
 # properties.put("hibernate.cache.use_second_level_cache", "true");
 #properties.put("hibernate.cache.use_query_cache", "false");

@@ -244,7 +244,7 @@ module.controller('CoursesCtrl',
 
 module.controller('CourseSelectionCtrl',
 
-		function($scope, $http, $location, SharedCourses, SharedData) {
+		function($scope, $http, $location, $sce, SharedCourses, SharedData) {
 //			console.log("Setup CoursesCtrl");
 //			console.log(SharedCourses.getCourses());
 			$scope.course = '';
@@ -280,6 +280,10 @@ module.controller('CourseSelectionCtrl',
 	        $scope.registerForCourse = function(course) {
 	        	$scope.course = course;
 	        	$location.path("/courses/register");
+	        };
+	        
+	        $scope.displaySafeHtml = function(html){
+	            return $sce.trustAsHtml(html);
 	        };
 		}
 );

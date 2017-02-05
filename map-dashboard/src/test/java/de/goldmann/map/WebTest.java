@@ -21,14 +21,16 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import de.goldmann.apps.root.dao.DefaultAccountRepository;
-import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.apps.tests.helpers.VisibilityFunction;
 import de.goldmann.apps.tests.helpers.WaitDefinition;
 
 public abstract class WebTest {
 
-    protected static final String HOST_ADRESS = "http://localhost:8080";
+    protected static final String      HOST_ADRESS = "http://localhost:8080";
+    private static final String SELECT_COURSES_LINK = "#navbar > ul:nth-child(1) > li.dropdown > a";
+    private static final String        SELCTOR_KIDS_COURSE_LINK = "#navbar > ul:nth-child(1) > li.dropdown.open > ul > li:nth-child(1) > a";
+
     protected WebDriver driver;
     @Autowired
     protected DefaultAccountRepository userRepository;
@@ -76,16 +78,25 @@ public abstract class WebTest {
         logoutBtn.click();
     }
 
-    protected void login(final FluentWait<WebDriver> wait, final DefaultAccountDTO dto) {
+    protected void login(final FluentWait<WebDriver> wait, final String userName, final String password) {
         final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("loginBtn")));
         singUpBtn.click();
 
         final WebElement loginModal = wait.until(new VisibilityFunction(By.id("modalLogin")));
 
-        HelperUtils.setInputValue(loginModal, "username", dto.getEmail());
-        HelperUtils.setInputValue(loginModal, "password", dto.getPassword());
+        HelperUtils.setInputValue(loginModal, "username", userName);
+        HelperUtils.setInputValue(loginModal, "password", password);
 
         loginModal.findElement(By.id("submitLoginBtn")).click();
+    }
+
+    protected void kursSeiteOeffnen(final FluentWait<WebDriver> wait) throws InterruptedException {
+        Thread.sleep(2000);
+        final WebElement courseLink = wait.until(new VisibilityFunction(By.cssSelector(SELECT_COURSES_LINK)));
+        courseLink.click();
+
+        final WebElement kidsCourseLink = wait.until(new VisibilityFunction(By.cssSelector(SELCTOR_KIDS_COURSE_LINK)));
+        kidsCourseLink.click();
     }
 
 }

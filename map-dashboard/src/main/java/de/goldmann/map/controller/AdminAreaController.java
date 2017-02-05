@@ -31,16 +31,20 @@ public class AdminAreaController {
     private final CourseParticipantRepository	courseParticipantRepository;
     private final CourseRepository            courseRepo;
     private final VisitorsCounter  visitorsCounter;
-    private GoogleAccountRepository           googleAccountRepository;
-    private DefaultAccountRepository          defaultAccountRepository;
+    private final GoogleAccountRepository     googleAccountRepository;
+    private final DefaultAccountRepository    defaultAccountRepository;
 
     @Autowired
     public AdminAreaController(final CourseParticipantRepository courseParticipantRepository,
-            final VisitorsCounter visitorsCounter, final CourseRepository courseRepo) {
-        this.courseRepo = courseRepo;
+            final VisitorsCounter visitorsCounter, final CourseRepository courseRepo,
+            final GoogleAccountRepository googleAccountRepository,
+            final DefaultAccountRepository defaultAccountRepository) {
+        this.courseRepo = Objects.requireNonNull(courseRepo, "courseRepo");
         this.courseParticipantRepository = Objects.requireNonNull(courseParticipantRepository,
                 "courseParticipantRepository");
         this.visitorsCounter = Objects.requireNonNull(visitorsCounter, "visitorsCounter");
+        this.googleAccountRepository = Objects.requireNonNull(googleAccountRepository, "googleAccountRepository");
+        this.defaultAccountRepository = Objects.requireNonNull(defaultAccountRepository, "defaultAccountRepository");
     }
 
     @ResponseBody

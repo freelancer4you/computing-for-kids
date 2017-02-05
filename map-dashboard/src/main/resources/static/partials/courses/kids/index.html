@@ -20,7 +20,7 @@
                         <img ng-src="img/{{course.icon}}" style="padding-left: 10px; padding-top: 10px; display: inline-block; max-height: 120px;max-width: 110px;" alt="{{course.name}}"/>
                     </div>
                     <div class="clearfixLeft" style="width: 65%;">
-                        <p style="padding-bottom: 2px; padding-top: 10px; padding-right:18px; font-size: 94%; text-align: justify;">{{course.description}}</p>
+                        <p style="padding-bottom: 2px; padding-top: 10px; padding-right:18px; font-size: 94%; text-align: justify;" ng-bind-html="displaySafeHtml(course.description)"></p>
                         <table>
                             <tr>
                                 <td>

@@ -1,7 +1,9 @@
 package de.goldmann.map.controller;
 
-import static org.assertj.core.api.Assertions.fail;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +14,16 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import de.goldmann.apps.root.dao.CourseRepository;
+import de.goldmann.apps.root.dao.DefaultAccountRepository;
 import de.goldmann.apps.root.dto.Adress;
 import de.goldmann.apps.root.dto.DefaultAccountDTO;
 import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.UserRole;
-import de.goldmann.apps.root.test.utils.TestUtils;
 import de.goldmann.apps.tests.helpers.HelperUtils;
 import de.goldmann.map.UiApplication;
 import de.goldmann.map.WebTest;
@@ -33,24 +36,26 @@ public class LoginTest extends WebTest {
 
     private DefaultAccountDTO dto;
 
+    @Autowired
+    private DefaultAccountRepository defRepo;
+
     @Override
     @Before
     public void setUp() throws Exception {
-        super.setUp();
-        dto = TestUtils.buildUserDto();
+        driver = setupDriver();
     }
 
+    // TODO schlägt fehl, da das Passwort nicht decrypted werden kann
+    // Encoded password does not look like BCrypt
     @Test
-    public void testLoginAsUser() {
-
-        final DefaultAccount user = new DefaultAccount(dto);
-        userRepository.save(user);
-
+    @Sql("testLogin.sql")
+    public void testLogin() {
+        assertThat(defRepo.findAll(), hasSize(1));
         final FluentWait<WebDriver> wait = setupFluentWait(driver);
         try {
             driver.get(HOST_ADRESS);
 
-            login(wait, this.dto);
+            login(wait, "goldi23@freenet.de", "12345");
 
             Thread.sleep(1000);
 
@@ -73,6 +78,7 @@ public class LoginTest extends WebTest {
     private CourseRepository courseRepo;
 
     @Test
+    @Sql("testLogin.sql")
     public void testLoginAsAdmin() {
 
 
@@ -102,7 +108,7 @@ public class LoginTest extends WebTest {
         try {
             driver.get(HOST_ADRESS);
 
-            login(wait, adminDto());
+            // login(wait, adminDto());
             HelperUtils.analyzeLog(driver);
             Thread.sleep(1000);
 
@@ -125,7 +131,7 @@ public class LoginTest extends WebTest {
                 new Adress("street", "plz", "city", "8"), "2016-08-15 15:20", "Ali", "10");
         final DefaultAccount admin = new DefaultAccount(userDTO, UserRole.ADMIN);
 
-        this.userRepository.save(admin);
+        userRepository.save(admin);
         return userDTO;
     }
 

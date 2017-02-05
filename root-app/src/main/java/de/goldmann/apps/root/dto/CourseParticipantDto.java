@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseParticipant;
+import de.goldmann.apps.root.model.DefaultAccount;
+import de.goldmann.apps.root.model.GoogleAccount;
+import de.goldmann.apps.root.model.PostAdress;
 import de.goldmann.apps.root.model.Schedule;
 import de.goldmann.apps.root.model.UserId;
 
@@ -42,27 +45,43 @@ public class CourseParticipantDto implements Serializable {
     public CourseParticipantDto() {
     }
 
-    public CourseParticipantDto(final Course course, final UserId user, final CourseParticipant courseParticipant) {
+    public CourseParticipantDto(final Course course, final UserId account, final CourseParticipant courseParticipant) {
 
         courseId = course.getId();
-        // coursePrice = course.getPrice();
-        // firstName = user.getFirstName();
-        // salutation = user.getSalutation();
-        // lastName = user.getLastName();
-        userMail = user.getEmail();
-        // childAge = user.getChildAge();
-        // childName = user.getChildName();
+        coursePrice = String.valueOf(course.getPrice());
+        if (account instanceof DefaultAccount)
+        {
+            firstName = ((DefaultAccount) account).getFirstName();
+            salutation = ((DefaultAccount) account).getSalutation();
+            lastName = ((DefaultAccount) account).getLastName();
+        }
+        else if (account instanceof GoogleAccount)
+        {
+            firstName = ((GoogleAccount) account).getGivenName();
+            salutation = "male".equals(((GoogleAccount) account).getGender()) ? "Herr" : "Frau";
+            lastName = ((GoogleAccount) account).getFamilyName();
+        }
+        userMail = account.getEmail();
+
+        if (account instanceof DefaultAccount)
+        {
+            childAge = ((DefaultAccount) account).getChildAge();
+            childName = ((DefaultAccount) account).getChildName();
+        }
         courseName = course.getName();
         subscriptionDate = formatter.format(courseParticipant.getSubscriptionDate());
-        registrationDate = formatter.format(user.getRegistrationDate());
+        registrationDate = formatter.format(account.getRegistrationDate());
         final Schedule schedule = course.getSchedule();
         courseBegin = formatter.format(schedule.getBegin());
         courseEnd = formatter.format(schedule.getEnd());
-        // final PostAdress adresse = user.getAdresse();
-        // city = adresse.getCity();
-        // houseNr = adresse.getHouseNr();
-        // zipcode = adresse.getZipcode();
-        // street = adresse.getStreet();
+        if (account instanceof DefaultAccount)
+        {
+            final PostAdress adresse = ((DefaultAccount) account).getAdresse();
+            city = adresse.getCity();
+            houseNr = adresse.getHouseNr();
+            zipcode = adresse.getZipcode();
+            street = adresse.getStreet();
+        }
     }
 
     public static void main(final String[] args) {

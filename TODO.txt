@@ -1,8 +1,13 @@
-- bei gleicher Email, erfolgt bei Registrierung ein Überschreiben (des Passwortes) !!
-    --> Option für bereits registierte Benutzer
+  - favicon ändern
+  - google so einstellen, dass es auch von andere URL funtkioniert  
+    - wenn sich Benutzer per google-Account anmeldet, dann muss dieser auch die AGBs bestätigen
+	--> Option für bereits registierte Benutzer
     --> Neben Registrierung sollte auch Login für bereits angemeldet Benutzer möglich sein
+- Email ändern: 
+	Das Kursentgelt nach Kursbeginn von Ihrem Konto abgebucht. Andernfalls erhalten Sie nach Kursbeginn die Rechnung zugeschickt.	
+	--> ändern zu: Bitte überweisen Sie das Geld innerhalb von 14 Tagen auf folgendes Konto:
+		Konto
 - Beschreibung der Kurse (Übersetzung)
-- Altersangabe: 9-18
 - Links zu den Beschreibungen hinzufügen
 - Anzeige aktueller/maximaler Kursbesucher
 - UserChat
@@ -13,7 +18,7 @@
 - Benutzerbereich
 - Git-Server für Schüler
 - Newsletter
-- Kursangebot für Lehrer(nnur wenn Lehrer interessiert sind: Anmeldungs-Anfrage)
+- Kursangebot für Lehrer(nur wenn Lehrer interessiert sind: Anmeldungs-Anfrage)
 	
 - https ??? --> https://www.drissamri.be/blog/java/enable-https-in-spring-boot/ , https://sslmate.com/pricing
 

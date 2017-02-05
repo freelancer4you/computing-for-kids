@@ -1,8 +1,12 @@
 package de.goldmann.map.controller;
 
-import static org.assertj.core.api.Assertions.fail;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,91 +43,81 @@ import de.goldmann.map.WebTest;
 @IntegrationTest
 public class SignUpTest extends WebTest {
 
-	private static final Logger LOGGER = LogManager.getLogger(SignUpTest.class);
+    private static final Logger LOGGER = LogManager.getLogger(SignUpTest.class);
 
-	private static final String			SELCTOR_REGISTER_BTN	= "#container > div:nth-child(2) > div > div:nth-child(5) > div > div > div.clearfixHeader > div:nth-child(3) > table > tbody > tr:nth-child(2) > td:nth-child(3) > a";
+    private static final String			SELCTOR_REGISTER_BTN	= "#container > div:nth-child(2) > div > div:nth-child(5) > div > div > div.clearfixHeader > div:nth-child(3) > table > tbody > tr:nth-child(2) > td:nth-child(3) > a";
 
-	private final static String			SELECT_COURSES_LINK			= "#navbar > ul:nth-child(1) > li.dropdown > a";
+    @Autowired
+    private CourseParticipantRepository courseParticipantRepository;
 
-	private static final String			SELCTOR_KIDS_COURSE_LINK	= "#navbar > ul:nth-child(1) > li.dropdown.open > ul > li:nth-child(1) > a";
+    @Autowired
+    private CourseRepository			courseRepo;
 
-	@Autowired
-	private CourseParticipantRepository courseParticipantRepository;
+    @Test
+    @Sql("testSignUp.sql")
+    public void test() {
 
-	@Autowired
-	private CourseRepository			courseRepo;
+        final FluentWait<WebDriver> wait = setupFluentWait(driver);
+        try {
 
-	@Test
-	@Sql("testSignUp.sql")
-	public void test() {
+            assertThat(courseRepo.findAll(), hasSize(1));
 
-		final FluentWait<WebDriver> wait = setupFluentWait(driver);
-		try {
+            driver.get(HOST_ADRESS);
 
-			assertEquals(1, courseRepo.findAll().size());
+            kursSeiteOeffnen(wait);
 
-			driver.get(HOST_ADRESS);
+            final WebElement registerBtn = wait.until(new VisibilityFunction(By.cssSelector(SELCTOR_REGISTER_BTN)));
+            registerBtn.click();
 
-			Thread.sleep(2000);
-			final WebElement courseLink = wait.until(new VisibilityFunction(By.cssSelector(SELECT_COURSES_LINK)));
-			courseLink.click();
+            final DefaultAccountDTO dto = TestUtils.buildUserDto();
 
-			final WebElement kidsCourseLink = wait
-					.until(new VisibilityFunction(By.cssSelector(SELCTOR_KIDS_COURSE_LINK)));
-			kidsCourseLink.click();
+            final WebElement signUpForm = wait.until(new VisibilityFunction(By.id("signUpForm")));
 
-			final WebElement registerBtn = wait.until(new VisibilityFunction(By.cssSelector(SELCTOR_REGISTER_BTN)));
-			registerBtn.click();
+            final WebElement salutationBox = signUpForm.findElement(By.id("salutation"));
+            final Select salutationBoxSelect = new Select(salutationBox);
+            salutationBoxSelect.selectByVisibleText(dto.getSalutation());
 
-			final DefaultAccountDTO dto = TestUtils.buildUserDto();
+            HelperUtils.setInputValue(signUpForm, "firstName", dto.getFirstName());
+            HelperUtils.setInputValue(signUpForm, "lastName", dto.getLastName());
+            HelperUtils
+            .setInputValue(signUpForm, "childName", dto.getChildName() == null ? "Aliah" : dto.getChildName());
 
-			final WebElement signUpForm = wait.until(new VisibilityFunction(By.id("signUpForm")));
+            final WebElement childAgeBox = signUpForm.findElement(By.id("childAge"));
+            final Select childAgeBoxSelect = new Select(childAgeBox);
+            childAgeBoxSelect.selectByVisibleText(dto.getChildAge() == null ? "10" : dto.getChildAge());
 
-			final WebElement salutationBox = signUpForm.findElement(By.id("salutation"));
-			final Select salutationBoxSelect = new Select(salutationBox);
-			salutationBoxSelect.selectByVisibleText(dto.getSalutation());
+            final Adress adress = dto.getAdress();
+            assertNotNull(adress);
+            HelperUtils.setInputValue(signUpForm, "street", adress.getStreet());
+            HelperUtils.setInputValue(signUpForm, "houseNr", adress.getHouseNr());
+            HelperUtils.setInputValue(signUpForm, "zipcode", adress.getZipcode());
+            HelperUtils.setInputValue(signUpForm, "city", adress.getZipcode());
+            HelperUtils.setInputValue(signUpForm, "phonenumber", dto.getPhoneNumber());
 
-			HelperUtils.setInputValue(signUpForm, "firstName", dto.getFirstName());
-			HelperUtils.setInputValue(signUpForm, "lastName", dto.getLastName());
-			HelperUtils
-			.setInputValue(signUpForm, "childName", dto.getChildName() == null ? "Aliah" : dto.getChildName());
+            final String userMail = dto.getEmail();
+            HelperUtils.setInputValue(signUpForm, "email", userMail);
 
-			final WebElement childAgeBox = signUpForm.findElement(By.id("childAge"));
-			final Select childAgeBoxSelect = new Select(childAgeBox);
-			childAgeBoxSelect.selectByVisibleText(dto.getChildAge() == null ? "10" : dto.getChildAge());
+            final WebElement termAgreementBtn = wait.until(new VisibilityFunction(By.id("termAgreement")));
+            termAgreementBtn.click();
+            final WebElement disclaimerAggreement = wait.until(new VisibilityFunction(By.id("disclaimerAgreement")));
+            disclaimerAggreement.click();
 
-			final Adress adress = dto.getAdress();
-			assertNotNull(adress);
-			HelperUtils.setInputValue(signUpForm, "street", adress.getStreet());
-			HelperUtils.setInputValue(signUpForm, "houseNr", adress.getHouseNr());
-			HelperUtils.setInputValue(signUpForm, "zipcode", adress.getZipcode());
-			HelperUtils.setInputValue(signUpForm, "city", adress.getZipcode());
-			HelperUtils.setInputValue(signUpForm, "phonenumber", dto.getPhoneNumber());
+            final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("singUpBtn")));
+            singUpBtn.click();
 
-			final String userMail = dto.getEmail();
-			HelperUtils.setInputValue(signUpForm, "email", userMail);
+            Thread.sleep(5000);
 
-			final WebElement termAgreementBtn = wait.until(new VisibilityFunction(By.id("termAgreement")));
-			termAgreementBtn.click();
-			final WebElement disclaimerAggreement = wait.until(new VisibilityFunction(By.id("disclaimerAgreement")));
-			disclaimerAggreement.click();
-
-			final WebElement singUpBtn = wait.until(new VisibilityFunction(By.id("singUpBtn")));
-			singUpBtn.click();
-
-			Thread.sleep(5000);
-
-			final DefaultAccount registeredUser = userRepository.findByEmail(userMail);
-			assertNotNull("Der Benutzer sollte nicht null sein:", registeredUser);
-			assertEquals(dto.getFirstName(), registeredUser.getFirstName());
-			assertEquals(dto.getLastName(), registeredUser.getLastName());
-			final CourseParticipant registrationEntry = courseParticipantRepository
-					.findOne(new CourseParticipantPK("1", userMail));
-			assertNotNull("Es sollte ein Registrierungseintrag vorhanden sein:", registrationEntry);
-			HelperUtils.analyzeLog(driver);
-		}
-		catch (final Exception e) {
-			fail(e.getMessage());
-		}
-	}
+            final DefaultAccount registeredUser = userRepository.findByEmail(userMail);
+            assertThat(registeredUser, is(notNullValue()));
+            assertThat(dto.getFirstName(), is(equalTo(registeredUser.getFirstName())));
+            assertThat(dto.getLastName(), is(equalTo(registeredUser.getLastName())));
+            final CourseParticipant registrationEntry = courseParticipantRepository
+                    .findOne(new CourseParticipantPK("VexFeb2017", userMail));
+            assertThat(registrationEntry, is(notNullValue()));
+            HelperUtils.analyzeLog(driver);
+        }
+        catch (final Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }
