@@ -1,0 +1,53 @@
+499$: Montags 6 Wochen 6:00 pm - 8:00 
+				= 6			* 2 Stunden a 45min
+				= 12 Stunden
+				--> pro Stunde: 41,6$ = 39€
+siehe http://education.rec.ri.cmu.edu/training-vexiq-online/				
+				
+Mein Plan: 8 Wochen (Intensivkurs: 6 Tage, Mo-Fr jeweils 2 Stunden, Samstag 4 Stunden)
+			 = 16 Stunden
+			 --> pro Stunde 18€: 	288€ + 50€ = 338
+			 --> pro Stunde 17€: 	272€ + 50€ = 322
+			 --> pro Stunde 17.5€: 	280€ + 50€ = 330 <-- bei 6 Kindern = 1680 (Lizenzgebühren abgezogen)
+			 --> pro Stunde 16€: 	256€ + 50€ = 305
+			 --> pro Stunde 14.5€:	232€ + 50€ = 282 <-- bei 6 Kindern = 1392 (Lizenzgebühren abgezogen)
+			 
+			wenn für VexIQ keine Lizenzgebühren dann nur 25€ für VexIQ und 50E€ für Lego
+			 
+			meine Kosten: 
+				- Flyer
+				- Webseite
+				- Raummietung	
+				- Roboter?
+			
+			Lizenzgebühren:  
+				RobotC:	149$ / 6 = 24,84$
+				RobotC Virtual Worlds: 149$ / 6 = 24,84$ 
+				= 49,66$ = 46,7€ = 50€
+				
+			Sensoren:
+				- Gyro
+				- Color
+				- Distance (vielleicht etwas zu kompliziert)
+				
+Licence für RobotC (Lego):	Single (365 Tage)	Team(6 Seats, 365 Tage)
+							49$					149$
+					
+							Single (unendlich)	Team(6 Seats, unendlich)
+							79$					299$
+
+Licence für RobotC (Vex): theoretisch kostenlos, da ich das Bundle gekauft habe 
+
+Virtual Worlds: 			Single (365 Tage)	Team(6 Seats, 365 Tage)						
+							49.99$				149.99$
+							
+							Single (unendlich)	Team(6 Seats, unendlich)
+							79.99$				299.99$
+							
+Installiere VexIQ in einer VM, somit könnte man diese VM an die Kinder geben??							
+							
+Vex Bundle: ab 279.99$ Ebay: ab 225							
+Lego: 300$ Ebay: ab 250
+					
+http://robotc.net/purchase/rvw/rvw-vex-4.php	--> Virtual Worlds RobotC				
+					

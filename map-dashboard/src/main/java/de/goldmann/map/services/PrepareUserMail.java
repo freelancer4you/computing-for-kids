@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -30,6 +31,10 @@ public class PrepareUserMail {
         final Date registrationDate = userId.getRegistrationDate();
         final SimpleDateFormat dayFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(registrationDate);
+        cal.add(Calendar.DATE, 14);
+        final Date maxZahlungsTag = cal.getTime();
 
         if (userId instanceof DefaultAccount) {
             final DefaultAccount user = (DefaultAccount) userId;
@@ -51,9 +56,12 @@ public class PrepareUserMail {
                     user.getAdresse().getZipcode(),
                     StringEscapeUtils.escapeHtml4(user.getAdresse().getCity()),
                     user.getEmail(),
-                    user.getChildAge(),
+                    user.getChildAge(), // 12 in html
+                    course.getPrice(), // 13 in html
+                    dayFormat.format(maxZahlungsTag), // 14 in html
+                    course.getId(), // 15 in html
                     StringEscapeUtils.escapeHtml4(course.getName()),
-                    schedule.getBegin(),
+                    dayFormat.format(schedule.getBegin()) + " " + timeFormat.format(schedule.getBegin()),
                     StringEscapeUtils.escapeHtml4(course.getPlace()));
         } else if (userId instanceof GoogleAccount) {
             final GoogleAccount acc = (GoogleAccount) userId;
@@ -79,9 +87,12 @@ public class PrepareUserMail {
                     "",
                     "",
                     acc.getEmail(),
-                    "",
+                    "", // 12 in html
+                    course.getPrice(), // 13 in html
+                    dayFormat.format(maxZahlungsTag), // 14 in html
+                    course.getId(), // 15 in html
                     StringEscapeUtils.escapeHtml4(course.getName()),
-                    schedule.getBegin(),
+                    dayFormat.format(schedule.getBegin()) + " " + timeFormat.format(schedule.getBegin()),
                     StringEscapeUtils.escapeHtml4(course.getPlace())
                     );
 

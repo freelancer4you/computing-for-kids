@@ -54,9 +54,9 @@ public class UiApplication extends SpringBootServletInitializer implements Comma
 
     @Override
     public void run(final String... arg0) throws Exception {
-        insertDescription("LegoFeb2017", "lego-kurs-beschreibung.dat");
-        insertDescription("LegoMar2017", "lego-kurs-beschreibung.dat");
-        insertDescription("VexFeb2017", "vex-kurs-beschreibung.dat");
+        insertDescription("LegoApr2017", "lego-kurs-beschreibung.dat");
+        insertDescription("LegoTwoApr2017", "lego-kurs-beschreibung.dat");
+        insertDescription("VexApr2017", "vex-kurs-beschreibung.dat");
     }
 
     private void insertDescription(final String courseId, final String courseDescFile) throws IOException {

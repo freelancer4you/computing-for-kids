@@ -1,19 +1,18 @@
-  - favicon ändern
-  - google so einstellen, dass es auch von andere URL funtkioniert  
-    - wenn sich Benutzer per google-Account anmeldet, dann muss dieser auch die AGBs bestätigen
-	--> Option für bereits registierte Benutzer
-    --> Neben Registrierung sollte auch Login für bereits angemeldet Benutzer möglich sein
-- Email ändern: 
-	Das Kursentgelt nach Kursbeginn von Ihrem Konto abgebucht. Andernfalls erhalten Sie nach Kursbeginn die Rechnung zugeschickt.	
-	--> ändern zu: Bitte überweisen Sie das Geld innerhalb von 14 Tagen auf folgendes Konto:
-		Konto
+- "bis"-Datum generieren: "begin"-Datum setzen und ab diesem Datum X-Wochen aufaddieren
+- Korrektur meiner Homepage andre_goldmann@yahoo.de
+- Zahlungserinnerung-Funktion: wenn Betrag nicht bis zum XX auf Konto ist, muss eine Erinnerungsmail an den Kunden gesendet werden
+- noch ein paar mehr Informationen auf Details-Seite: Links zu Virtual World etc.
 - Beschreibung der Kurse (Übersetzung)
+- AGB und Wiederufsbelehrung nochmal genau lesen, 
+    eventuell AGB noch mit Paragraphen aus http://www.vhs-leipzig.de/agb/ ergänzen
+- Course mit Feld 'closed' erweitern, nur Kurse bei denen 'closed' = false werden angezeigt,
+somit werden Kurse nach Beendigung nicht mehr angezeigt
+- Option für bereits registierte Benutzer
+    --> Neben Registrierung sollte auch Login für bereits angemeldet Benutzer möglich sein
 - Links zu den Beschreibungen hinzufügen
 - Anzeige aktueller/maximaler Kursbesucher
 - UserChat
 - Bewertung
-- AGB und Wiederufsbelehrung nochmal genau lesen, 
-    eventuell AGB noch mit Paragraphen aus http://www.vhs-leipzig.de/agb/ ergänzen
 - Die Rechnung ist sofort nach Eingang ohne Abzug fällig. https://www.ars.de/web/firma/agb/agb_schulungen.html
 - Benutzerbereich
 - Git-Server für Schüler
@@ -35,4 +34,3 @@ Kursdauer/Kosten:
  			Stundenlohn 18.0€ --> 432€  Lego --> 456€
  			Stundenlohn 17.5€ --> 420€  Lego --> 444€
  			Stundenlohn 16.0€ --> 384€  Lego --> 408€
-

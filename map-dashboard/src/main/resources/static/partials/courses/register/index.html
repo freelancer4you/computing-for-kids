@@ -12,7 +12,45 @@
 
     <div ng-include="'/partials/courses/register/modalAgb.htm'"/>
     <div ng-include="'/partials/courses/register/modalDisclaimer.htm'"/>
+    
+    <hr>
+    
+    <p style="font-size:medium; ;font-weight: bold;">Mit Goolge-Account anmelden</p>
+    <br>
+    <form  id="googleUpForm" role="form" class="form-horizontal" ng-submit="googleRegistration(course)" data-toggle="validator">
+        
+        <div class="form-group">
+            <div class="col-sm-6">
+                <div class="checkbox" required="required">
+                    <label> 
+                       <input type="checkbox" id="termAgreement" required="required">Ich erkenne die <a href="" data-toggle="modal" data-target="#modalAgb">Allgemeinen Gesch&auml;ftsbedingungen</a> an.</input>
+                    </label>
+                </div>
+            </div>
 
+            <div class="col-sm-6">
+                <div class="checkbox" required="required">
+                    <label> 
+                       <input type="checkbox" id="disclaimerAgreement" required="required"/>Ich nehme die <a href="" data-toggle="modal" data-target="#modalDisclaimer">Widerrufsbelehrung</a> zur Kenntnis.
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-12">
+		        <button type="submit" class="btn btn-gplus" type="button" style="float: right;">
+		            <i class="fa fa-google-plus left"></i> Google +
+		        </button>
+	        </div>
+        </div>
+    
+    </form>
+    
+    <hr>
+
+    <p style="font-size:medium; ;font-weight: bold;">Herk&ouml;mmliche Anmeldung</p>
+    <br>
 	<form  id="signUpForm" role="form" class="form-horizontal" ng-submit="defaultRegistration(course)" data-toggle="validator">
 
         <div class="form-group required">
@@ -197,10 +235,6 @@
         
 		<div class="form-group">
 		    <div class="col-sm-12">
-
-                <button class="btn btn-gplus" type="button" style="float: right;" ng-click="googleRegistration(course)">
-                 <i class="fa fa-google-plus left"></i> Google +
-                 </button>
 
 		        <button class="btn btn-primary" type="submit" style="float: right; margin-left: 10px; margin-right: 10px;" id="singUpBtn">Anmelden</button>
 			
