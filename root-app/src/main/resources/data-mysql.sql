@@ -3,6 +3,7 @@ insert into default_account (salutation, email, firstname, lastname, password, p
 
 -- TODO: Feld: description fuellen: mit h2 = FILE_READ('classpath:lego-kurs-beschreibung.dat')
 --Februar
+<<<<<<< 2fb906d30e7a349cefb17830d87a9742808ffe9e
 --insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration_desc, duration_weeks, requirements, begindate) values('VexFeb2017', 'VEX IQ Programmierung', 'lex.jpg', 'TODO', 'Beginner', 444.00, 'Chopinstraße 9A, 04103 Leipzig', 'vex-curriculum', 'vex-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 16, 'Eigener Laptop', '2017-02-18 10:10:10') on duplicate key update id = 'VexFeb2017';
 --insert into courses(id, name, icon, description, level, price, place, curriculum, appointments, duration_desc, duration_weeks, requirements, begindate) values ('LegoFeb2017', 'Lego Programmierung', 'ev3.png', 'TODO', 'Beginner', 420.00, 'Chopinstraße 9A, 04103 Leipzig', 'lego-curriculum', 'lego-feb-appointments', '10 Termine Veranstaltung(en), 20 Unterrichtseinheit(en)', 16, 'Eigener Laptop', '2017-02-18 10:10:10') on duplicate key update id = 'LegoFeb2017';
 

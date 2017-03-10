@@ -55,9 +55,9 @@
 		  <div class="panel panel-info">
               <div class="panel-heading">Kundendetails</div>
               <div class="panel-body">
-                <strong>Name:</strong>{{credentials.firstName}} {{credentials.lastName}}
+                <strong>Name:</strong> {{credentials.firstName}} {{credentials.lastName}}
                 <br>
-                <strong>Email:</strong>{{credentials.email}}
+                <strong>Email:</strong> {{credentials.email}}
                 <br>
                 <strong>Adresse:</strong> {{credentials.adress.street}} {{credentials.adress.houseNr}},  {{credentials.adress.zipcode}} {{credentials.adress.city}}
                 <br> 
@@ -86,7 +86,7 @@
     <p>So geht&prime;s weiter:</p>
     <ol>
         <li>Sie erhalten die Buchungsbest&auml;tigung an Ihre EMail-Adresse {{credentials.email}}</li>
-        <li>Sie erhalten die Rechnung innerhalb der n&auml;chsten zwei Wochen.</li>
+        <li>Nach Eingang der Zahlung erhalten Sie die Rechnung an die von Ihnen angegebene Adresse.</li>
         <li>Wir freuen uns Ihr Kind am {{course.schedule.begin}} in {{course.place}} begr&uuml;&szlig;en zu d&uuml;rfen.</li>
     </ol> 
     
@@ -125,7 +125,6 @@
                 erhalten hat, sich f&uuml;r einen unserer Kurse anmeldet. Sie k&ouml;nnen auch nach Ende des Kurses eine Empfehlung abgeben.</p>
             </td>
 	    </tr>
-    </table>
-    
+    </table>    
     
 </div>

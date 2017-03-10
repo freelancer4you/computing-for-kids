@@ -13,8 +13,9 @@ spring:
       subject: Registration    
 logging:
   level:
+    de.goldmann: INFO
     com.ulisesbocchio.jasyptspringboot: WARN
-    org.springframework.security: DEBUG
+    org.springframework.security: WARN
     org.hibernate.SQL: WARN
     org.hibernate.type.descriptor.sql.BasicBinder: WARN              
 ---
@@ -29,17 +30,22 @@ server:
 spring:
     profiles: production
     datasource:
-      driver-class-name: com.mysql.jdbc.Driver 
+      driver-class-name: com.mysql.jdbc.Driver
+      # Prod cfk 
       url:  jdbc:mysql://localhost:3306/cfk
-      username: root
-      password:  ENC(XOS6wgCxGDE2zLIAIKh4mO5rm64nGdr3)
+      username: cfk
+      password:  ENC(0rLh75nem1Q2ZK74T6Vq+IZmyy/a3Gyj)
+      #Lokal root
+      #url:  jdbc:mysql://localhost:3306/cfk
+      #username: root
+      #password:  ENC(ueoCZdq3VIG/gGvuHpDj9IOj/N2nHU13)
     jpa:
       database-platform: org.hibernate.dialect.MySQL5Dialect
       show-sql:  false
       hibernate:
         ddl-auto: update     
 server:
-    port: 8080
+    port: 9000
 
 # properties.put("hibernate.cache.use_second_level_cache", "true");
 #properties.put("hibernate.cache.use_query_cache", "false");

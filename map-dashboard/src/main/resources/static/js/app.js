@@ -356,7 +356,7 @@ module.controller('RegisterCtrl',
 						'clientid': '554536775328-40gntdhkh3ep0irr0t4is5g46m9t5if0.apps.googleusercontent.com',
 						'cookiepolicy': 'single_host_origin',
 						'callback': function(result){
-							//console.log(result);
+							
 							if(result['status']['signed_in']){
 								var request = gapi.client.plus.people.get(
 										{
@@ -375,7 +375,14 @@ module.controller('RegisterCtrl',
 												'email' : resp.emails[0].value,
 												'imageUrl' : resp.image.url,												
 										};
-										console.log(googleAccount);
+										
+										var googleCredentials = {};
+										googleCredentials.firstName = resp.name.givenName;
+										googleCredentials.lastName = resp.name.familyName;
+										googleCredentials.email = resp.emails[0].value;
+										SharedData.setCredentials(googleCredentials);
+//										console.log(resp);
+										console.log(SharedData.getCredentials());										
 										register('googleRegistration', googleAccount, course);										
 									});		
 								});
