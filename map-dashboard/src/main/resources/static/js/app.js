@@ -304,6 +304,29 @@ module.controller('CourseDetailsCtrl',
 	        	$scope.course = course;
 	        	$location.path("/courses/register");
 	        };
+	        
+	        $scope.numberOfWeeks = function(course) {
+	        	return new Array(course.details.durationWeeks);
+	        };
+	        
+	        $scope.generateDate= function(course, counter){
+	        	
+	        	var date = new Date(course.schedule.begin);
+	        	date.setDate(date.getDate() + (7*counter));
+	        	date.setMonth(date.getMonth() + 1);
+	        	
+	        	var day = date.getDate();
+	        	var dayStr = day + '.';
+	        	if(day < 10){
+	        		dayStr = '0' +day + '.';
+	        	}
+	        	var month = date.getMonth();
+	        	var monthStr = month + '.';
+	        	if(month < 10){
+	        		monthStr = '0' + month + '.';
+	        	}
+	        	return dayStr + monthStr + date.getFullYear();
+	        };
 		}
 );
 

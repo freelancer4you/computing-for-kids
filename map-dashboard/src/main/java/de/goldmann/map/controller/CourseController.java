@@ -46,7 +46,11 @@ public class CourseController {
                     course.getLevel(),
                     course.getPrice(),
                     course.getPlace(), course.getRequirements(),
-                    new ScheduleDTO(formatter.format(course.getBegin()), formatter.format(course.getEnd()))
+                    new ScheduleDTO(
+                            formatter.format(course.getBegin()),
+                            formatter.format(course.getEnd()),
+                            course.getDetails().getTimeOfDay()
+                    )
                     );
 
             courses.add(courseDTO);
@@ -63,7 +67,8 @@ public class CourseController {
 
         return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
                 courseDetails.getAppointments(),
-                courseDetails.getDurationDesc()
+                courseDetails.getDurationDesc(),
+                course.getDetails().getDurationWeeks()
                 );
     }
 }

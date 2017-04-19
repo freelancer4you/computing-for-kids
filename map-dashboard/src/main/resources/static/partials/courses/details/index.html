@@ -45,17 +45,43 @@
                         data-target="#collapse2" class="accordion-title">Termine</a>
                 </h4>
             </div>
-            <!-- div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div ng-include="course.details.appointments"></div>
-                </div>
-            </div-->
-            <!-- for(int i=0;i<=course.details.durationWeeks;i++){
-                <tr>
-                    <td>course.details.beigin+i</td> <td>course.time</td> <td>0.Z.</td>    <td>Chopinstra&szlig;e 9A, 04103 Leipzig</td>
-                </tr>
-                }
-             -->
+            
+            <div id="collapse2" class="panel-collapse collapse">
+                
+                <table class="kurstage">
+                    <thead>
+                        <tr>
+                            <th class="kurstag_1">
+                                Datum
+                            </th>
+                            <th>
+                                Uhrzeit
+                            </th>
+                            <th>
+                                Raum
+                            </th>
+                            <th>
+                                Ort
+                            </th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="n in numberOfWeeks(course) track by $index">
+                        <td>
+                            {{generateDate(course, $index)}}
+                        </td>
+                        <td>
+                            {{course.schedule.timeOfDay}}
+                        </td>
+                        <td>
+                            O.Z.
+                        </td>
+                        <td>
+                            {{course.place}}
+                        </td>
+                    </tr>
+                </table>                
+            </div>
+           
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">

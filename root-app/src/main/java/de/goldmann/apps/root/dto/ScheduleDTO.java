@@ -4,33 +4,40 @@ import java.io.Serializable;
 
 public class ScheduleDTO implements Serializable {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long	serialVersionUID	= 1L;
 
-	private String				begin;
+    private String begin;
 
-	private String				end;
+    private String end;
 
-	ScheduleDTO() {
-		super();
-	}
+    private String timeOfDay;
 
-	public ScheduleDTO(final String begin, final String end) {
-		this.begin = begin;
-		this.end = end;
-	}
+    ScheduleDTO() {
+        super();
+    }
 
-	public String getBegin() {
-		return begin;
-	}
+    public ScheduleDTO(final String begin, final String end, final String timeOfDay) {
+        this.begin = begin;
+        this.end = end;
+        this.timeOfDay = timeOfDay;
+    }
 
-	public String getEnd() {
-		return end;
-	}
+    public String getBegin() {
+        return begin;
+    }
 
-	@Override
-	public String toString() {
-		return "ScheduleDTO [" + (begin != null ? "begin=" + begin + ", " : "") + (end != null ? "end=" + end : "")
-				+ "]";
-	}
+    public String getEnd() {
+        return end;
+    }
+
+    public String getTimeOfDay() {
+        return timeOfDay;
+    }
+
+    @Override
+    public String toString() {
+        return "ScheduleDTO [" + (begin != null ? "begin=" + begin + ", " : "") + (end != null ? "end=" + end : "")
+                + "]";
+    }
 
 }

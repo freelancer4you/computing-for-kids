@@ -21,8 +21,11 @@ public class CourseDetailsDTO implements Serializable {
 
     private final String duration;
 
+    private final int           durationWeeks;
+
     public CourseDetailsDTO(final String name, final String description, final String curriculum,
-            final String appointments, final String duration) {
+            final String appointments, final String duration, final int durationWeeks) {
+        this.durationWeeks = durationWeeks;
         this.name = Objects.requireNonNull(name, "name");
         this.description = Objects.requireNonNull(description, "description");
         this.curriculum = COURSES_DETAILS_PATH + curriculum + COURSE_DETAILS_EXTENSION;
@@ -48,6 +51,10 @@ public class CourseDetailsDTO implements Serializable {
 
     public String getDuration() {
         return duration;
+    }
+
+    public int getDurationWeeks() {
+        return durationWeeks;
     }
 
     @Override

@@ -22,6 +22,9 @@ public class CourseDetails implements Serializable {
     @Column(name = "duration_desc", nullable = true)
     private String durationDesc;
 
+    @Column(name = "timeofday", nullable = true)
+    private String timeOfDay;
+
     // JPA-Konstruktor
     CourseDetails() {
         super();
@@ -43,5 +46,7 @@ public class CourseDetails implements Serializable {
         return durationDesc;
     }
 
-
+    public String getTimeOfDay() {
+        return timeOfDay;
+    }
 }
