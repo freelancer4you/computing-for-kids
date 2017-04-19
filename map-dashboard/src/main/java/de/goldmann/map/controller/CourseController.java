@@ -23,7 +23,6 @@ import de.goldmann.apps.root.dto.CourseDetailsDTO;
 import de.goldmann.apps.root.dto.ScheduleDTO;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.CourseDetails;
-import de.goldmann.apps.root.model.Schedule;
 
 @RestController
 public class CourseController {
@@ -40,7 +39,6 @@ public class CourseController {
 
         final List<CourseDTO> courses = new ArrayList<>();
         for (final Course course : courseRepo.findAll()) {
-            final Schedule schedule = course.getSchedule();
             final CourseDTO courseDTO = new CourseDTO(course.getId(),
                     course.getName(),
                     course.getIcon(),
@@ -48,7 +46,8 @@ public class CourseController {
                     course.getLevel(),
                     course.getPrice(),
                     course.getPlace(), course.getRequirements(),
-                    new ScheduleDTO(formatter.format(schedule.getBegin()), formatter.format(schedule.getEnd())));
+                    new ScheduleDTO(formatter.format(course.getBegin()), formatter.format(course.getEnd()))
+                    );
 
             courses.add(courseDTO);
         }
@@ -63,6 +62,8 @@ public class CourseController {
         final CourseDetails courseDetails = course.getDetails();
 
         return new CourseDetailsDTO(course.getName(), course.getDescription(), courseDetails.getCurriculum(),
-                courseDetails.getAppointments(), courseDetails.getDuration());
+                courseDetails.getAppointments(),
+                courseDetails.getDurationDesc()
+                );
     }
 }

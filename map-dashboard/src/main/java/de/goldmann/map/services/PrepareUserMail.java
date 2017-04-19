@@ -16,7 +16,6 @@ import com.google.common.io.Resources;
 import de.goldmann.apps.root.model.Course;
 import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.GoogleAccount;
-import de.goldmann.apps.root.model.Schedule;
 import de.goldmann.apps.root.model.UserId;
 
 @Service
@@ -26,7 +25,7 @@ public class PrepareUserMail {
 
         final URL url = Resources.getResource("registrationMail.html");
         final String templateContent = Resources.toString(url, Charsets.UTF_8);
-        final Schedule schedule = course.getSchedule();
+        // final Schedule schedule = course.getSchedule();
         final Date registrationDate = userId.getRegistrationDate();
         final SimpleDateFormat dayFormat = new SimpleDateFormat("dd.MM.yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -53,7 +52,7 @@ public class PrepareUserMail {
                     user.getEmail(),
                     user.getChildAge(),
                     StringEscapeUtils.escapeHtml4(course.getName()),
-                    schedule.getBegin(),
+                    course.getBegin(),
                     StringEscapeUtils.escapeHtml4(course.getPlace()));
         } else if (userId instanceof GoogleAccount) {
             final GoogleAccount acc = (GoogleAccount) userId;
@@ -81,7 +80,7 @@ public class PrepareUserMail {
                     acc.getEmail(),
                     "",
                     StringEscapeUtils.escapeHtml4(course.getName()),
-                    schedule.getBegin(),
+                    course.getBegin(),
                     StringEscapeUtils.escapeHtml4(course.getPlace())
                     );
 

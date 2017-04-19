@@ -4,6 +4,7 @@ import static de.goldmann.apps.root.UIConstants.DATE_FORMAT;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +13,6 @@ import de.goldmann.apps.root.model.CourseParticipant;
 import de.goldmann.apps.root.model.DefaultAccount;
 import de.goldmann.apps.root.model.GoogleAccount;
 import de.goldmann.apps.root.model.PostAdress;
-import de.goldmann.apps.root.model.Schedule;
 import de.goldmann.apps.root.model.UserId;
 
 public class CourseParticipantDto implements Serializable {
@@ -71,9 +71,9 @@ public class CourseParticipantDto implements Serializable {
         courseName = course.getName();
         subscriptionDate = formatter.format(courseParticipant.getSubscriptionDate());
         registrationDate = formatter.format(account.getRegistrationDate());
-        final Schedule schedule = course.getSchedule();
-        courseBegin = formatter.format(schedule.getBegin());
-        courseEnd = formatter.format(schedule.getEnd());
+        final Date begin = course.getBegin();
+        courseBegin = formatter.format(begin);
+        courseEnd = formatter.format(course.getEnd());
         if (account instanceof DefaultAccount)
         {
             final PostAdress adresse = ((DefaultAccount) account).getAdresse();

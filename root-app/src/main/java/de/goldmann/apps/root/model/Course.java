@@ -1,6 +1,8 @@
 package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,6 +13,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "courses")
@@ -36,8 +40,9 @@ public class Course implements Serializable {
     @Column(name = "level", nullable = false)
     private Level level;
 
-    @Embedded
-    private Schedule          schedule;
+    @Column(name = "begindate", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date begin;
 
     @Column(name = "price", nullable = false)
     private double price;
@@ -96,10 +101,6 @@ public class Course implements Serializable {
         return serialVersionUID;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -110,6 +111,10 @@ public class Course implements Serializable {
 
     public String getPlace() {
         return place;
+    }
+
+    public Date getBegin() {
+        return begin;
     }
 
     public CourseDetails getDetails() {
@@ -153,13 +158,25 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "Course [" + (id != null ? "id=" + id + ", " : "") + (name != null ? "name=" + name + ", " : "")
+        return "Course ["
+                + (name != null ? "name=" + name + ", " : "")
                 + (icon != null ? "icon=" + icon + ", " : "")
                 + (description != null ? "description=" + description + ", " : "")
                 + (level != null ? "level=" + level + ", " : "")
-                + (schedule != null ? "schedule=" + schedule + ", " : "") + "price=" + price + ", "
+                + (begin != null ? "begin=" + begin + ", " : "")
+                + "price="
+                + price
+                + ", "
                 + (requirements != null ? "requirements=" + requirements + ", " : "")
-                + (place != null ? "place=" + place + ", " : "") + (details != null ? "details=" + details : "") + "]";
+                + (place != null ? "place=" + place + ", " : "")
+                + (details != null ? "details=" + details : "")
+                + "]";
     }
 
+    public Date getEnd() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(begin);
+        calendar.add(Calendar.WEEK_OF_YEAR, getDetails().getDurationWeeks());
+        return calendar.getTime();
+    }
 }

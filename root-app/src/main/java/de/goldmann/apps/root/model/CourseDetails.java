@@ -14,21 +14,17 @@ public class CourseDetails implements Serializable {
     private String curriculum;
 
     @Column(name = "appointments", nullable = true)
-    private String            appointments;
+    private String appointments;
 
-    @Column(name = "duration", nullable = true)
-    private String duration;
+    @Column(name = "duration_weeks", nullable = true)
+    private int durationWeeks;
 
+    @Column(name = "duration_desc", nullable = true)
+    private String durationDesc;
 
     // JPA-Konstruktor
     CourseDetails() {
         super();
-    }
-
-    public CourseDetails(final String curriculum, final String appointments, final String duration) {
-        this.curriculum = curriculum;
-        this.appointments = appointments;
-        this.duration = duration;
     }
 
     public String getCurriculum() {
@@ -39,8 +35,13 @@ public class CourseDetails implements Serializable {
         return appointments;
     }
 
-    public String getDuration() {
-        return duration;
+    public int getDurationWeeks() {
+        return durationWeeks;
     }
+
+    public String getDurationDesc() {
+        return durationDesc;
+    }
+
 
 }
