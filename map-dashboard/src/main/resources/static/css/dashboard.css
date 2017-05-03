@@ -2,23 +2,9 @@ body, html, .container {
          height: 100%;
     }
 
-.centered { text-align:center; }
 .container { padding:0px; width:960px; position:relative; margin:0 auto;}
-#container { margin-bottom:100px; margin-top:8px}
-
-.center {
-    margin: auto;
-    width: 50%;
-}
 
 .top-buffer { margin-top:20px; }
-
-/*img {
->>>>>>> Zurück zu altem Design
-    z-index: 10;
-    position: relative;
-    display: block;
-}*/
 
 a {
     color: 	#4B0082;
@@ -62,10 +48,10 @@ a {
 }
 
 .navbar .brand {
-max-height: 40px;
-overflow: visible;
-padding-top: 0;
-padding-bottom: 0;
+    max-height: 40px;
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 .navbar a.navbar-brand {padding: 2px 15px 8px; }
 
@@ -206,10 +192,7 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
 
 .contentHeader {
     width: 100%;
-    min-height: 230px;
-    /*border-style: solid;
-    border-color: #a1aab1;
-    border-width: 1px;*/
+    min-height: 230px;    
 }
 
 /* =Courses
@@ -249,26 +232,7 @@ h3.blockquote { font-family:Georgia, "Times New Roman", Times, serif; font-style
 /* End Courses
 --------------------------------------------------------------------------------------------------------*/
 
-/* Control-Background Carousels */
-/*.carousel-control.right {
-    left: auto;
-    right: 0;
-    background-image: -webkit-linear-gradient(left, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
-    background-image: -o-linear-gradient(left, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
-    background-image: linear-gradient(to right, rgba(231, 52, 14, 0.0001) 0%, rgba(12, 6, 105, 0.5) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
-}
-
-.carousel-control.left {
-    background-image: -webkit-linear-gradient(left, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
-    background-image: -o-linear-gradient(left, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
-    background-image: linear-gradient(to right, rgba(12, 6, 105, 0.5) 0%, rgba(231, 52, 14, 0.0001) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
-}*/
-
- .carousel-inner > .item > img,
+.carousel-inner > .item > img,
           .carousel-inner > .item > a > img {
               margin: auto;
           }
@@ -302,7 +266,6 @@ tr.kurstage.alt                   { background-color:#C5C6C8; }
     height: 100%;
 }
 
-
 :hov
 
 
@@ -325,3 +288,13 @@ h1.csc-firstHeader {
     background-color: #DD4B39;
     color: #fff!important;
 }
+
+ /* Style the Image Used to Trigger the Modal */
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#myImg:hover {opacity: 0.7;}
+

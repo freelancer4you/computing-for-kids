@@ -66,9 +66,12 @@
 		                </li>
 		             </ul>
 		        </li>
-		        <li class="active">
+		        <li>
+                    <a href="#/projects">Projekte</a>
+                </li>
+		        <li>
 		            <a href="#/contact">Kontakt</a>
-		        </li>
+		        </li>		        
 		      </ul>
 		      <ul class="nav navbar-nav navbar-right">
 		        <li ng-show="!authenticated"><a id="loginBtn" href="" data-toggle="modal" data-target="#modalLogin">Login</a></li>
@@ -110,8 +113,7 @@
 		   p.async = true;
 		   p.src = "https://apis.google.com/js/client.js?onload=loadGoolgeApi";
 		   var s = document.getElementsByTagName("script")[3];
-		   s.parentNode.insertBefore(p, s);
-		   
+		   s.parentNode.insertBefore(p, s);		   
 	   })();
 	</script>
 	

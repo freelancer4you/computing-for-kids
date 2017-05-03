@@ -44,6 +44,10 @@ var module = angular.module("MapApp", ['ngRoute', 'adminModule'])
         name : "About",
         templateUrl : "partials/about/index.html",
     })
+    .when("/projects",  {
+        name : "Projects",
+        templateUrl : "partials/projects/index.html",
+    })
     .when("/contact",  {
         name : "Contact",
         templateUrl : "partials/contact/index.html",

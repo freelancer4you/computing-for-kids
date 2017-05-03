@@ -1,5 +1,4 @@
 - "bis"-Datum generieren: "begin"-Datum setzen und ab diesem Datum X-Wochen aufaddieren
-- Korrektur meiner Homepage andre_goldmann@yahoo.de
 - Zahlungserinnerung-Funktion: wenn Betrag nicht bis zum XX auf Konto ist, muss eine Erinnerungsmail an den Kunden gesendet werden
 - noch ein paar mehr Informationen auf Details-Seite: Links zu Virtual World etc.
 - Beschreibung der Kurse (Übersetzung)
