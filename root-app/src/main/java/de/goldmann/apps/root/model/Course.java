@@ -1,6 +1,7 @@
 package de.goldmann.apps.root.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -170,6 +171,13 @@ public class Course implements Serializable {
                 + (place != null ? "place=" + place + ", " : "")
                 + (details != null ? "details=" + details : "")
                 + "]";
+    }
+
+    public Date getEnd() {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(begin);
+        calendar.add(Calendar.WEEK_OF_YEAR, getDetails().getDurationWeeks());
+        return calendar.getTime();
     }
 
 }
