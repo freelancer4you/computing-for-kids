@@ -12,6 +12,8 @@ public class UIConstants {
 
     public static final String DATE_FORMAT                  = "dd.MM.yyyy";
 
+    // Achtung Änderungen hier haben Auswirkungen auf Termine des Kurse siehe
+    // computing-for-kids\map-dashboard\src\main\resources\static\partials\courses\details\index.html
     public static final String COURSE_DATE_FORMAT           = "EEE, dd.MM.yyyy";
 
     public static final String VISITORS_COUNT_REQUEST_PATH  = "/visitorsCount";

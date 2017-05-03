@@ -315,9 +315,15 @@ module.controller('CourseDetailsCtrl',
 	        
 	        $scope.generateDate= function(course, counter){
 	        	
-	        	var date = new Date(course.schedule.begin);
-	        	date.setDate(date.getDate() + (7*counter));
-	        	date.setMonth(date.getMonth() + 1);
+	        	var dateStr = course.schedule.begin;
+	        	var cleanedUpDateStr = dateStr.replace('.','-').replace('.','-').substring(dateStr.indexOf(" "), dateStr.length);
+	        	var parts = cleanedUpDateStr.split("-");
+	        	
+	        	var date = new Date();
+	        	date.setDate(parts[0]);
+	        	date.setMonth(parts[1]);
+	        	date.setYear(parts[2]);
+	        	date.setDate(date.getDate() + (7 * counter));
 	        	
 	        	var day = date.getDate();
 	        	var dayStr = day + '.';
